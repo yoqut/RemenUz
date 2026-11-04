@@ -42,25 +42,10 @@ export function Header() {
   };
 
   return (
-    <div style={{ maxWidth: 1320, margin: "0 auto", padding: "20px 20px 0" }}>
+    <div style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
       <header className="glass" style={{ borderRadius: 28, padding: "14px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px" }}>
           <Logo />
-          <button
-            type="button"
-            onClick={() => setCatOpen(!catOpen)}
-            aria-expanded={catOpen}
-            aria-controls="catmenu"
-            className="liquid"
-            style={{ display: "flex", alignItems: "center", gap: 10, height: 48, padding: "0 22px", border: 0, backgroundColor: ACCENT, color: "#FFFFFF", font: "inherit", fontWeight: 700, borderRadius: 999, cursor: "pointer" }}
-          >
-            {catOpen ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2" /><rect x="14" y="3" width="7" height="7" rx="2" /><rect x="3" y="14" width="7" height="7" rx="2" /><rect x="14" y="14" width="7" height="7" rx="2" /></svg>
-            )}
-            {t.cat}
-          </button>
           <form className="glass-soft" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 340px", display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 6px 0 18px" }}>
             <label htmlFor="gq" className="sr">{t.search}</label>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
@@ -76,22 +61,31 @@ export function Header() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="17" cy="19.5" r="1.5" /></svg>
               <span style={{ position: "absolute", top: -2, right: -2, width: 18, height: 18, borderRadius: "50%", background: ACCENT, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>0</span>
             </Link>
-            <a href="#" aria-label={t.login} className="glass-soft" style={circle}>
+            <Link href="/orders" aria-label={t.login} className="glass-soft" style={circle}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
-            </a>
+            </Link>
             <div role="group" aria-label={t.langLabel} className="glass-soft" style={{ display: "flex", gap: 2, padding: 4, borderRadius: 999 }}>
               <button type="button" onClick={() => setLang("ru")} aria-pressed={lang === "ru"} className={lang === "ru" ? "liquid" : ""} style={langBtn(lang === "ru")}>RU</button>
               <button type="button" onClick={() => setLang("uz")} aria-pressed={lang === "uz"} className={lang === "uz" ? "liquid" : ""} style={langBtn(lang === "uz")}>UZ</button>
             </div>
           </nav>
         </div>
-        <nav aria-label={t.navLabel} style={{ display: "flex", flexWrap: "wrap", gap: 6, fontSize: 14, fontWeight: 600 }}>
-          <a href="#" style={{ ...pill, background: "rgba(255,255,255,.14)" }}>{t.n1}</a>
-          <a href="#" style={pill}>{t.n2}</a>
-          <a href="#" style={pill}>{t.n3}</a>
-          <a href="#" style={pill}>{t.n4}</a>
-          <a href="#" style={pill}>{t.n5}</a>
-          <a href="#" style={pill}>{t.n6}</a>
+        <nav aria-label={t.navLabel} style={{ display: "flex", flexWrap: "wrap", gap: 6, fontSize: 14, fontWeight: 600, alignItems: "center" }}>
+          <button
+            type="button"
+            onClick={() => setCatOpen(!catOpen)}
+            aria-expanded={catOpen}
+            aria-controls="catmenu"
+            className="liquid"
+            style={{ display: "flex", alignItems: "center", gap: 10, height: 40, padding: "0 18px", border: 0, backgroundColor: ACCENT, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 14, borderRadius: 999, cursor: "pointer" }}
+          >
+            {catOpen ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2" /><rect x="14" y="3" width="7" height="7" rx="2" /><rect x="3" y="14" width="7" height="7" rx="2" /><rect x="14" y="14" width="7" height="7" rx="2" /></svg>
+            )}
+            {t.cat}
+          </button>
           <Link href="/guide" style={{ ...pill, border: "1px solid rgba(255,255,255,.3)" }}>{t.n7}</Link>
           <Link href="/business" style={pill}>{t.n9}</Link>
           <a href="#" style={{ ...pill, color: "#FFB088" }}>{t.n8}</a>

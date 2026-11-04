@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { useState, type CSSProperties } from "react";
 import { ACCENT } from "@/lib/i18n";
 
@@ -56,21 +57,16 @@ export function ProductView() {
   ];
 
   return (
-    <div className="gp" style={{ position: "relative", overflow: "hidden", fontFamily: "'Manrope', system-ui, sans-serif", color: "#FFFFFF", background: "#0B0E14", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
+    <div className="gp" style={{ position: "relative", overflow: "clip", fontFamily: "'Manrope', system-ui, sans-serif", color: "#FFFFFF", background: "#0B0E14", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
       <div className="blob" style={{ top: -120, left: -160, width: 640, height: 640, background: accent, opacity: 0.5 }} />
       <div className="blob" style={{ top: 200, right: -180, width: 600, height: 600, background: "#2F6BFF", opacity: 0.45 }} />
       <div className="blob" style={{ top: 1300, left: "35%", width: 560, height: 560, background: "#12B5A6", opacity: 0.3 }} />
 
       <div style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div style={{ maxWidth: 1320, margin: "0 auto", padding: "20px 20px 0" }}>
+        <div style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
           <header className="glass" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
-            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span className="drop" style={{ width: 36, height: 36, display: "block", backgroundColor: accent }} />
-              <span style={{ fontFamily: unb, fontWeight: 700, fontSize: 20 }}>
-                remen<span style={{ color: "#FFB088" }}>.uz</span>
-              </span>
-            </Link>
+            <Logo height={32} />
             <a href="#" className="liquid" style={{ height: 44, padding: "0 20px", display: "flex", alignItems: "center", backgroundColor: accent, fontWeight: 700, borderRadius: 999 }}>Каталог</a>
             <form className="glass-soft" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 320px", display: "flex", alignItems: "center", height: 44, borderRadius: 999, padding: "0 16px" }}>
               <label htmlFor="gpq" className="sr">Поиск</label>

@@ -14,9 +14,8 @@ export function Footer() {
       <footer className="glass" style={{ borderRadius: 36, fontSize: 15 }}>
         <div style={{ padding: "48px 40px 28px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 36 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <span style={{ fontFamily: "'Unbounded', sans-serif", fontWeight: 700, fontSize: 24 }}>
-              remen<span style={{ color: "#FFB088" }}>.uz</span>
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/img/logo-full.png" alt="Remen.uz — Driven by precision" style={{ height: 62, width: "auto", alignSelf: "start", display: "block" }} />
             <a href="tel:+998787771188" style={{ fontWeight: 700, fontSize: 18 }}>+998 78 777 11 88</a>
             <span style={{ color: "rgba(255,255,255,.78)" }}>{t.addr1}<br />{t.addr2}</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>

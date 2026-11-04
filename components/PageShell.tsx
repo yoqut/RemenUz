@@ -9,7 +9,7 @@ export type Blob = CSSProperties; // top/left/right/width/height/background/opac
 export function PageShell({ blobs, children }: { blobs: Blob[]; children: ReactNode }) {
   const { lang } = useLang();
   return (
-    <div lang={lang} style={{ position: "relative", overflow: "hidden", fontFamily: "'Manrope', system-ui, sans-serif", color: "#FFFFFF", background: "#0B0E14", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
+    <div lang={lang} style={{ position: "relative", overflow: "clip", fontFamily: "'Manrope', system-ui, sans-serif", color: "#FFFFFF", background: "#0B0E14", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
       {blobs.map((b, i) => (
         <div key={i} className="blob" style={b} />
       ))}

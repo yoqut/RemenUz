@@ -62,7 +62,6 @@ export function HomeView() {
       {/* Hero */}
       <section className="sec" style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "80px 40px 56px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 500px), 1fr))", gap: 48, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
-          <span className="glass-soft" style={{ alignSelf: "start", padding: "8px 16px", borderRadius: 999, fontFamily: MONO, fontSize: 12, letterSpacing: 1 }}>{t.eyebrow}</span>
           <h1 className="h1" style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 56, lineHeight: 1.06, letterSpacing: -1.5 }}>{t.h1}</h1>
           <p style={{ margin: 0, fontSize: 19, color: "rgba(255,255,255,.8)", maxWidth: 540 }}>{t.lead}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>

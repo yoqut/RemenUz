@@ -11,6 +11,7 @@ A Next.js 16 (App Router) build of the "Remen.uz — редизайн" design. T
 | `/cart` | GlassCart — cart and checkout |
 | `/guide` | GlassGuide — how to choose and measure a belt |
 | `/business` | GlassBusiness — for business and partners |
+| `/orders` | GlassOrders — my orders |
 | `/info/[slug]` | GlassInfo — about, contacts, news, brands, offer, howto, delivery, payment, returns, inst |
 
 The site has RU/UZ language switching. The chosen language is saved in `localStorage`.

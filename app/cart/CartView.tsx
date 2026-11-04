@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { useState, type ChangeEvent, type CSSProperties } from "react";
 import { ACCENT } from "@/lib/i18n";
 import { PageShell } from "@/components/PageShell";
@@ -10,7 +11,7 @@ type Dl = "tash" | "fargo" | "pickup";
 type Pay = "cash" | "card" | "bank" | "inst";
 type Cust = "person" | "company";
 type Step = "cart" | "pay" | "invoice" | "done";
-type Fm = { name: string; phone: string; org: string; inn: string; city: string; addr: string };
+type Fm = { name: string; phone: string; inn: string; city: string; addr: string };
 
 const SEED: Item[] = [
   { id: 1, tag: "Тип T5", title: "Зубчатый ремень тип T5 1645 25 NFT A", price: 3068800, unit: "шт", qty: 1 },
@@ -18,7 +19,7 @@ const SEED: Item[] = [
   { id: 3, tag: "Круглого сечения", title: "Термосвариваемый ремень круглого сечения Ø 6 мм", price: 38080, unit: "м", qty: 10 },
 ];
 const seedItems = () => SEED.map((x) => ({ ...x }));
-const EMPTY_FM: Fm = { name: "", phone: "", org: "", inn: "", city: "", addr: "" };
+const EMPTY_FM: Fm = { name: "", phone: "", inn: "", city: "", addr: "" };
 
 const FREE = 3000000;
 const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -165,7 +166,6 @@ export function CartView() {
     return { ...x, dot, line, titleStyle };
   });
 
-  const orgOr = fm.org || "[ОРГАНИЗАЦИЯ]";
   const innOr = fm.inn || "[ИНН]";
   const pageTitle = step === "cart" ? "Корзина" : step === "done" ? "Спасибо за заказ!" : "Оплата";
   const submitLabel = pay === "card" ? "Перейти к оплате" : pay === "bank" ? "Получить счёт" : "Оформить заказ";
@@ -225,14 +225,9 @@ export function CartView() {
   return (
     <PageShell blobs={blobs}>
       {/* Header */}
-      <div className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "20px 20px 0" }}>
+      <div className="sec" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
         <header className="glass" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span className="drop" style={{ width: 36, height: 36, display: "block", backgroundColor: accent }} />
-            <span style={{ fontFamily: UNB, fontWeight: 700, fontSize: 20 }}>
-              remen<span style={{ color: "#FFB088" }}>.uz</span>
-            </span>
-          </Link>
+          <Logo height={32} />
           <Link href="/" className="glass-soft" style={{ height: 44, padding: "0 18px", display: "flex", alignItems: "center", gap: 8, fontWeight: 700, borderRadius: 999 }}>
             ← Продолжить покупки
           </Link>
@@ -356,10 +351,6 @@ export function CartView() {
                   </div>
                   {isCompany && (
                     <>
-                      <div style={fieldWrap}>
-                        <label htmlFor="c-org" style={labelStyle}>Организация</label>
-                        <input id="c-org" className="field" placeholder="ООО / ИП" autoComplete="organization" value={fm.org} onChange={setF("org")} style={{ width: "100%" }} />
-                      </div>
                       <div style={fieldWrap}>
                         <label htmlFor="c-inn" style={labelStyle}>ИНН</label>
                         <input id="c-inn" className="field" inputMode="numeric" placeholder="9 цифр" value={fm.inn} onChange={setF("inn")} style={{ width: "100%", fontFamily: MONO }} />
@@ -523,12 +514,12 @@ export function CartView() {
                 </span>
                 <div>
                   <div style={{ fontFamily: UNB, fontSize: 22, fontWeight: 600 }}>Счёт на оплату сформирован</div>
-                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.75)" }}>Заказ {orderNo} · {orgOr}</div>
+                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.75)" }}>Заказ {orderNo} · ИНН {innOr}</div>
                 </div>
               </div>
               <div className="glass-soft" style={{ padding: "16px 18px", borderRadius: 22, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "10px 18px", fontSize: 14 }}>
                 <span style={{ color: "rgba(255,255,255,.72)" }}>Получатель</span><span>[РЕКВИЗИТЫ REMEN.UZ]</span>
-                <span style={{ color: "rgba(255,255,255,.72)" }}>Плательщик</span><span>{orgOr} · ИНН {innOr}</span>
+                <span style={{ color: "rgba(255,255,255,.72)" }}>Плательщик</span><span>ИНН {innOr}</span>
                 <span style={{ color: "rgba(255,255,255,.72)" }}>Сумма</span><span style={{ fontFamily: MONO, fontWeight: 700 }}>{totalF} сум</span>
                 <span style={{ color: "rgba(255,255,255,.72)" }}>Назначение</span><span>Оплата по счёту {orderNo}</span>
               </div>
@@ -579,6 +570,9 @@ export function CartView() {
                 </a>
                 <Link href="/" className="glass" style={{ flex: "1 1 180px", height: 54, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 999, fontWeight: 700 }}>
                   На главную
+                </Link>
+                <Link href="/orders" className="glass" style={{ flex: "1 1 180px", height: 54, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 999, fontWeight: 700 }}>
+                  Мои заказы
                 </Link>
               </div>
             </div>
