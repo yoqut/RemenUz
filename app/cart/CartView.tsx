@@ -8,7 +8,7 @@ import { PageShell } from "@/components/PageShell";
 import { goodsRu, useCart, type CartItem } from "@/lib/cart";
 import { fullImg } from "@/lib/images";
 
-type Dl = "tash" | "yandex" | "fargo" | "pickup";
+type Dl = "yandex" | "fargo" | "pickup";
 type Pay = "cash" | "card" | "bank" | "inst";
 type Cust = "person" | "company";
 type Step = "cart" | "pay" | "invoice" | "done";
@@ -32,7 +32,7 @@ const PAYMENTS: { id: Pay; title: string; sub: string }[] = [
   { id: "bank", title: "Перечислением", sub: "Счёт для юридических лиц" },
   { id: "inst", title: "Рассрочка", sub: "Условия уточнит менеджер" },
 ];
-const DL_NAMES: Record<Dl, string> = { tash: "Курьер по Ташкенту", yandex: "Yandex Go — по Ташкенту", fargo: "Fargo — в регионы", pickup: "Самовывоз со склада" };
+const DL_NAMES: Record<Dl, string> = { yandex: "Yandex Go — по Ташкенту", fargo: "Fargo — в регионы", pickup: "Самовывоз со склада" };
 const CUST_TYPES: { id: Cust; label: string }[] = [
   { id: "person", label: "Физ. лицо" },
   { id: "company", label: "Юр. лицо" },
@@ -101,7 +101,7 @@ export function CartView() {
   const cart = useCart();
   // Once the order is placed the cart is emptied; the pay / invoice / done screens show this snapshot.
   const [order, setOrder] = useState<CartItem[] | null>(null);
-  const [dl, setDl] = useState<Dl>("tash");
+  const [dl, setDl] = useState<Dl>("yandex");
   const [pay, setPay] = useState<Pay>("cash");
   const [cust, setCust] = useState<Cust>("person");
   const [step, setStep] = useState<Step>("cart");
@@ -114,8 +114,8 @@ export function CartView() {
   const subtotal = items.reduce((s, x) => s + x.price * x.qty, 0);
   const left = Math.max(0, FREE - subtotal);
   const pct = Math.min(100, Math.round((subtotal / FREE) * 100));
-  const tashFree = subtotal >= FREE;
-  const deliveryF = dl === "pickup" ? "Бесплатно" : dl === "fargo" ? "Включена в цену" : dl === "yandex" ? "По тарифу Yandex Go" : tashFree ? "Бесплатно" : "[СТОИМОСТЬ]";
+  const yandexFree = subtotal >= FREE;
+  const deliveryF = dl === "pickup" ? "Бесплатно" : dl === "fargo" ? "Включена в цену" : yandexFree ? "Бесплатно" : "По тарифу Yandex Go";
   // Pieces that carry the built-in Fargo fee: sold by the piece (not by the metre) and priced above it.
   const fargoLines = items.filter((x) => !x.perMeter && x.price > FARGO);
   const fargoUnits = fargoLines.reduce((n, x) => n + x.qty, 0);
@@ -144,9 +144,7 @@ export function CartView() {
       ? { title: "Готов к выдаче", sub: "Склад: ул. Чинабад 1, Юнус-Абад" }
       : dl === "fargo"
         ? { title: "Передан в Fargo", sub: "Трек-номер придёт в Telegram / SMS" }
-        : dl === "yandex"
-          ? { title: "Передан курьеру Yandex Go", sub: "Курьер позвонит перед доставкой" }
-          : { title: "Передан курьеру", sub: "Курьер позвонит перед доставкой" };
+        : { title: "Передан курьеру Yandex Go", sub: "Курьер позвонит перед доставкой" };
   const tlDefs = [
     { title: "Заказ принят", sub: "Номер " + orderNo },
     { title: "Подтверждение менеджером", sub: "Проверим наличие и сроки, свяжемся по телефону" },
@@ -220,7 +218,7 @@ export function CartView() {
   const payStatus =
     pay === "card" ? (paid ? "Оплачено картой" : "Картой онлайн") : pay === "bank" ? "Счёт выставлен" : pay === "inst" ? "Рассрочка — уточнит менеджер" : "Наличными при получении";
   const doneLead = "Менеджер свяжется с вами по номеру " + (fm.phone || "—") + ", чтобы подтвердить наличие и сроки.";
-  const freeText = left > 0 ? "До бесплатной доставки по Ташкенту осталось " + fmt(left) + " сум" : "Бесплатная доставка по Ташкенту — ваша";
+  const freeText = left > 0 ? "До бесплатной доставки Yandex Go по Ташкенту осталось " + fmt(left) + " сум" : "Бесплатная доставка Yandex Go по Ташкенту — ваша";
   const subtotalF = fmt(subtotal);
   const totalF = fmt(total);
   const discountF = fmt(discount);
@@ -230,8 +228,7 @@ export function CartView() {
   const isPickup = dl === "pickup";
   const cityPh = dl === "fargo" ? "Например, Самарканд" : "Ташкент";
   const deliveries: { id: Dl; title: string; sub: string; logo?: string }[] = [
-    { id: "tash", title: "Курьер по Ташкенту", sub: tashFree ? "Бесплатно — заказ от 3 000 000 сум" : "Бесплатно от 3 000 000 сум" },
-    { id: "yandex", title: "Yandex Go", sub: "Срочная доставка по Ташкенту. Оплата по тарифу Yandex Go" },
+    { id: "yandex", title: "Yandex Go", sub: yandexFree ? "По Ташкенту — бесплатно, заказ от 3 000 000 сум" : "По Ташкенту. Бесплатно от 3 000 000 сум, иначе по тарифу Yandex Go" },
     { id: "fargo", title: "В регионы —", sub: "Курьерская служба по всему Узбекистану. От 2 шт. — дешевле", logo: "/img/fargo.png" },
     { id: "pickup", title: "Самовывоз", sub: "Склад на ул. Чинабад 1" },
   ];

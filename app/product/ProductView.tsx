@@ -10,7 +10,7 @@ import type { Product, ProductCard } from "@/lib/products";
 import { goodsRu, useCart } from "@/lib/cart";
 import { useRouter } from "next/navigation";
 
-type DeliveryId = "tash" | "fargo";
+type DeliveryId = "yandex" | "fargo";
 
 export type Crumb = { name: string; slug: string };
 
@@ -23,7 +23,7 @@ const markets: { mark: string; name: string; note: string; href: string; logo?: 
 ];
 
 const deliveries: { id: DeliveryId; title: string; sub: string; logo?: string }[] = [
-  { id: "tash", title: "Ташкент — Remen.uz", sub: "Бесплатно от 3 000 000 сум" },
+  { id: "yandex", title: "Yandex Go", sub: "По Ташкенту, бесплатно от 3 000 000 сум" },
   { id: "fargo", title: "Регионы —", sub: "Курьерская доставка по Узбекистану", logo: "/img/fargo.png" },
 ];
 
@@ -56,7 +56,7 @@ const qtyBtn: CSSProperties = { width: 48, height: 48, border: 0, borderRadius: 
 export function ProductView({ p, trail, related, relatedTitle }: { p: Product; trail: Crumb[]; related: ProductCard[]; relatedTitle: string }) {
   const accent = ACCENT;
   const [qty, setQty] = useState(1);
-  const [dl, setDl] = useState<DeliveryId>("tash");
+  const [dl, setDl] = useState<DeliveryId>("yandex");
   const [added, setAdded] = useState<number | null>(null);
   const router = useRouter();
   const cart = useCart();
@@ -191,7 +191,7 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                         role="radio"
                         aria-checked={on}
                         onClick={() => setDl(d.id)}
-                        className={on ? "liquid" : ""}
+                        className={on ? "liquid liq-n" : ""}
                         style={{
                           display: "flex", flexDirection: "column", alignItems: "stretch", padding: "12px 16px", borderRadius: 20, color: "var(--fg)", font: "inherit", cursor: "pointer", textAlign: "left",
                           ...(on ? { border: "1px solid rgb(var(--ink) / .6)", backgroundColor: "rgb(var(--ink) / .2)" } : { border: "1px solid rgb(var(--ink) / .18)", backgroundColor: "rgb(var(--ink) / .05)" }),
@@ -219,7 +219,7 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                 </div>
                 {dl === "fargo" && (
                   <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 4, padding: "12px 16px", borderRadius: 18, fontSize: 13, color: "rgb(var(--ink) / .85)" }}>
-                    <span>Отправим заказ курьерской службой Fargo в ваш город. Стоимость и срок рассчитываются при оформлении.</span>
+                    <span>Отправим заказ курьерской службой Fargo в ваш город. Доставка уже включена в цену, от 2 шт. — дешевле.</span>
                     <span>Трек-номер пришлём в Telegram или SMS.</span>
                   </div>
                 )}
