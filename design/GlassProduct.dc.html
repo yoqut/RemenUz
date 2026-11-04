@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Remen.uz — Liquid Glass товар</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#0B0E14}
+a{color:#FFFFFF;text-decoration:none}a:hover{color:#FFC4A3}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.glass{background:linear-gradient(140deg,rgba(255,255,255,.17),rgba(255,255,255,.05) 60%,rgba(255,255,255,.09));backdrop-filter:blur(26px) saturate(170%);-webkit-backdrop-filter:blur(26px) saturate(170%);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.06),0 24px 60px rgba(0,0,0,.35)}
+.glass-soft{background:rgba(255,255,255,.07);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.drop{border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 4%,rgba(255,255,255,.4) 10%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.03) 70%);border:1px solid rgba(255,255,255,.38);box-shadow:inset -10px -14px 26px rgba(255,255,255,.16),inset 8px 10px 18px rgba(0,0,0,.28),0 20px 44px rgba(0,0,0,.4);backdrop-filter:blur(4px) brightness(1.18);-webkit-backdrop-filter:blur(4px) brightness(1.18)}
+.liquid{background-image:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08) 48%,rgba(255,255,255,0) 52%);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),inset 0 -8px 16px rgba(0,0,0,.22),0 12px 28px rgba(0,0,0,.4)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+input::placeholder{color:rgba(255,255,255,.55)}
+</style>
+</helmet>
+<div style="position: relative; overflow: hidden; font-family: 'Manrope', system-ui, sans-serif; color: #FFFFFF; background: #0B0E14; font-size: 16px; line-height: 1.55">
+<div class="blob" style="top: -120px; left: -160px; width: 640px; height: 640px; background: {{accent}}; opacity: .5"></div>
+<div class="blob" style="top: 200px; right: -180px; width: 600px; height: 600px; background: #2F6BFF; opacity: .45"></div>
+<div class="blob" style="top: 1300px; left: 35%; width: 560px; height: 560px; background: #12B5A6; opacity: .3"></div>
+
+<div style="position: relative; z-index: 1">
+<!-- Header -->
+<div style="max-width: 1320px; margin: 0 auto; padding: 20px 20px 0">
+<header class="glass" style="border-radius: 999px; padding: 10px 12px 10px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px">
+<a href="GlassMain.dc.html" style="display: flex; align-items: center; gap: 10px">
+<span class="drop" style="width: 36px; height: 36px; display: block; background-color: {{accent}}"></span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 20px">remen<span style="color: #FFB088">.uz</span></span>
+</a>
+<a href="#" class="liquid" style="height: 44px; padding: 0 20px; display: flex; align-items: center; background-color: {{accent}}; font-weight: 700; border-radius: 999px">Каталог</a>
+<form class="glass-soft" style="flex: 1 1 320px; display: flex; align-items: center; height: 44px; border-radius: 999px; padding: 0 16px">
+<label for="gpq" class="sr">Поиск</label>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+<input id="gpq" type="search" placeholder="Артикул или размер" style="flex: 1; min-width: 0; border: 0; background: transparent; color: #FFFFFF; padding: 0 12px; font: inherit; font-size: 15px; outline: none">
+</form>
+<a href="tel:+998787771188" style="font-weight: 700">+998 78 777 11 88</a>
+<a href="GlassCart.dc.html" aria-label="Корзина" class="glass-soft" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>
+</a>
+</header>
+</div>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 28px 40px 96px">
+<nav aria-label="Навигация" class="glass-soft" style="display: inline-flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px; border-radius: 999px; font-size: 14px; color: rgba(255,255,255,.75)">
+<a href="GlassMain.dc.html" style="color: rgba(255,255,255,.75)">Главная</a><span>›</span>
+<a href="#" style="color: rgba(255,255,255,.75)">Зубчатые ремни</a><span>›</span>
+<a href="#" style="color: rgba(255,255,255,.75)">Тип T5</a><span>›</span>
+<span style="color: #FFFFFF; font-weight: 600">T5 1645 25 NFT A</span>
+</nav>
+
+<div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 32px; align-items: start">
+<!-- Gallery: big glass lens -->
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="glass" style="position: relative; aspect-ratio: 1 / 1; border-radius: 40px; display: flex; align-items: center; justify-content: center; overflow: hidden">
+<div class="drop" style="width: 74%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background-color: rgba(255,255,255,.04)">
+<svg width="66%" viewBox="0 0 400 180" aria-hidden="true"><rect x="16" y="20" width="368" height="140" rx="70" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-dasharray="7 6"></rect><circle cx="86" cy="90" r="48" fill="rgba(255,255,255,.18)" stroke="#FFFFFF" stroke-width="2"></circle><circle cx="86" cy="90" r="7" fill="#FFFFFF"></circle><circle cx="314" cy="90" r="48" fill="rgba(255,255,255,.18)" stroke="#FFFFFF" stroke-width="2"></circle><circle cx="314" cy="90" r="7" fill="#FFFFFF"></circle></svg>
+</div>
+<span class="drop" aria-hidden="true" style="position: absolute; top: 40px; right: 56px; width: 40px; height: 40px"></span>
+<span class="drop" aria-hidden="true" style="position: absolute; bottom: 60px; left: 50px; width: 22px; height: 22px"></span>
+<span class="glass-soft" style="position: absolute; bottom: 18px; right: 18px; padding: 6px 12px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px">[ФОТО ТОВАРА]</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div class="glass" style="aspect-ratio: 1; border-radius: 22px; border: 2px solid rgba(255,255,255,.7)"></div>
+<div class="glass-soft" style="aspect-ratio: 1; border-radius: 22px"></div>
+<div class="glass-soft" style="aspect-ratio: 1; border-radius: 22px"></div>
+<div class="glass-soft" style="aspect-ratio: 1; border-radius: 22px"></div>
+</div>
+</div>
+
+<!-- Buy panel -->
+<div class="glass" style="border-radius: 40px; padding: 34px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; font-weight: 700">
+<span class="glass-soft" style="padding: 5px 12px; border-radius: 999px">Новинка</span>
+<span style="padding: 5px 12px; border-radius: 999px; background: rgba(18,181,166,.25); border: 1px solid rgba(18,181,166,.6)">● В наличии</span>
+</div>
+<h1 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 34px; font-weight: 600; line-height: 1.15; letter-spacing: -0.5px">Зубчатый ремень тип T5 1645 25 NFT A</h1>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,.72)">Артикул: T5-1645-25-NFT-A · Бренд: [БРЕНД]</span>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<div class="glass-soft" style="padding: 14px 16px; border-radius: 22px"><div style="font-size: 12px; color: rgba(255,255,255,.72)">Профиль</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600">T5</div></div>
+<div class="glass-soft" style="padding: 14px 16px; border-radius: 22px"><div style="font-size: 12px; color: rgba(255,255,255,.72)">Длина</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600">1645 мм</div></div>
+<div class="glass-soft" style="padding: 14px 16px; border-radius: 22px"><div style="font-size: 12px; color: rgba(255,255,255,.72)">Ширина</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600">{{width}}</div></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Исполнение</span>
+<div class="glass-soft" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 5px; border-radius: 26px">
+<sc-for list="{{variants}}" as="v" hint-placeholder-count="3">
+<button type="button" onClick="{{v.pick}}" class="{{v.cls}}" style="{{v.style}}">{{v.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; align-items: baseline; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 42px; font-weight: 600; line-height: 1">{{price}}</span>
+<span style="font-size: 18px; color: rgba(255,255,255,.75)">сум</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<div class="glass-soft" style="display: flex; align-items: center; height: 56px; border-radius: 999px; padding: 0 4px">
+<button type="button" aria-label="Меньше" onClick="{{dec}}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; font-size: 22px; cursor: pointer">−</button>
+<span style="min-width: 34px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">{{qty}}</span>
+<button type="button" aria-label="Больше" onClick="{{inc}}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; font-size: 22px; cursor: pointer">+</button>
+</div>
+<a href="GlassCart.dc.html" class="liquid" style="flex: 1 1 200px; height: 56px; border-radius: 999px; background-color: {{accent}}; color: #FFFFFF; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center">В корзину</a>
+<button type="button" class="glass" style="flex: 1 1 170px; height: 56px; border-radius: 999px; color: #FFFFFF; font: inherit; font-weight: 700; cursor: pointer">Купить в 1 клик</button>
+</div>
+
+<!-- Delivery method -->
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Способ доставки</span>
+<div role="radiogroup" aria-label="Способ доставки" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px">
+<sc-for list="{{deliveries}}" as="dv" hint-placeholder-count="2">
+<button type="button" role="radio" aria-checked="{{dv.on}}" onClick="{{dv.pick}}" class="{{dv.cls}}" style="{{dv.style}}">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%">
+<span style="display: flex; align-items: center; gap: 8px"><span style="font-weight: 800; font-size: 15px">{{dv.title}}</span><sc-if value="{{dv.hasLogo}}" hint-placeholder-val="{{ false }}"><span style="height: 24px; padding: 4px 8px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center"><img src="{{dv.logo}}" alt="Fargo" style="height: 100%; display: block"></span></sc-if></span>
+<span aria-hidden="true" style="{{dv.dot}}"></span>
+</span>
+<span style="display: block; font-size: 12px; color: rgba(255,255,255,.75); text-align: left; margin-top: 2px">{{dv.sub}}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{isFargo}}" hint-placeholder-val="{{ false }}">
+<div class="glass-soft" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 16px; border-radius: 18px; font-size: 13px; color: rgba(255,255,255,.85)">
+<span>Отправим заказ курьерской службой Fargo в ваш город. Стоимость и срок рассчитываются при оформлении: [ТАРИФ FARGO].</span>
+<span>Трек-номер пришлём в Telegram или SMS.</span>
+</div>
+</sc-if>
+</div>
+
+<!-- Buy on marketplaces -->
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Купить на маркетплейсе</span>
+<span style="font-size: 12px; color: rgba(255,255,255,.7)">цена и доставка — на площадке</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{markets}}" as="m" hint-placeholder-count="5">
+<a href="{{m.href}}" target="_blank" rel="noopener" class="glass-soft" style="display: flex; align-items: center; gap: 14px; padding: 10px 10px 10px 10px; border-radius: 999px">
+<sc-if value="{{m.hasLogo}}" hint-placeholder-val="{{ true }}">
+<span style="flex: none; width: 96px; height: 40px; padding: 6px 10px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="{{m.logo}}" alt="" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block"><sc-if value="{{m.hasText}}" hint-placeholder-val="{{ false }}"><span style="margin-left: 6px; color: #15171A; font-weight: 800; font-size: 11px; line-height: 1.05">{{m.logoText}}</span></sc-if></span>
+</sc-if>
+<sc-if value="{{m.noLogo}}" hint-placeholder-val="{{ false }}">
+<span class="drop" style="flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700">{{m.mark}}</span>
+</sc-if>
+<span style="flex: 1; min-width: 0; line-height: 1.25"><span style="display: block; font-weight: 700">{{m.name}}</span><span style="display: block; font-size: 12px; color: rgba(255,255,255,.72)">{{m.note}}</span></span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; white-space: nowrap">[ЦЕНА] сум</span>
+<span class="liquid" style="flex: none; height: 40px; padding: 0 16px; display: flex; align-items: center; border-radius: 999px; background-color: rgba(255,255,255,.18); font-size: 14px; font-weight: 700">Купить ↗</span>
+</a>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: rgba(255,255,255,.8)">
+<div>Бесплатная доставка при заказе от 3 000 000 сум</div>
+<div>Любая форма оплаты · доступна рассрочка</div>
+</div>
+
+<a href="https://t.me/Remenuz_bot" class="glass-soft" style="display: flex; align-items: center; gap: 14px; padding: 14px 18px 14px 14px; border-radius: 999px">
+<span class="drop" style="flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background-color: rgba(47,107,255,.35)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"></path></svg>
+</span>
+<span style="flex: 1; line-height: 1.3"><span style="display: block; font-weight: 700">Сомневаетесь в размере?</span><span style="display: block; font-size: 13px; color: rgba(255,255,255,.75)">Пришлите фото старого ремня — проверим совместимость</span></span>
+<span aria-hidden="true">→</span>
+</a>
+</div>
+</div>
+
+<!-- Specs + description -->
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 32px">
+<div class="glass" style="border-radius: 36px; padding: 32px">
+<h2 style="margin: 0 0 16px; font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 600">Характеристики</h2>
+<sc-for list="{{specs}}" as="s" hint-placeholder-count="7">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12)">
+<span style="color: rgba(255,255,255,.75)">{{s.k}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; text-align: right">{{s.v}}</span>
+</div>
+</sc-for>
+</div>
+<div class="glass" style="border-radius: 36px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 600">Описание</h2>
+<p style="margin: 0; color: rgba(255,255,255,.8)">[ОПИСАНИЕ ТОВАРА: применение, материал, условия работы]</p>
+<a href="#" class="glass-soft" style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-radius: 999px; font-weight: 600">
+<span>Технический паспорт (PDF)</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,.72)">[РАЗМЕР]</span>
+</a>
+</div>
+</div>
+
+<!-- Related -->
+<div style="margin-top: 48px">
+<h2 style="margin: 0 0 20px; font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 600">Другие исполнения T5 1645</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px">
+<sc-for list="{{related}}" as="r" hint-placeholder-count="4">
+<a href="#" class="glass" style="display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 28px">
+<span class="drop" style="flex: none; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center">
+<svg width="40" height="22" viewBox="0 0 200 110" aria-hidden="true"><rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-dasharray="6 5"></rect></svg>
+</span>
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-weight: 700; font-size: 14px; line-height: 1.35">{{r.title}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600">{{r.price}} сум</span>
+</span>
+</a>
+</sc-for>
+</div>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#E2531A","options":["#E2531A","#2F6BFF","#12A594","#7C4DFF"]},"$preview":{"width":1440,"height":2500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { v: 'A', qty: 1, dl: 'tash' };
+  }
+  renderVals() {
+    const prices = { A: '3 068 800', B: '2 685 760', C: '3 452 960', G: '1 472 800' };
+    const labels = { A: '25 мм · A', B: '25 мм · B', C: '38 мм · C', G: '32 мм · G' };
+    const widths = { A: '25 мм', B: '25 мм', C: '38 мм', G: '32 мм' };
+    const sel = this.state.v;
+    const accent = this.props.accent ?? '#E2531A';
+    const base = 'height: 44px; padding: 0 16px; border: 0; border-radius: 999px; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; ';
+    return {
+      accent,
+      markets: [
+        { mark: 'U', name: 'Uzum Market', note: 'Доставка в пункт выдачи Uzum', href: '#', logo: '/_blob/bf2a05f91cc6061dc01fa4c19df703d2' },
+        { mark: 'O', name: 'Ozon', note: 'Доставка в пункт выдачи Ozon', href: '#', logo: '/_blob/bebbb6bc93c9a6a1cdb8849e55a47959' },
+        { mark: 'ЯМ', name: 'Яндекс Маркет', note: 'Доставка Яндекс Маркета', href: '#', logo: '/_blob/9c868adc45910bcb014913374947ea45', logoText: 'Маркет' },
+        { mark: 'WB', name: 'Wildberries', note: 'Доставка в пункт выдачи WB', href: '#', logo: '/_blob/a6be7f69637082623ea621ff6278c7f4' },
+        { mark: 'OP', name: 'optom.uz', note: 'Оптовые заказы', href: '#', logo: '/_blob/36139a3f01d0f0291fa387e1b066e3cc' }
+      ].map((m) => Object.assign({}, m, { hasLogo: !!m.logo, noLogo: !m.logo, hasText: !!m.logoText })),
+      isFargo: this.state.dl === 'fargo',
+      deliveries: [
+        { id: 'tash', title: 'Ташкент — Remen.uz', sub: 'Бесплатно от 3 000 000 сум' },
+        { id: 'fargo', title: 'Регионы —', sub: 'Курьерская доставка по Узбекистану', logo: '/_blob/648c4f81e7748692cb37a2ef33ccb976' }
+      ].map((d) => {
+        const on = this.state.dl === d.id;
+        return Object.assign({}, d, {
+          on,
+          hasLogo: !!d.logo,
+          cls: on ? 'liquid' : '',
+          style: 'display: flex; flex-direction: column; align-items: stretch; padding: 12px 16px; border-radius: 20px; color: #FFFFFF; font: inherit; cursor: pointer; text-align: left; ' + (on ? 'border: 1px solid rgba(255,255,255,.6); background-color: rgba(255,255,255,.2)' : 'border: 1px solid rgba(255,255,255,.18); background-color: rgba(255,255,255,.05)'),
+          dot: 'flex: none; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box; ' + (on ? 'border: 5px solid #FFFFFF; background: ' + accent : 'border: 2px solid rgba(255,255,255,.6)'),
+          pick: () => this.setState({ dl: d.id })
+        });
+      }),
+      price: prices[sel],
+      width: widths[sel],
+      qty: this.state.qty,
+      inc: () => this.setState({ qty: this.state.qty + 1 }),
+      dec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) }),
+      variants: ['A', 'B', 'C'].map((k) => ({
+        label: labels[k],
+        cls: k === sel ? 'liquid' : '',
+        style: base + (k === sel ? 'background-color: rgba(255,255,255,.24)' : 'background-color: transparent'),
+        pick: () => this.setState({ v: k })
+      })),
+      specs: [
+        { k: 'Тип ремня', v: 'Зубчатый' },
+        { k: 'Профиль', v: 'T5' },
+        { k: 'Шаг зуба', v: '5 мм' },
+        { k: 'Длина', v: '1645 мм' },
+        { k: 'Ширина', v: widths[sel] },
+        { k: 'Исполнение', v: 'NFT ' + sel },
+        { k: 'Бренд', v: '[БРЕНД]' }
+      ],
+      related: [
+        { title: 'Зубчатый ремень тип T5 1645 38 NFT C', price: '3 452 960' },
+        { title: 'Зубчатый ремень тип T5 1645 25 NFT B', price: '2 685 760' },
+        { title: 'Зубчатый ремень тип T5 625 32 NFT G', price: '1 472 800' },
+        { title: 'Зубчатый ремень 10 T5 800 MEGADYNE MEGAPOWER2', price: '159 040' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

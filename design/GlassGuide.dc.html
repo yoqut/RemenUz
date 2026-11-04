@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Remen.uz — как выбрать и измерить ремень</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#0B0E14}
+a{color:#FFFFFF;text-decoration:none}a:hover{color:#FFC4A3}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.glass{background:linear-gradient(140deg,rgba(255,255,255,.17),rgba(255,255,255,.05) 60%,rgba(255,255,255,.09));backdrop-filter:blur(26px) saturate(170%);-webkit-backdrop-filter:blur(26px) saturate(170%);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.06),0 24px 60px rgba(0,0,0,.35)}
+.glass-soft{background:rgba(255,255,255,.07);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.drop{border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 4%,rgba(255,255,255,.4) 10%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.03) 70%);border:1px solid rgba(255,255,255,.38);box-shadow:inset -10px -14px 26px rgba(255,255,255,.16),inset 8px 10px 18px rgba(0,0,0,.28),0 20px 44px rgba(0,0,0,.4);backdrop-filter:blur(4px) brightness(1.18);-webkit-backdrop-filter:blur(4px) brightness(1.18)}
+.liquid{background-image:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08) 48%,rgba(255,255,255,0) 52%);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),inset 0 -8px 16px rgba(0,0,0,.22),0 12px 28px rgba(0,0,0,.4)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.field{height:50px;padding:0 16px;border-radius:16px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.28);color:#FFFFFF;font:inherit;font-size:15px;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.field option{color:#15171A}
+input::placeholder{color:rgba(255,255,255,.55)}
+.lift:hover{transform:translateY(-3px)}
+.bp{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px,24px 24px,120px 120px,120px 120px}
+@keyframes beltrun{to{transform:translateX(-50%)}}
+.belt-run{display:flex;width:max-content;animation:beltrun 45s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 12s linear infinite}
+@media (prefers-reduced-motion: reduce){.belt-run,.spin{animation:none}}
+</style>
+</helmet>
+<div lang="{{t.lang}}" style="position: relative; overflow: hidden; font-family: 'Manrope', system-ui, sans-serif; color: #FFFFFF; background: #0B0E14; font-size: 16px; line-height: 1.55">
+
+<!-- Ambient drops (blurred light) -->
+<div class="blob" style="top: -160px; left: -180px; width: 680px; height: 680px; background: {{accent}}; opacity: .55"></div>
+<div class="blob" style="top: 260px; right: -200px; width: 620px; height: 620px; background: #2F6BFF; opacity: .5"></div>
+<div class="blob" style="top: 1500px; left: 30%; width: 560px; height: 560px; background: #12B5A6; opacity: .32"></div>
+<div class="blob" style="top: 2500px; left: -160px; width: 620px; height: 620px; background: {{accent}}; opacity: .4"></div>
+<div class="blob" style="top: 3300px; right: -120px; width: 600px; height: 600px; background: #6A4CFF; opacity: .38"></div>
+<!-- Blueprint grid -->
+<div class="bp" aria-hidden="true"></div>
+
+<div style="position: relative; z-index: 1">
+
+<!-- Floating glass header -->
+<div style="max-width: 1320px; margin: 0 auto; padding: 20px 20px 0">
+<header class="glass" style="border-radius: 28px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px">
+<a href="GlassMain.dc.html" style="display: flex; align-items: center; gap: 10px">
+<span class="drop" style="width: 40px; height: 40px; display: block; background-color: {{accent}}"></span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.5px">remen<span style="color: #FFB088">.uz</span></span>
+</a>
+<button type="button" onClick="{{toggleCat}}" aria-expanded="{{catOpen}}" aria-controls="catmenu" class="liquid" style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border: 0; background-color: {{accent}}; color: #FFFFFF; font: inherit; font-weight: 700; border-radius: 999px; cursor: pointer">
+<sc-if value="{{catOpen}}" hint-placeholder-val="{{ false }}">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</sc-if>
+<sc-if value="{{catClosed}}" hint-placeholder-val="{{ true }}">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
+</sc-if>
+{{t.cat}}
+</button>
+<form class="glass-soft" style="flex: 1 1 340px; display: flex; align-items: center; height: 48px; border-radius: 999px; padding: 0 6px 0 18px">
+<label for="gq" class="sr">{{t.search}}</label>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+<input id="gq" type="search" placeholder="{{t.searchPh}}" style="flex: 1; min-width: 0; border: 0; background: transparent; color: #FFFFFF; padding: 0 12px; font: inherit; font-size: 15px; outline: none">
+<button type="submit" class="liquid" style="height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background-color: rgba(255,255,255,.18); color: #FFFFFF; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer">{{t.find}}</button>
+</form>
+<a href="tel:+998787771188" style="font-weight: 700; font-size: 16px">+998 78 777 11 88</a>
+<nav aria-label="{{t.acc}}" style="display: flex; align-items: center; gap: 6px">
+<a href="#" aria-label="{{t.fav}}" class="glass-soft" style="width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+</a>
+<a href="GlassCart.dc.html" aria-label="{{t.cart}}" class="glass-soft" style="position: relative; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>
+<span style="position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; background: {{accent}}; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">0</span>
+</a>
+<a href="#" aria-label="{{t.login}}" class="glass-soft" style="width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
+</a>
+<!-- Language switch -->
+<div role="group" aria-label="{{t.langLabel}}" class="glass-soft" style="display: flex; gap: 2px; padding: 4px; border-radius: 999px">
+<button type="button" onClick="{{setRu}}" aria-pressed="{{isRu}}" class="{{ruCls}}" style="{{ruStyle}}">RU</button>
+<button type="button" onClick="{{setUz}}" aria-pressed="{{isUz}}" class="{{uzCls}}" style="{{uzStyle}}">UZ</button>
+</div>
+</nav>
+</div>
+<nav aria-label="{{t.navLabel}}" style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 14px; font-weight: 600">
+<a href="#" style="padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.14)">{{t.n1}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px">{{t.n2}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px">{{t.n3}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px">{{t.n4}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px">{{t.n5}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px">{{t.n6}}</a>
+<a href="GlassGuide.dc.html" style="padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3)">{{t.n7}}</a>
+<a href="GlassBusiness.dc.html" style="padding: 8px 14px; border-radius: 999px">{{t.n9}}</a>
+<a href="#" style="padding: 8px 14px; border-radius: 999px; color: #FFB088">{{t.n8}}</a>
+</nav>
+<sc-if value="{{catOpen}}" hint-placeholder-val="{{ false }}">
+<div id="catmenu" style="margin-top: 6px; padding: 18px; border-radius: 22px; background: rgba(0,0,0,.28); box-shadow: inset 0 2px 12px rgba(0,0,0,.35); display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="6">
+<a href="#" onClick="{{closeCat}}" class="glass-soft" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px 12px 12px; border-radius: 20px">
+<span class="drop" style="flex: none; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; text-align: center; line-height: 1.1">{{c.code}}</span>
+<span style="line-height: 1.3"><span style="display: block; font-weight: 700">{{c.name}}</span><span style="display: block; font-size: 13px; color: rgba(255,255,255,.72)">{{c.note}}</span></span>
+</a>
+</sc-for>
+<a href="#" onClick="{{closeCat}}" class="liquid" style="display: flex; align-items: center; justify-content: center; min-height: 72px; border-radius: 20px; background-color: {{accent}}; font-weight: 700">{{t.allCat}}</a>
+</div>
+</sc-if>
+</header>
+</div>
+
+<!-- Page title -->
+<section style="max-width: 1280px; margin: 0 auto; padding: 48px 40px 40px">
+<nav aria-label="Навигация" class="glass-soft" style="display: inline-flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px; border-radius: 999px; font-size: 14px; color: rgba(255,255,255,.75); margin-bottom: 22px">
+<a href="GlassMain.dc.html" style="color: rgba(255,255,255,.75)">{{t.home}}</a><span>›</span><span style="color: #FFFFFF; font-weight: 600">{{t.gTitle}}</span>
+</nav>
+<span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,.72)">{{t.gEyebrow}}</span>
+<h1 style="margin: 8px 0 0; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 52px; line-height: 1.08; letter-spacing: -1.5px; max-width: 900px">{{t.gTitle}}</h1>
+<p style="margin: 14px 0 0; font-size: 19px; color: rgba(255,255,255,.8); max-width: 680px">{{t.gLead}}</p>
+</section>
+
+<!-- Interactive belt selector by drawing -->
+<section id="selector" style="max-width: 1280px; margin: 0 auto; padding: 0 40px 28px">
+<div class="glass" style="border-radius: 38px; padding: 28px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 14px">
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,.72)">{{t.tlEyebrow}}</span>
+<h2 style="margin: 6px 0 0; font-family: 'Unbounded', sans-serif; font-size: 30px; font-weight: 600; line-height: 1.15">{{t.tlTitle}}</h2>
+</div>
+<div role="tablist" aria-label="{{t.fType}}" class="glass-soft" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 5px; border-radius: 999px">
+<sc-for list="{{tabs}}" as="tb" hint-placeholder-count="4">
+<button type="button" role="tab" aria-selected="{{tb.on}}" onClick="{{tb.pick}}" class="{{tb.cls}}" style="{{tb.style}}">{{tb.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 22px; align-items: stretch">
+<!-- Drawing -->
+<div style="flex: 999 1 560px; min-width: 0; position: relative; border-radius: 28px; background: rgba(0,0,0,.3); box-shadow: inset 0 2px 14px rgba(0,0,0,.45); padding: 44px 20px 20px">
+<span style="position: absolute; top: 16px; left: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,.6)">{{sheetLabel}}</span>
+
+<sc-if value="{{isTooth}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 640 330" width="100%" role="img" aria-label="{{t.tAria}}" style="display: block">
+<g stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="10 4 2 4" fill="none"><path d="M40 110 H600"></path></g>
+<path d="M160 50 L470 62 A48 48 0 0 1 470 158 L160 170 A60 60 0 0 1 160 50 Z" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-dasharray="5 4"></path>
+<g class="spin"><circle cx="160" cy="110" r="50" fill="rgba(255,255,255,.06)" stroke="#FFFFFF" stroke-width="2"></circle><circle cx="160" cy="110" r="9" fill="#0B0E14" stroke="#FFFFFF" stroke-width="2"></circle><path d="M160 64 V156 M114 110 H206" stroke="rgba(255,255,255,.35)" stroke-width="2"></path></g>
+<g class="spin"><circle cx="470" cy="110" r="38" fill="rgba(255,255,255,.06)" stroke="#FFFFFF" stroke-width="2"></circle><circle cx="470" cy="110" r="7" fill="#0B0E14" stroke="#FFFFFF" stroke-width="2"></circle><path d="M470 76 V144 M436 110 H504" stroke="rgba(255,255,255,.35)" stroke-width="2"></path></g>
+<text x="250" y="36" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">L = {{dimA}} {{t.mm}}</text>
+<!-- tooth profile detail -->
+<g transform="translate(60 210)">
+<path d="M0 30 H16 L23 58 H43 L50 30 H82 L89 58 H109 L116 30 H148 L155 58 H175 L182 30 H214 L221 58 H241 L248 30 H280 L287 58 H307 L314 30 H340" fill="none" stroke="#FFFFFF" stroke-width="2"></path>
+<path d="M0 16 H340" stroke="#FFFFFF" stroke-width="2"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M33 80 H99"></path><path d="M33 72 V88 M99 72 V88"></path></g>
+<text x="40" y="104" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">p = {{pitch}} {{t.mm}} · {{dimP}}</text>
+</g>
+<!-- width detail -->
+<g transform="translate(450 210)">
+<rect x="0" y="16" width="140" height="42" rx="4" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2"></rect>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M0 80 H140"></path><path d="M0 72 V88 M140 72 V88"></path></g>
+<text x="20" y="104" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">b = {{dimB}} {{t.mm}}</text>
+</g>
+</svg>
+</sc-if>
+
+<sc-if value="{{isPoly}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 640 330" width="100%" role="img" aria-label="{{t.pAria}}" style="display: block">
+<path d="M130 70 H510 V110 L494 150 L478 110 L462 150 L446 110 L430 150 L414 110 L398 150 L382 110 L366 150 L350 110 L334 150 L318 110 L302 150 L286 110 L270 150 L254 110 L238 150 L222 110 L206 150 L190 110 L174 150 L158 110 L142 150 L130 110 Z" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M130 48 H510"></path><path d="M130 40 V56 M510 40 V56"></path><path d="M142 176 H174"></path><path d="M142 168 V184 M174 168 V184"></path></g>
+<text x="236" y="32" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">N = {{dimB}} · PJ</text>
+<text x="130" y="206" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">2,34 {{t.mm}}</text>
+<path d="M220 250 C 300 222, 420 222, 500 250 C 420 278, 300 278, 220 250 Z" fill="none" stroke="#FFFFFF" stroke-width="5"></path>
+<text x="230" y="312" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">L = {{dimA}} {{t.mm}}</text>
+</svg>
+</sc-if>
+
+<sc-if value="{{isV}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 640 330" width="100%" role="img" aria-label="{{t.vAria}}" style="display: block">
+<path d="M200 70 H440 L380 190 H260 Z" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M200 48 H440"></path><path d="M200 40 V56 M440 40 V56"></path><path d="M470 70 V190"></path><path d="M462 70 H478 M462 190 H478"></path></g>
+<text x="270" y="32" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">b = {{dimB}} {{t.mm}}</text>
+<text x="488" y="136" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">h</text>
+<path d="M200 262 C 280 236, 360 236, 440 262 C 360 288, 280 288, 200 262 Z" fill="none" stroke="#FFFFFF" stroke-width="5"></path>
+<text x="230" y="318" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">Li = {{dimA}} {{t.mm}}</text>
+</svg>
+</sc-if>
+
+<sc-if value="{{isRound}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 640 330" width="100%" role="img" aria-label="{{t.rAria}}" style="display: block">
+<circle cx="170" cy="140" r="70" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2"></circle>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M100 140 H240"></path><path d="M100 132 V148 M240 132 V148"></path></g>
+<text x="128" y="250" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">Ø = {{dimB}} {{t.mm}}</text>
+<g class="spin"><circle cx="360" cy="140" r="34" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"></circle></g>
+<g class="spin"><circle cx="540" cy="140" r="24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"></circle></g>
+<path d="M360 106 L540 116 A24 24 0 0 1 540 164 L360 174 A34 34 0 0 1 360 106 Z" fill="none" stroke="#FFFFFF" stroke-width="5"></path>
+<text x="380" y="250" font-family="JetBrains Mono, monospace" font-size="14" fill="#FFFFFF">L = {{dimA}} {{t.mm}}</text>
+</svg>
+</sc-if>
+</div>
+
+<!-- Inputs + recommendation -->
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-if value="{{isTooth}}" hint-placeholder-val="{{ true }}">
+<div style="grid-column: span 2; display: flex; flex-direction: column; gap: 6px"><label for="s-prof" style="font-size: 13px; font-weight: 700">{{t.sProf}}</label>
+<select id="s-prof" class="field" value="{{f.prof}}" onChange="{{onProf}}"><option value="T5">T5</option><option value="T10">T10</option><option value="AT5">AT5</option><option value="RPP14">RPP14 (SLV14)</option></select></div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="s-a" style="font-size: 13px; font-weight: 700">{{labelA}}</label>
+<input id="s-a" class="field" inputmode="decimal" value="{{f.a}}" onInput="{{onA}}" style="font-family: 'JetBrains Mono', monospace"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="s-b" style="font-size: 13px; font-weight: 700">{{labelB}}</label>
+<input id="s-b" class="field" inputmode="decimal" value="{{f.b}}" onInput="{{onB}}" style="font-family: 'JetBrains Mono', monospace"></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 800">{{t.recTitle}}</span>
+<sc-if value="{{noRec}}" hint-placeholder-val="{{ false }}">
+<div class="glass-soft" style="padding: 14px 16px; border-radius: 20px; font-size: 14px; color: rgba(255,255,255,.85)">{{t.noMatch}}</div>
+</sc-if>
+<sc-for list="{{recs}}" as="r" hint-placeholder-count="3">
+<div class="glass-soft" style="padding: 14px 16px; border-radius: 22px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+<span style="{{r.badgeStyle}}">{{r.badge}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.72); text-align: right">{{r.delta}}</span>
+</div>
+<a href="GlassProduct.dc.html" style="font-weight: 700; font-size: 14px; line-height: 1.35">{{r.title}}</a>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">{{r.priceF}} <span style="font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.72)">{{r.unit}}</span></span>
+<a href="GlassCart.dc.html" class="liquid" style="height: 40px; padding: 0 16px; display: flex; align-items: center; border-radius: 999px; background-color: {{accent}}; font-size: 14px; font-weight: 700">{{t.toCartL}}</a>
+</div>
+</div>
+</sc-for>
+<a href="https://t.me/Remenuz_bot" class="glass-soft" style="height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 999px; font-weight: 700; font-size: 14px">{{t.askBtn}}</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How to measure a belt -->
+<section id="measure" style="max-width: 1280px; margin: 0 auto; padding: 56px 40px 96px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 28px">
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,.72)">{{t.mEyebrow}}</span>
+<h2 style="margin: 6px 0 0; font-family: 'Unbounded', sans-serif; font-size: 38px; font-weight: 600; letter-spacing: -1px">{{t.mTitle}}</h2>
+</div>
+<div class="glass-soft" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; font-size: 14px">
+<span style="color: rgba(255,255,255,.72)">{{t.need}}</span><b>{{t.tool1}}</b><span aria-hidden="true">·</span><b>{{t.tool2}}</b><span aria-hidden="true">·</span><b>{{t.tool3}}</b>
+</div>
+</div>
+
+<!-- Step 0: marking -->
+<div class="glass" style="border-radius: 32px; padding: 24px 28px; margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+<span class="drop" style="flex: none; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600">00</span>
+<div style="flex: 1 1 320px">
+<div style="font-weight: 700; font-size: 18px">{{t.m0t}}</div>
+<div style="color: rgba(255,255,255,.78); font-size: 15px">{{t.m0a}} <span style="font-family: 'JetBrains Mono', monospace">T5 1645 25</span>, <span style="font-family: 'JetBrains Mono', monospace">6 PJ 533</span> {{t.m0or}} <span style="font-family: 'JetBrains Mono', monospace">875 Li</span>{{t.m0b}}</div>
+</div>
+<div class="glass-soft" style="padding: 10px 16px; border-radius: 16px; font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 1px; background-color: rgba(0,0,0,.25)">T5 · 1645 · 25</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px">
+
+<!-- Toothed -->
+<div class="glass" style="border-radius: 32px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="border-radius: 22px; background: rgba(0,0,0,.28); box-shadow: inset 0 2px 10px rgba(0,0,0,.35); padding: 14px">
+<svg viewBox="0 0 260 120" width="100%" role="img" aria-label="{{t.tAria}}" style="display: block">
+<path d="M10 40 H24 L30 64 H46 L52 40 H80 L86 64 H102 L108 40 H136 L142 64 H158 L164 40 H192 L198 64 H214 L220 40 H250" fill="none" stroke="#FFFFFF" stroke-width="2"></path>
+<path d="M10 28 H250" stroke="#FFFFFF" stroke-width="2"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M38 84 H94"></path><path d="M38 76 V92 M94 76 V92"></path></g>
+<text x="44" y="108" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.tStep}}</text>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M236 28 V64"></path><path d="M230 28 H242 M230 64 H242"></path></g>
+<text x="168" y="108" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.tTeeth}}</text>
+</svg>
+</div>
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.72)">T5 · T10 · AT5</span>
+<h3 style="margin: 4px 0 0; font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 600">{{t.tName}}</h3>
+</div>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgba(255,255,255,.85)">
+<li><b>{{t.t1b}}</b> {{t.t1}}</li>
+<li><b>{{t.t2b}}</b> {{t.t2}}</li>
+<li><b>{{t.t3b}}</b> {{t.t3}}</li>
+<li><b>{{t.t4b}}</b>{{t.t4}}</li>
+</ol>
+</div>
+
+<!-- Poly-V -->
+<div class="glass" style="border-radius: 32px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="border-radius: 22px; background: rgba(0,0,0,.28); box-shadow: inset 0 2px 10px rgba(0,0,0,.35); padding: 14px">
+<svg viewBox="0 0 260 120" width="100%" role="img" aria-label="{{t.pAria}}" style="display: block">
+<path d="M40 30 H220 V46 L208 70 L196 46 L184 70 L172 46 L160 70 L148 46 L136 70 L124 46 L112 70 L100 46 L88 70 L76 46 L64 70 L52 46 L40 70 Z" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M52 84 H76"></path><path d="M52 78 V90 M76 78 V90"></path></g>
+<text x="40" y="108" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.pStepTxt}}</text>
+<text x="166" y="24" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.pRibs}}</text>
+</svg>
+</div>
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.72)">PJ</span>
+<h3 style="margin: 4px 0 0; font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 600">{{t.pName}}</h3>
+</div>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgba(255,255,255,.85)">
+<li><b>{{t.p1b}}</b> {{t.p1}}</li>
+<li><b>{{t.p2b}}</b> {{t.p2}}</li>
+<li><b>{{t.p3b}}</b> {{t.p3}}</li>
+</ol>
+</div>
+
+<!-- Classic V -->
+<div class="glass" style="border-radius: 32px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="border-radius: 22px; background: rgba(0,0,0,.28); box-shadow: inset 0 2px 10px rgba(0,0,0,.35); padding: 14px">
+<svg viewBox="0 0 260 120" width="100%" role="img" aria-label="{{t.vAria}}" style="display: block">
+<path d="M70 26 H190 L160 86 H100 Z" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"></path>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M70 14 H190"></path><path d="M70 8 V20 M190 8 V20"></path><path d="M210 26 V86"></path><path d="M204 26 H216 M204 86 H216"></path></g>
+<text x="96" y="108" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.vWH}}</text>
+<text x="222" y="60" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">h</text>
+</svg>
+</div>
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.72)">{{t.vCode}}</span>
+<h3 style="margin: 4px 0 0; font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 600">{{t.vName}}</h3>
+</div>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgba(255,255,255,.85)">
+<li><b>{{t.v1b}}</b> {{t.v1}}</li>
+<li><b>{{t.v2b}}</b> {{t.v2}}</li>
+<li>{{t.v3}}</li>
+</ol>
+</div>
+
+<!-- Round -->
+<div class="glass" style="border-radius: 32px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+<div style="border-radius: 22px; background: rgba(0,0,0,.28); box-shadow: inset 0 2px 10px rgba(0,0,0,.35); padding: 14px">
+<svg viewBox="0 0 260 120" width="100%" role="img" aria-label="{{t.rAria}}" style="display: block">
+<circle cx="80" cy="58" r="34" fill="rgba(255,255,255,.08)" stroke="#FFFFFF" stroke-width="2"></circle>
+<g stroke="{{accent}}" stroke-width="1.5"><path d="M46 58 H114"></path><path d="M46 52 V64 M114 52 V64"></path></g>
+<text x="62" y="112" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.rDia}}</text>
+<path d="M140 58 C170 20 210 20 240 58 C210 96 170 96 140 58 Z" fill="none" stroke="#FFFFFF" stroke-width="6"></path>
+<text x="140" y="112" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(255,255,255,.85)">{{t.rLen}}</text>
+</svg>
+</div>
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.72)">Ø 3–10 {{t.mm}}</span>
+<h3 style="margin: 4px 0 0; font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 600">{{t.rName}}</h3>
+</div>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgba(255,255,255,.85)">
+<li><b>{{t.r1b}}</b> {{t.r1}}</li>
+<li><b>{{t.r2b}}</b> {{t.r2}}</li>
+<li>{{t.r3}}</li>
+</ol>
+</div>
+</div>
+
+<!-- Tips + CTA -->
+<div style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 18px">
+<div class="glass-soft" style="border-radius: 28px; padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: rgba(255,255,255,.85)">
+<b style="font-size: 16px; color: #FFFFFF">{{t.tipTitle}}</b>
+<span>{{t.tip1}}</span>
+<span>{{t.tip2}}</span>
+<span>{{t.tip3}}</span>
+</div>
+<div class="glass" style="border-radius: 28px; padding: 22px 26px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="flex: 1 1 220px">
+<b style="font-size: 16px">{{t.cantT}}</b>
+<div style="font-size: 14px; color: rgba(255,255,255,.78)">{{t.cantD}}</div>
+</div>
+<a href="https://t.me/Remenuz_bot" class="liquid" style="height: 50px; padding: 0 22px; display: flex; align-items: center; background-color: {{accent}}; font-weight: 700; border-radius: 999px">{{t.sendPh}}</a>
+</div>
+</div>
+</section>
+
+<!-- How to choose -->
+<section style="max-width: 1280px; margin: 0 auto; padding: 0 40px 96px">
+<div class="glass" style="border-radius: 40px; padding: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,.72)">{{t.chEyebrow}}</span>
+<h2 style="margin: 10px 0 0; font-family: 'Unbounded', sans-serif; font-size: 34px; font-weight: 600; line-height: 1.15; letter-spacing: -1px">{{t.chTitle}}</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="glass-soft" style="display: flex; gap: 18px; align-items: start; padding: 18px; border-radius: 22px">
+<span class="drop" style="flex: none; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px">01</span>
+<div><div style="font-weight: 700; font-size: 17px">{{t.ch1t}}</div><div style="color: rgba(255,255,255,.75); margin-top: 2px; font-size: 15px">{{t.ch1d}}</div></div>
+</div>
+<div class="glass-soft" style="display: flex; gap: 18px; align-items: start; padding: 18px; border-radius: 22px">
+<span class="drop" style="flex: none; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px">02</span>
+<div><div style="font-weight: 700; font-size: 17px">{{t.ch2t}}</div><div style="color: rgba(255,255,255,.75); margin-top: 2px; font-size: 15px">{{t.ch2d}}</div></div>
+</div>
+<div class="glass-soft" style="display: flex; gap: 18px; align-items: start; padding: 18px; border-radius: 22px">
+<span class="drop" style="flex: none; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px">03</span>
+<div><div style="font-weight: 700; font-size: 17px">{{t.ch3t}}</div><div style="color: rgba(255,255,255,.75); margin-top: 2px; font-size: 15px">{{t.ch3d}}</div></div>
+</div>
+</div>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; justify-content: end; gap: 22px; min-height: 380px; padding: 36px; border-radius: 30px; background: rgba(0,0,0,.25); box-shadow: inset 0 2px 14px rgba(0,0,0,.4); overflow: hidden">
+<span class="drop" aria-hidden="true" style="position: absolute; top: 28px; left: 32px; width: 150px; height: 150px; background-color: rgba(255,106,43,.22)"></span>
+<span class="drop" aria-hidden="true" style="position: absolute; top: 90px; left: 200px; width: 70px; height: 70px; background-color: rgba(47,107,255,.22)"></span>
+<span class="drop" aria-hidden="true" style="position: absolute; top: 40px; right: 40px; width: 36px; height: 36px"></span>
+<div style="position: relative">
+<h3 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 26px; font-weight: 600; line-height: 1.2">{{t.nfTitle}}</h3>
+<p style="margin: 10px 0 0; color: rgba(255,255,255,.8)">{{t.nfText}}</p>
+</div>
+<div style="position: relative; display: flex; flex-wrap: wrap; gap: 12px">
+<a href="https://t.me/Remenuz_bot" class="liquid" style="height: 52px; padding: 0 24px; display: flex; align-items: center; background-color: {{accent}}; font-weight: 700; border-radius: 999px">{{t.tgBtn}}</a>
+<a href="https://wa.me/998935509590" class="glass" style="height: 52px; padding: 0 24px; display: flex; align-items: center; font-weight: 700; border-radius: 999px">WhatsApp</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<div style="max-width: 1320px; margin: 0 auto; padding: 0 20px 20px">
+<footer class="glass" style="border-radius: 36px; font-size: 15px">
+<div style="padding: 48px 40px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 24px">remen<span style="color: #FFB088">.uz</span></span>
+<a href="tel:+998787771188" style="font-weight: 700; font-size: 18px">+998 78 777 11 88</a>
+<span style="color: rgba(255,255,255,.78)">{{t.addr1}}<br>{{t.addr2}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<a href="https://t.me/remen_uz_store" class="glass-soft" style="padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600">Telegram</a>
+<a href="https://wa.me/998935509590" class="glass-soft" style="padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600">WhatsApp</a>
+<a href="https://instagram.com/remen_uz_store" class="glass-soft" style="padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600">Instagram</a>
+<a href="https://fb.com/remen_uz_store" class="glass-soft" style="padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600">Facebook</a>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; color: rgba(255,255,255,.78)">
+<span style="color: #FFFFFF; font-weight: 700">{{t.fCompany}}</span>
+<a href="GlassInfo.dc.html">{{t.fAbout}}</a><a href="GlassInfo.dc.html">{{t.fContacts}}</a><a href="GlassInfo.dc.html">{{t.fNews}}</a><a href="GlassInfo.dc.html">{{t.fBrands}}</a><a href="GlassInfo.dc.html">{{t.fOffer}}</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 700">{{t.fBuyers}}</span>
+<a href="GlassInfo.dc.html">{{t.fHow}}</a><a href="GlassInfo.dc.html">{{t.fDel}}</a><a href="GlassInfo.dc.html">{{t.fPay}}</a><a href="GlassInfo.dc.html">{{t.fRet}}</a><a href="GlassInfo.dc.html">{{t.fInst}}</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 700">{{t.fInfo}}</span>
+<a href="GlassBusiness.dc.html">{{t.fCorp}}</a><a href="GlassBusiness.dc.html">{{t.fPart}}</a>
+</div>
+</div>
+<div style="padding: 18px 40px 26px; border-top: 1px solid rgba(255,255,255,.14); font-size: 13px; color: rgba(255,255,255,.7)">{{t.copy}}</div>
+</footer>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#E2531A","options":["#E2531A","#2F6BFF","#12A594","#7C4DFF"]},"startLang":{"editor":"enum","options":["ru","uz"],"default":"ru"},"$preview":{"width":1440,"height":3700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { catOpen: false, lang: null, sel: 'tooth', prof: 'T5', vals: { tooth: ['1645', '25'], poly: ['1059', '8'], v: ['875', '8'], round: ['2000', '6'] } };
+  }
+  renderVals() {
+    const T = {
+      ru: {
+        n9: 'Бизнесу',
+        mkShort: 'Мы на маркетплейсах', mkShortD: 'Заказывайте с привычной оплатой и доставкой площадки',
+        teaGuideE: 'ИНСТРУКЦИЯ', teaGuideT: 'Как выбрать и измерить ремень', teaGuideD: 'Схемы замеров для зубчатых, поликлиновых, клиновых и круглых ремней.', teaGuideB: 'Открыть инструкцию',
+        teaBizE: 'B2B', teaBizT: 'Бизнесу и партнёрам', teaBizD: 'Сферы применения, поставки для предприятий, условия для дилеров.', teaBizB: 'Подробнее',
+        gEyebrow: 'ИНСТРУКЦИЯ · REMEN.UZ', gTitle: 'Как выбрать и измерить ремень', gLead: 'Разберитесь в параметрах привода, снимите размеры старого ремня — и подберите замену без ошибок.',
+        bEyebrow: 'B2B · REMEN.UZ', bTitle: 'Бизнесу и партнёрам', bLead: 'Поставляем приводные ремни и конвейерные ленты для предприятий Узбекистана.',
+        home: 'Главная', backFinder: 'Перейти к подбору',
+        tlEyebrow: 'ПОДБОР ПО ЧЕРТЕЖУ', tlTitle: 'Выберите тип ремня и введите размеры', sheet: 'ЛИСТ 02 · ЧЕРТЁЖ',
+        lLen: 'Длина L, мм', lWidth: 'Ширина b, мм', lRibs: 'Ручьёв N', lLi: 'Длина Li, мм', lSec: 'Сечение b, мм', lDia: 'Диаметр Ø, мм', lRLen: 'Нужная длина L, мм',
+        recTitle: 'Рекомендуем из каталога', exact: 'Точное совпадение', close: 'Ближайший размер', noMatch: 'Для такого профиля нет позиций в каталоге — пришлите параметры, подберём аналог.',
+        toCartL: 'В корзину', askBtn: 'Уточнить у инженера в Telegram', perM: 'сум / м', pcs: 'сум', costFor: 'за', mShort: 'м', teeth: 'зубьев',
+        nToothed: 'Зубчатый ремень', nPoly: 'Поликлиновой ремень', nV: 'Клиновой ремень', nRound: 'Термосвариваемый ремень круглого сечения',
+        lang: 'ru', cat: 'Каталог', search: 'Поиск', searchPh: 'Артикул или размер — например T5 1645', find: 'Найти',
+        acc: 'Аккаунт', fav: 'Избранное', cart: 'Корзина, 0 товаров', login: 'Войти', langLabel: 'Язык сайта', navLabel: 'Категории',
+        n1: 'Зубчатые ремни', n2: 'Поликлиновые', n3: 'Клиновые', n4: 'Круглого сечения', n5: 'Конвейерные ленты', n6: 'Инструменты', n7: 'Как измерить ремень', n8: 'Акции',
+        allCat: 'Весь каталог →',
+        eyebrow: 'ПРОМЫШЛЕННЫЕ ПРИВОДЫ · ТАШКЕНТ',
+        h1: 'Приводные ремни и конвейерные ленты для вашего производства',
+        lead: 'Зубчатые, поликлиновые, клиновые и круглые ремни Megadyne, Bando и PIX. Подберём по артикулу, размерам или старому образцу.',
+        openCat: 'Открыть каталог', sendPhoto: 'Отправить фото ремня',
+        fTitle: 'Подбор ремня', fSub: 'Укажите параметры — покажем подходящие позиции', fType: 'Тип ремня', fProf: 'Профиль / шаг', fLen: 'Длина, мм', fW: 'Ширина, мм',
+        ty1: 'Зубчатый', ty2: 'Поликлиновой', ty3: 'Клиновой', ty4: 'Круглого сечения',
+        fBtn: 'Найти ремень', fHelp: 'Не знаете параметры?', fHelpLink: 'Пришлите фото в Telegram-бот',
+        dSheet: 'ЛИСТ 01 · РЕМЕННАЯ ПЕРЕДАЧА · СХЕМА', dAria: 'Схема ременной передачи: два шкива, зубчатый ремень, межосевое расстояние',
+        dA: 'a — межосевое', dL: 'L — длина ремня', dEyebrow: 'ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ', dTitle: 'Ремень подбирается по размерам привода',
+        toothAria: 'Профиль зубьев T5, шаг 5 мм', dTooth: 'p — шаг зуба', sProf: 'Профиль', sStep: 'Шаг p', sLen: 'Длина L', sW: 'Ширина', mm: 'мм', dBtn: 'Подобрать по параметрам',
+        tickerLabel: 'Ассортимент',
+        offTitle: 'Спецпредложения', sum: 'сум', special: 'Спеццена',
+        delivery: 'ДОСТАВКА', delTitle: 'Бесплатно от 3 000 000 сум', delText: 'Доставим заказ до вашего предприятия по Ташкенту.', delFargo: 'в регионы Узбекистана', delBtn: 'Условия доставки',
+        newTitle: 'Новые товары', flAll: 'Все', flT5: 'Тип T5', flPJ: 'Тип PJ', flRound: 'Круглого сечения', flClassic: 'Классические',
+        isNew: 'Новинка', toFav: 'В избранное', toCart: 'В корзину', more: 'Показать ещё',
+        chEyebrow: 'ИНСТРУМЕНТЫ И ОБОРУДОВАНИЕ', chTitle: 'Как выбрать нужный ремень или ленту',
+        ch1t: 'Параметры', ch1d: 'Профиль, шаг зубьев, длина и ширина — обычно указаны на самом ремне или в паспорте оборудования.',
+        ch2t: 'Характеристики', ch2d: 'Материал, корд и покрытие влияют на ресурс ремня и условия, в которых он работает.',
+        ch3t: 'Мощность устройства', ch3d: 'Передаваемая мощность и обороты определяют тип и ширину ремня.',
+        nfTitle: 'Не нашли нужный размер?', nfText: 'Пришлите фото ремня, артикул или замеры — подберём оригинал или аналог и сообщим цену.', tgBtn: 'Написать в Telegram',
+        mEyebrow: 'ИНСТРУКЦИЯ', mTitle: 'Как измерить ремень', need: 'Понадобится:', tool1: 'штангенциркуль', tool2: 'рулетка', tool3: 'нить',
+        m0t: 'Сначала найдите маркировку на ремне', m0a: 'На тыльной стороне обычно напечатаны профиль, длина и ширина — например', m0or: 'или', m0b: '. Если маркировка стёрлась — измерьте по схемам ниже.',
+        tAria: 'Зубчатый ремень: шаг между зубьями и ширина', tStep: 'p — шаг', tTeeth: 'z — зубья', tName: 'Зубчатый ремень',
+        t1b: 'Шаг p', t1: '— расстояние между центрами соседних зубьев. Точнее: измерьте 10 шагов и разделите на 10 (5 мм — T5/AT5, 10 мм — T10).',
+        t2b: 'Длина', t2: '= число зубьев z × шаг p. Пример: 329 × 5 = 1645 мм.',
+        t3b: 'Ширина', t3: '— штангенциркулем поперёк ремня, в мм.',
+        t4b: 'Форма зуба', t4: ': трапеция — T, усиленная трапеция — AT. Сфотографируйте профиль сбоку.',
+        pAria: 'Поликлиновой ремень в разрезе: количество ручьёв и шаг', pStepTxt: 'шаг 2,34 мм = PJ', pRibs: 'N ручьёв', pName: 'Поликлиновой ремень',
+        p1b: 'Количество ручьёв', p1: '— посчитайте клинья на рабочей стороне (6 PJ = 6 ручьёв).',
+        p2b: 'Профиль', p2: '— по шагу между вершинами клиньев: 2,34 мм — PJ.',
+        p3b: 'Длина', p3: '— оберните рулетку или нить по наружной стороне ремня, без натяжения, и измерьте в мм.',
+        vAria: 'Клиновой ремень в разрезе: верхняя ширина и высота', vWH: 'ширина × высота', vCode: 'Li · классические', vName: 'Клиновой ремень',
+        v1b: 'Сечение', v1: '— штангенциркулем измерьте верхнюю ширину и высоту ремня (например, 8 мм).',
+        v2b: 'Длина Li', v2: '— внутренняя длина: измерьте по внутренней стороне ремня рулеткой или нитью.',
+        v3: 'Если известна только наружная длина — укажите это при заказе, мы пересчитаем.',
+        rAria: 'Ремень круглого сечения: диаметр', rDia: 'Ø, мм', rLen: 'длина по шкивам', rName: 'Ремень круглого сечения',
+        r1b: 'Диаметр', r1: '— штангенциркулем поперёк ремня.',
+        r2b: 'Длина', r2: '— проведите нить по канавкам шкивов, как идёт ремень, и измерьте её.',
+        r3: 'Ремень продаётся на метры и сваривается в кольцо нужной длины.',
+        tipTitle: 'Чтобы замер был точным', tip1: '— Измеряйте старый ремень на ровной поверхности, не растягивая его.', tip2: '— Изношенный ремень бывает длиннее нового: при сомнении измерьте по шкивам.', tip3: '— Делайте 2–3 замера и берите среднее значение.',
+        cantT: 'Не получается измерить?', cantD: 'Пришлите фото ремня с линейкой рядом — определим тип и размер.', sendPh: 'Отправить фото',
+        iEyebrow: 'ОТРАСЛИ', iTitle: 'Сферы деятельности',
+        i1t: 'Мясные и колбасные производства', i1d: 'Зубчатые ремни T5, T10 и MEGAPOWER2 для пищевого оборудования',
+        i2t: 'Текстильная промышленность', i2d: 'Зубчатые ремни AT5 NOVOBELT для текстильных линий',
+        i3t: 'Ваша отрасль?', i3d: 'Расскажите об оборудовании — подберём ремень или ленту под задачу',
+        mkEyebrow: 'МАРКЕТПЛЕЙСЫ', mkTitle: 'Покупайте там, где вам удобно', mkText: 'Наши ремни есть в магазинах Remen.uz на маркетплейсах — оформляйте заказ с привычной оплатой и доставкой площадки.', mkBtn: 'Перейти в магазин',
+        b2bTitle: 'Корпоративным клиентам', b2bText: 'Поставки для предприятий: любая форма оплаты, рассрочка, бесплатная доставка от 3 000 000 сум.', b2bBtn: 'Запросить предложение',
+        partEyebrow: 'ПАРТНЁРСТВО', partTitle: 'Партнёрам', partText: 'Сервисным компаниям и дилерам — условия сотрудничества по запросу.', partBtn: 'Стать партнёром',
+        newsEyebrow: 'НОВОСТИ · 28 ОКТ.', newsTitle: 'Приводные ремни для промышленного оборудования', allNews: 'Все новости →',
+        addr1: 'ул. Чинабад 1, Юнус-Абад,', addr2: 'Ташкент, 100039',
+        fCompany: 'Компания', fAbout: 'О нас', fContacts: 'Контакты', fNews: 'Новости', fBrands: 'Бренды', fOffer: 'Оферта',
+        fBuyers: 'Покупателям', fHow: 'Как оформить заказ', fDel: 'Доставка', fPay: 'Оплата', fRet: 'Возврат', fInst: 'Рассрочка',
+        fInfo: 'Информация', fCorp: 'Корпоративным клиентам', fPart: 'Партнёрам',
+        copy: '2026 © Remen.uz. Все права защищены.'
+      },
+      uz: {
+        n9: 'Biznes uchun',
+        mkShort: 'Biz marketpleyslardamiz', mkShortD: 'Odatiy toʻlov va yetkazib berish bilan buyurtma qiling',
+        teaGuideE: 'YOʻRIQNOMA', teaGuideT: 'Tasmani qanday tanlash va oʻlchash', teaGuideD: 'Tishli, koʻp ponali, ponasimon va dumaloq tasmalarni oʻlchash sxemalari.', teaGuideB: 'Yoʻriqnomani ochish',
+        teaBizE: 'B2B', teaBizT: 'Biznes va hamkorlar uchun', teaBizD: 'Qoʻllanish sohalari, korxonalarga yetkazib berish, dilerlar uchun shartlar.', teaBizB: 'Batafsil',
+        gEyebrow: 'YOʻRIQNOMA · REMEN.UZ', gTitle: 'Tasmani qanday tanlash va oʻlchash', gLead: 'Uzatma parametrlarini tushunib oling, eski tasma oʻlchamlarini oling — va xatosiz almashtiring.',
+        bEyebrow: 'B2B · REMEN.UZ', bTitle: 'Biznes va hamkorlar uchun', bLead: 'Oʻzbekiston korxonalariga uzatma tasmalari va konveyer lentalarini yetkazib beramiz.',
+        home: 'Bosh sahifa', backFinder: 'Tanlashga oʻtish',
+        tlEyebrow: 'CHIZMA BOʻYICHA TANLASH', tlTitle: 'Tasma turini tanlang va oʻlchamlarni kiriting', sheet: 'VARAQ 02 · CHIZMA',
+        lLen: 'Uzunlik L, mm', lWidth: 'Eni b, mm', lRibs: 'Ariqchalar N', lLi: 'Uzunlik Li, mm', lSec: 'Kesim b, mm', lDia: 'Diametr Ø, mm', lRLen: 'Kerakli uzunlik L, mm',
+        recTitle: 'Katalogdan tavsiya', exact: 'Aniq mos', close: 'Eng yaqin oʻlcham', noMatch: 'Bu profil uchun katalogda mahsulot yoʻq — parametrlarni yuboring, analogini tanlab beramiz.',
+        toCartL: 'Savatga', askBtn: 'Telegramda muhandisdan aniqlash', perM: 'soʻm / m', pcs: 'soʻm', costFor: 'uchun', mShort: 'm', teeth: 'tish',
+        nToothed: 'Tishli tasma', nPoly: 'Koʻp ponali tasma', nV: 'Ponasimon tasma', nRound: 'Termopayvandlanadigan dumaloq kesimli tasma',
+        lang: 'uz', cat: 'Katalog', search: 'Qidiruv', searchPh: 'Artikul yoki oʻlcham — masalan T5 1645', find: 'Topish',
+        acc: 'Akkaunt', fav: 'Saralanganlar', cart: 'Savat, 0 ta mahsulot', login: 'Kirish', langLabel: 'Sayt tili', navLabel: 'Kategoriyalar',
+        n1: 'Tishli tasmalar', n2: 'Koʻp ponali', n3: 'Ponasimon', n4: 'Dumaloq kesimli', n5: 'Konveyer lentalari', n6: 'Asboblar', n7: 'Tasmani qanday oʻlchash', n8: 'Aksiyalar',
+        allCat: 'Butun katalog →',
+        eyebrow: 'SANOAT UZATMALARI · TOSHKENT',
+        h1: 'Ishlab chiqarishingiz uchun uzatma tasmalari va konveyer lentalari',
+        lead: 'Megadyne, Bando va PIX tishli, koʻp ponali, ponasimon va dumaloq tasmalari. Artikul, oʻlcham yoki eski namuna boʻyicha tanlab beramiz.',
+        openCat: 'Katalogni ochish', sendPhoto: 'Tasma rasmini yuborish',
+        fTitle: 'Tasma tanlash', fSub: 'Parametrlarni kiriting — mos mahsulotlarni koʻrsatamiz', fType: 'Tasma turi', fProf: 'Profil / qadam', fLen: 'Uzunligi, mm', fW: 'Eni, mm',
+        ty1: 'Tishli', ty2: 'Koʻp ponali', ty3: 'Ponasimon', ty4: 'Dumaloq kesimli',
+        fBtn: 'Tasmani topish', fHelp: 'Parametrlarni bilmaysizmi?', fHelpLink: 'Telegram-botga rasm yuboring',
+        dSheet: 'VARAQ 01 · TASMALI UZATMA · SXEMA', dAria: 'Tasmali uzatma sxemasi: ikki shkiv, tishli tasma, oʻqlararo masofa',
+        dA: 'a — oʻqlararo', dL: 'L — tasma uzunligi', dEyebrow: 'TEXNIK PARAMETRLAR', dTitle: 'Tasma uzatma oʻlchamlariga qarab tanlanadi',
+        toothAria: 'T5 tish profili, qadami 5 mm', dTooth: 'p — tish qadami', sProf: 'Profil', sStep: 'Qadam p', sLen: 'Uzunlik L', sW: 'Eni', mm: 'mm', dBtn: 'Parametrlar boʻyicha tanlash',
+        tickerLabel: 'Assortiment',
+        offTitle: 'Maxsus takliflar', sum: 'soʻm', special: 'Maxsus narx',
+        delivery: 'YETKAZIB BERISH', delTitle: '3 000 000 soʻmdan bepul', delText: 'Buyurtmani Toshkent boʻylab korxonangizgacha yetkazamiz.', delFargo: 'orqali Oʻzbekiston viloyatlariga', delBtn: 'Yetkazib berish shartlari',
+        newTitle: 'Yangi mahsulotlar', flAll: 'Barchasi', flT5: 'T5 turi', flPJ: 'PJ turi', flRound: 'Dumaloq kesimli', flClassic: 'Klassik',
+        isNew: 'Yangi', toFav: 'Saralanganlarga', toCart: 'Savatga', more: 'Yana koʻrsatish',
+        chEyebrow: 'ASBOB-USKUNALAR', chTitle: 'Kerakli tasma yoki lentani qanday tanlash',
+        ch1t: 'Parametrlar', ch1d: 'Profil, tish qadami, uzunlik va eni — odatda tasmaning oʻzida yoki uskuna pasportida koʻrsatilgan.',
+        ch2t: 'Xususiyatlar', ch2d: 'Material, kord va qoplama tasmaning xizmat muddati va ishlash sharoitiga taʼsir qiladi.',
+        ch3t: 'Qurilma quvvati', ch3d: 'Uzatiladigan quvvat va aylanishlar soni tasma turi va enini belgilaydi.',
+        nfTitle: 'Kerakli oʻlchamni topmadingizmi?', nfText: 'Tasma rasmi, artikul yoki oʻlchamlarni yuboring — original yoki analogini topib, narxini aytamiz.', tgBtn: 'Telegramga yozish',
+        mEyebrow: 'YOʻRIQNOMA', mTitle: 'Tasmani qanday oʻlchash', need: 'Kerak boʻladi:', tool1: 'shtangensirkul', tool2: 'ruletka', tool3: 'ip',
+        m0t: 'Avval tasmadagi markirovkani toping', m0a: 'Orqa tomonida odatda profil, uzunlik va eni yozilgan boʻladi — masalan', m0or: 'yoki', m0b: '. Markirovka oʻchib ketgan boʻlsa — quyidagi sxemalar boʻyicha oʻlchang.',
+        tAria: 'Tishli tasma: tishlar orasidagi qadam va eni', tStep: 'p — qadam', tTeeth: 'z — tishlar', tName: 'Tishli tasma',
+        t1b: 'Qadam p', t1: '— qoʻshni tishlar markazlari orasidagi masofa. Aniqroq: 10 ta qadamni oʻlchab, 10 ga boʻling (5 mm — T5/AT5, 10 mm — T10).',
+        t2b: 'Uzunlik', t2: '= tishlar soni z × qadam p. Misol: 329 × 5 = 1645 mm.',
+        t3b: 'Eni', t3: '— shtangensirkul bilan tasma koʻndalangiga, mm da.',
+        t4b: 'Tish shakli', t4: ': trapetsiya — T, kuchaytirilgan trapetsiya — AT. Profilni yon tomondan suratga oling.',
+        pAria: 'Koʻp ponali tasma kesimi: ariqchalar soni va qadam', pStepTxt: 'qadam 2,34 mm = PJ', pRibs: 'N ariqcha', pName: 'Koʻp ponali tasma',
+        p1b: 'Ariqchalar soni', p1: '— ishchi tomondagi ponalarni sanang (6 PJ = 6 ta ariqcha).',
+        p2b: 'Profil', p2: '— ponalar uchlari orasidagi qadam boʻyicha: 2,34 mm — PJ.',
+        p3b: 'Uzunlik', p3: '— ruletka yoki ipni tasmaning tashqi tomoniga taranglamasdan oʻrab, mm da oʻlchang.',
+        vAria: 'Ponasimon tasma kesimi: yuqori eni va balandligi', vWH: 'eni × balandligi', vCode: 'Li · klassik', vName: 'Ponasimon tasma',
+        v1b: 'Kesim', v1: '— shtangensirkul bilan tasmaning yuqori eni va balandligini oʻlchang (masalan, 8 mm).',
+        v2b: 'Uzunlik Li', v2: '— ichki uzunlik: tasmaning ichki tomoni boʻylab ruletka yoki ip bilan oʻlchang.',
+        v3: 'Faqat tashqi uzunlik maʼlum boʻlsa — buyurtmada koʻrsating, qayta hisoblab beramiz.',
+        rAria: 'Dumaloq kesimli tasma: diametr', rDia: 'Ø, mm', rLen: 'shkivlar boʻyicha uzunlik', rName: 'Dumaloq kesimli tasma',
+        r1b: 'Diametr', r1: '— shtangensirkul bilan tasma koʻndalangiga.',
+        r2b: 'Uzunlik', r2: '— ipni shkiv ariqchalari boʻylab tasma yuradigan yoʻldan oʻtkazib, uni oʻlchang.',
+        r3: 'Tasma metrlab sotiladi va kerakli uzunlikdagi halqa qilib payvandlanadi.',
+        tipTitle: 'Oʻlchov aniq boʻlishi uchun', tip1: '— Eski tasmani tekis yuzada, choʻzmasdan oʻlchang.', tip2: '— Eskirgan tasma yangisidan uzunroq boʻlishi mumkin: shubha boʻlsa, shkivlar boʻyicha oʻlchang.', tip3: '— 2–3 marta oʻlchab, oʻrtacha qiymatni oling.',
+        cantT: 'Oʻlchay olmayapsizmi?', cantD: 'Tasma yoniga chizgʻich qoʻyib suratga oling — turi va oʻlchamini aniqlaymiz.', sendPh: 'Rasm yuborish',
+        iEyebrow: 'SOHALAR', iTitle: 'Faoliyat sohalari',
+        i1t: 'Goʻsht va kolbasa ishlab chiqarish', i1d: 'Oziq-ovqat uskunalari uchun T5, T10 va MEGAPOWER2 tishli tasmalari',
+        i2t: 'Toʻqimachilik sanoati', i2d: 'Toʻqimachilik liniyalari uchun AT5 NOVOBELT tishli tasmalari',
+        i3t: 'Sizning sohangiz?', i3d: 'Uskunangiz haqida aytib bering — vazifaga mos tasma yoki lenta tanlab beramiz',
+        mkEyebrow: 'MARKETPLEYSLAR', mkTitle: 'Oʻzingizga qulay joydan xarid qiling', mkText: 'Tasmalarimiz marketpleyslardagi Remen.uz doʻkonlarida bor — odatiy toʻlov va yetkazib berish bilan buyurtma qiling.', mkBtn: 'Doʻkonga oʻtish',
+        b2bTitle: 'Korporativ mijozlar uchun', b2bText: 'Korxonalar uchun yetkazib berish: istalgan toʻlov shakli, boʻlib toʻlash, 3 000 000 soʻmdan bepul yetkazib berish.', b2bBtn: 'Taklif soʻrash',
+        partEyebrow: 'HAMKORLIK', partTitle: 'Hamkorlar uchun', partText: 'Servis kompaniyalari va dilerlar uchun — hamkorlik shartlari soʻrov boʻyicha.', partBtn: 'Hamkor boʻlish',
+        newsEyebrow: 'YANGILIKLAR · 28 OKT.', newsTitle: 'Sanoat uskunalari uchun uzatma tasmalari', allNews: 'Barcha yangiliklar →',
+        addr1: 'Chinobod koʻchasi, 1, Yunusobod,', addr2: 'Toshkent, 100039',
+        fCompany: 'Kompaniya', fAbout: 'Biz haqimizda', fContacts: 'Kontaktlar', fNews: 'Yangiliklar', fBrands: 'Brendlar', fOffer: 'Oferta',
+        fBuyers: 'Xaridorlar uchun', fHow: 'Buyurtma qanday beriladi', fDel: 'Yetkazib berish', fPay: 'Toʻlov', fRet: 'Qaytarish', fInst: 'Boʻlib toʻlash',
+        fInfo: 'Maʼlumot', fCorp: 'Korporativ mijozlarga', fPart: 'Hamkorlarga',
+        copy: '2026 © Remen.uz. Barcha huquqlar himoyalangan.'
+      }
+    };
+    const L = {
+      ru: {
+        ticker: ['ЗУБЧАТЫЕ T5 · T10 · AT5', 'ПОЛИКЛИНОВЫЕ PJ', 'КЛИНОВЫЕ Li', 'КРУГЛЫЕ Ø 3–10 ММ', 'КОНВЕЙЕРНЫЕ ЛЕНТЫ', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'ДОСТАВКА ПО ТАШКЕНТУ'],
+        markets: [
+          { mark: 'U', name: 'Uzum Market', note: 'Магазин Remen.uz на Uzum Market', href: '#' },
+          { mark: 'O', name: 'Ozon', note: 'Магазин Remen.uz на Ozon Узбекистан', href: '#' },
+          { mark: 'ЯМ', name: 'Яндекс Маркет', note: 'Магазин Remen.uz на Яндекс Маркете', href: '#' },
+          { mark: 'WB', name: 'Wildberries', note: 'Магазин Remen.uz на Wildberries', href: '#' },
+          { mark: 'OP', name: 'optom.uz', note: 'Оптовые закупки для бизнеса', href: '#' }
+        ],
+        trust: [
+          { n: 'сум', title: 'Любая форма оплаты', sub: 'Наличные, карта, перечисление' },
+          { n: '24', title: 'Поддержка 24/7', sub: 'Telegram, WhatsApp, телефон' },
+          { n: '0', title: 'Бесплатная доставка', sub: 'По Ташкенту от 3 000 000 сум, в регионы — Fargo' },
+          { n: 'B2B', title: 'Корпоративным клиентам', sub: 'Рассрочка и договор' }
+        ],
+        cats: [
+          { code: 'T5 · T10', name: 'Зубчатые ремни', note: 'Megadyne, Novobelt — бесконечные и с профилями' },
+          { code: 'PJ', name: 'Поликлиновые ремни', note: 'Megadyne PV Belt' },
+          { code: 'Li', name: 'Клиновые ремни', note: 'Классические профили, Bando' },
+          { code: 'Ø 3–10 мм', name: 'Ремни круглого сечения', note: 'Термосвариваемые, продажа на метры' },
+          { code: 'ЛЕНТЫ', name: 'Конвейерные ленты', note: 'В том числе для пищевых производств' },
+          { code: 'СЕРВИС', name: 'Инструменты и оборудование', note: 'Для монтажа и сварки ремней' }
+        ],
+        offers: [
+          { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 Зубчатый ремень тип 1610 SLV14 85.00 MM', price: '3 348 800' },
+          { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 Зубчатый ремень тип 1400 SLV14 85.00 MM', price: '2 665 600' }
+        ],
+        products: [
+          { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 3 мм', price: '17 920', unit: 'сум / м' },
+          { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 6 мм', price: '38 080', unit: 'сум / м' },
+          { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 10 мм', price: '98 560', unit: 'сум / м' },
+          { tag: 'Тип T5', title: 'Зубчатый ремень тип T5 1645 38 NFT C', price: '3 452 960', unit: 'сум' },
+          { tag: 'Тип T5', title: 'Зубчатый ремень тип T5 1645 25 NFT A', price: '3 068 800', unit: 'сум' },
+          { tag: 'Тип PJ · MEGADYNE', title: 'Поликлиновой ремень 8 PJ 1059 MEGADYNE PV BELT', price: '138 880', unit: 'сум' },
+          { tag: 'Тип T10 · MEGADYNE', title: 'Зубчатый ремень 10 T10 530 MEGADYNE MEGAPOWER2', price: '198 240', unit: 'сум' },
+          { tag: 'Тип AT5 · NOVOBELT', title: 'Зубчатый ремень тип 25 AT5 3215 NOVOBELT PERFORMANCE', price: '900 480', unit: 'сум' }
+        ]
+      },
+      uz: {
+        ticker: ['TISHLI T5 · T10 · AT5', 'KOʻP PONALI PJ', 'PONASIMON Li', 'DUMALOQ Ø 3–10 MM', 'KONVEYER LENTALARI', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'TOSHKENT BOʻYLAB YETKAZISH'],
+        markets: [
+          { mark: 'U', name: 'Uzum Market', note: 'Uzum Market’dagi Remen.uz doʻkoni', href: '#' },
+          { mark: 'O', name: 'Ozon', note: 'Ozon Oʻzbekistondagi Remen.uz doʻkoni', href: '#' },
+          { mark: 'YM', name: 'Yandex Market', note: 'Yandex Market’dagi Remen.uz doʻkoni', href: '#' },
+          { mark: 'WB', name: 'Wildberries', note: 'Wildberries’dagi Remen.uz doʻkoni', href: '#' },
+          { mark: 'OP', name: 'optom.uz', note: 'Biznes uchun ulgurji xaridlar', href: '#' }
+        ],
+        trust: [
+          { n: 'soʻm', title: 'Istalgan toʻlov shakli', sub: 'Naqd, karta, pul oʻtkazish' },
+          { n: '24', title: 'Qoʻllab-quvvatlash 24/7', sub: 'Telegram, WhatsApp, telefon' },
+          { n: '0', title: 'Bepul yetkazib berish', sub: 'Toshkentda 3 000 000 soʻmdan, viloyatlarga — Fargo' },
+          { n: 'B2B', title: 'Korporativ mijozlar uchun', sub: 'Boʻlib toʻlash va shartnoma' }
+        ],
+        cats: [
+          { code: 'T5 · T10', name: 'Tishli tasmalar', note: 'Megadyne, Novobelt — uzluksiz va profilli' },
+          { code: 'PJ', name: 'Koʻp ponali tasmalar', note: 'Megadyne PV Belt' },
+          { code: 'Li', name: 'Ponasimon tasmalar', note: 'Klassik profillar, Bando' },
+          { code: 'Ø 3–10 mm', name: 'Dumaloq kesimli tasmalar', note: 'Termopayvandlanadigan, metrlab sotiladi' },
+          { code: 'LENTALAR', name: 'Konveyer lentalari', note: 'Shu jumladan oziq-ovqat ishlab chiqarish uchun' },
+          { code: 'SERVIS', name: 'Asbob-uskunalar', note: 'Tasmalarni oʻrnatish va payvandlash uchun' }
+        ],
+        offers: [
+          { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 tishli tasma 1610 SLV14 85.00 MM', price: '3 348 800' },
+          { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 tishli tasma 1400 SLV14 85.00 MM', price: '2 665 600' }
+        ],
+        products: [
+          { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 3 mm', price: '17 920', unit: 'soʻm / m' },
+          { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 6 mm', price: '38 080', unit: 'soʻm / m' },
+          { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 10 mm', price: '98 560', unit: 'soʻm / m' },
+          { tag: 'T5 turi', title: 'Tishli tasma T5 1645 38 NFT C', price: '3 452 960', unit: 'soʻm' },
+          { tag: 'T5 turi', title: 'Tishli tasma T5 1645 25 NFT A', price: '3 068 800', unit: 'soʻm' },
+          { tag: 'PJ turi · MEGADYNE', title: 'Koʻp ponali tasma 8 PJ 1059 MEGADYNE PV BELT', price: '138 880', unit: 'soʻm' },
+          { tag: 'T10 turi · MEGADYNE', title: 'Tishli tasma 10 T10 530 MEGADYNE MEGAPOWER2', price: '198 240', unit: 'soʻm' },
+          { tag: 'AT5 turi · NOVOBELT', title: 'Tishli tasma 25 AT5 3215 NOVOBELT PERFORMANCE', price: '900 480', unit: 'soʻm' }
+        ]
+      }
+    };
+    const lang = this.state.lang ?? this.props.startLang ?? 'ru';
+    const t = T[lang] || T.ru;
+    const d = L[lang] || L.ru;
+    const accent = this.props.accent ?? '#E2531A';
+    const onStyle = 'height: 38px; min-width: 46px; padding: 0 12px; border: 0; border-radius: 999px; background-color: ' + accent + '; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer';
+    const offStyle = 'height: 38px; min-width: 46px; padding: 0 12px; border: 0; border-radius: 999px; background-color: transparent; color: rgba(255,255,255,.8); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer';
+
+    // ---- belt selector ----
+    const sel = this.state.sel;
+    const num = (v) => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; };
+    const fmtN = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    const va = this.state.vals[sel];
+    const A = num(va[0]), B = num(va[1]);
+    const CAT = {
+      tooth: [
+        { p: 'T5', L: 1645, w: 25, spec: 'T5 1645 25 NFT A', price: 3068800 },
+        { p: 'T5', L: 1645, w: 25, spec: 'T5 1645 25 NFT B', price: 2685760 },
+        { p: 'T5', L: 1645, w: 25, spec: 'T5 1645 25 NFT D', price: 2732800 },
+        { p: 'T5', L: 1645, w: 38, spec: 'T5 1645 38 NFT C', price: 3452960 },
+        { p: 'T5', L: 1750, w: 32, spec: 'T5 1750 32 NFT E', price: 2732800 },
+        { p: 'T5', L: 625, w: 32, spec: 'T5 625 32 NFT G', price: 1472800 },
+        { p: 'T5', L: 800, w: 10, spec: '10 T5 800 MEGADYNE MEGAPOWER2', price: 159040 },
+        { p: 'T5', L: 410, w: 16, spec: '16 T5 DL (DB) 410 MEGADYNE MEGAPOWER2', price: 282240 },
+        { p: 'T10', L: 530, w: 10, spec: '10 T10 530 MEGADYNE MEGAPOWER2', price: 198240 },
+        { p: 'AT5', L: 3215, w: 25, spec: '25 AT5 3215 NOVOBELT PERFORMANCE', price: 900480 },
+        { p: 'RPP14', L: 1400, w: 85, spec: '1400 SLV14 85.00 MM MEGADYNE MEGASYNC SILVER3', price: 2665600 },
+        { p: 'RPP14', L: 1610, w: 85, spec: '1610 SLV14 85.00 MM MEGADYNE MEGASYNC SILVER3', price: 3348800 }
+      ],
+      poly: [
+        { L: 533, w: 6, spec: '6 PJ 533 MEGADYNE PV BELT', price: 88480 },
+        { L: 1059, w: 8, spec: '8 PJ 1059 MEGADYNE PV BELT', price: 138880 },
+        { L: 1244, w: 8, spec: '8 PJ 1244 MEGADYNE PV BELT', price: 216160 }
+      ],
+      v: [ { L: 875, w: 8, spec: '8 mm 875 Li BANDO', price: 17920 } ],
+      round: [ { w: 3, price: 17920 }, { w: 4, price: 22400 }, { w: 6, price: 38080 }, { w: 8, price: 57120 }, { w: 10, price: 98560 } ]
+    };
+    const names = { tooth: t.nToothed, poly: t.nPoly, v: t.nV, round: t.nRound };
+    const sgn = (n) => (n > 0 ? '+' : n < 0 ? '−' : '±') + fmtN(Math.abs(n));
+    const badge = (ex) => 'padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; ' + (ex ? 'background: rgba(18,181,166,.3); border: 1px solid rgba(124,242,201,.7); color: #CFFFEF' : 'background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.3); color: #FFFFFF');
+    let recs = [];
+    if (sel === 'round') {
+      recs = CAT.round.map((x) => ({ x, d: Math.abs(x.w - B) })).sort((a, b) => a.d - b.d).slice(0, 2).map(({ x, d }) => {
+        const meters = Math.max(0.1, Math.ceil(A / 100) / 10);
+        const ex = d === 0;
+        return { title: names.round + ' Ø ' + x.w + ' ' + t.mm, priceF: fmtN(x.price * meters), unit: t.pcs + ' ' + t.costFor + ' ' + String(meters).replace('.', ',') + ' ' + t.mShort,
+          badge: ex ? t.exact : t.close, badgeStyle: badge(ex), delta: ex ? fmtN(x.price) + ' ' + t.perM : 'ΔØ ' + sgn(x.w - B) + ' ' + t.mm };
+      });
+    } else {
+      let list = CAT[sel];
+      if (sel === 'tooth') list = list.filter((x) => x.p === this.state.prof);
+      recs = list.map((x) => ({ x, d: (A ? Math.abs(x.L - A) / A : 1) + (B ? Math.abs(x.w - B) / B : 1) }))
+        .sort((a, b) => a.d - b.d).slice(0, 3).map(({ x }) => {
+          const ex = x.L === A && x.w === B;
+          const wl = sel === 'poly' ? 'ΔN ' : 'Δb ';
+          return { title: names[sel] + ' ' + x.spec, priceF: fmtN(x.price), unit: t.pcs,
+            badge: ex ? t.exact : t.close, badgeStyle: badge(ex),
+            delta: ex ? '' : 'ΔL ' + sgn(x.L - A) + ' · ' + wl + sgn(x.w - B) };
+        });
+    }
+    const pitchMap = { T5: 5, T10: 10, AT5: 5, RPP14: 14 };
+    const pitch = pitchMap[this.state.prof] || 5;
+    const labels = { tooth: [t.lLen, t.lWidth], poly: [t.lLen, t.lRibs], v: [t.lLi, t.lSec], round: [t.lRLen, t.lDia] };
+    const tabDefs = [['tooth', t.ty1], ['poly', t.ty2], ['v', t.ty3], ['round', t.ty4]];
+    const setVal = (i) => (e) => { const v = e.target.value; const vals = Object.assign({}, this.state.vals); const arr = vals[sel].slice(); arr[i] = v; vals[sel] = arr; this.setState({ vals }); };
+    const tabOn = 'height: 40px; padding: 0 16px; border: 0; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; color: #FFFFFF; background-color: ';
+    const selector = {
+      isTooth: sel === 'tooth', isPoly: sel === 'poly', isV: sel === 'v', isRound: sel === 'round',
+      sheetLabel: t.sheet + ' · ' + (tabDefs.find((d) => d[0] === sel) || ['', ''])[1].toUpperCase(),
+      tabs: tabDefs.map(([id, label]) => ({ label, on: sel === id, cls: sel === id ? 'liquid' : '',
+        style: tabOn + (sel === id ? (this.props.accent ?? '#E2531A') : 'transparent'), pick: () => this.setState({ sel: id }) })),
+      f: { a: va[0], b: va[1], prof: this.state.prof },
+      onA: setVal(0), onB: setVal(1), onProf: (e) => this.setState({ prof: e.target.value }),
+      labelA: labels[sel][0], labelB: labels[sel][1],
+      dimA: va[0] || '—', dimB: va[1] || '—', pitch: String(pitch),
+      dimP: A && pitch ? 'z = ' + Math.round(A / pitch) + ' ' + t.teeth : '',
+      recs, noRec: recs.length === 0
+    };
+    return {
+      ...selector,
+      accent,
+      t,
+      isRu: lang === 'ru',
+      isUz: lang === 'uz',
+      ruCls: lang === 'ru' ? 'liquid' : '',
+      uzCls: lang === 'uz' ? 'liquid' : '',
+      ruStyle: lang === 'ru' ? onStyle : offStyle,
+      uzStyle: lang === 'uz' ? onStyle : offStyle,
+      setRu: () => this.setState({ lang: 'ru' }),
+      setUz: () => this.setState({ lang: 'uz' }),
+      catOpen: this.state.catOpen,
+      catClosed: !this.state.catOpen,
+      toggleCat: () => this.setState({ catOpen: !this.state.catOpen }),
+      closeCat: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ catOpen: false }); },
+      ticker: d.ticker.concat(d.ticker),
+      markets: d.markets.map((m) => {
+        const ym = '/_blob/9c868adc45910bcb014913374947ea45';
+        const logos = { U: '/_blob/bf2a05f91cc6061dc01fa4c19df703d2', O: '/_blob/bebbb6bc93c9a6a1cdb8849e55a47959', WB: '/_blob/a6be7f69637082623ea621ff6278c7f4', 'ЯМ': ym, YM: ym, OP: '/_blob/36139a3f01d0f0291fa387e1b066e3cc' };
+        const logo = logos[m.mark] || '';
+        const logoText = logo === ym ? m.name : '';
+        return Object.assign({}, m, { logo, hasLogo: !!logo, noLogo: !logo, logoText, hasText: !!logoText });
+      }),
+      trust: d.trust,
+      cats: d.cats,
+      offers: d.offers,
+      products: d.products
+    };
+  }
+}
+</script>
+</body>
+</html>

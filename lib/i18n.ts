@@ -1,0 +1,239 @@
+// Shared RU/UZ copy, extracted from design/GlassMain.dc.html
+
+export const T = {
+  ru: {
+    n9: 'Бизнесу',
+    mkShort: 'Мы на маркетплейсах', mkShortD: 'Заказывайте с привычной оплатой и доставкой площадки',
+    teaGuideE: 'ИНСТРУКЦИЯ', teaGuideT: 'Как выбрать и измерить ремень', teaGuideD: 'Схемы замеров для зубчатых, поликлиновых, клиновых и круглых ремней.', teaGuideB: 'Открыть инструкцию',
+    teaBizE: 'B2B', teaBizT: 'Бизнесу и партнёрам', teaBizD: 'Сферы применения, поставки для предприятий, условия для дилеров.', teaBizB: 'Подробнее',
+    gEyebrow: 'ИНСТРУКЦИЯ · REMEN.UZ', gTitle: 'Как выбрать и измерить ремень', gLead: 'Разберитесь в параметрах привода, снимите размеры старого ремня — и подберите замену без ошибок.',
+    bEyebrow: 'B2B · REMEN.UZ', bTitle: 'Бизнесу и партнёрам', bLead: 'Поставляем приводные ремни и конвейерные ленты для предприятий Узбекистана.',
+    home: 'Главная', backFinder: 'Перейти к подбору',
+    lang: 'ru', cat: 'Каталог', search: 'Поиск', searchPh: 'Артикул или размер — например T5 1645', find: 'Найти',
+    acc: 'Аккаунт', fav: 'Избранное', cart: 'Корзина, 0 товаров', login: 'Войти', langLabel: 'Язык сайта', navLabel: 'Категории',
+    n1: 'Зубчатые ремни', n2: 'Поликлиновые', n3: 'Клиновые', n4: 'Круглого сечения', n5: 'Конвейерные ленты', n6: 'Инструменты', n7: 'Как измерить ремень', n8: 'Акции',
+    allCat: 'Весь каталог →',
+    eyebrow: 'ПРОМЫШЛЕННЫЕ ПРИВОДЫ · ТАШКЕНТ',
+    h1: 'Приводные ремни и конвейерные ленты для вашего производства',
+    lead: 'Зубчатые, поликлиновые, клиновые и круглые ремни Megadyne, Bando и PIX. Подберём по артикулу, размерам или старому образцу.',
+    openCat: 'Открыть каталог', sendPhoto: 'Отправить фото ремня',
+    fTitle: 'Подбор ремня', fSub: 'Укажите параметры — покажем подходящие позиции', fType: 'Тип ремня', fProf: 'Профиль / шаг', fLen: 'Длина, мм', fW: 'Ширина, мм',
+    ty1: 'Зубчатый', ty2: 'Поликлиновой', ty3: 'Клиновой', ty4: 'Круглого сечения',
+    fBtn: 'Найти ремень', fHelp: 'Не знаете параметры?', fHelpLink: 'Пришлите фото в Telegram-бот',
+    dSheet: 'ЛИСТ 01 · РЕМЕННАЯ ПЕРЕДАЧА · СХЕМА', dAria: 'Схема ременной передачи: два шкива, зубчатый ремень, межосевое расстояние',
+    dA: 'a — межосевое', dL: 'L — длина ремня', dEyebrow: 'ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ', dTitle: 'Ремень подбирается по размерам привода',
+    toothAria: 'Профиль зубьев T5, шаг 5 мм', dTooth: 'p — шаг зуба', sProf: 'Профиль', sStep: 'Шаг p', sLen: 'Длина L', sW: 'Ширина', mm: 'мм', dBtn: 'Подобрать по параметрам',
+    tickerLabel: 'Ассортимент',
+    offTitle: 'Спецпредложения', sum: 'сум', special: 'Спеццена',
+    delivery: 'ДОСТАВКА', delTitle: 'Бесплатно от 3 000 000 сум', delText: 'Доставим заказ до вашего предприятия по Ташкенту.', delFargo: 'в регионы Узбекистана', delBtn: 'Условия доставки',
+    newTitle: 'Новые товары', flAll: 'Все', flT5: 'Тип T5', flPJ: 'Тип PJ', flRound: 'Круглого сечения', flClassic: 'Классические',
+    isNew: 'Новинка', toFav: 'В избранное', toCart: 'В корзину', more: 'Показать ещё',
+    chEyebrow: 'ИНСТРУМЕНТЫ И ОБОРУДОВАНИЕ', chTitle: 'Как выбрать нужный ремень или ленту',
+    ch1t: 'Параметры', ch1d: 'Профиль, шаг зубьев, длина и ширина — обычно указаны на самом ремне или в паспорте оборудования.',
+    ch2t: 'Характеристики', ch2d: 'Материал, корд и покрытие влияют на ресурс ремня и условия, в которых он работает.',
+    ch3t: 'Мощность устройства', ch3d: 'Передаваемая мощность и обороты определяют тип и ширину ремня.',
+    nfTitle: 'Не нашли нужный размер?', nfText: 'Пришлите фото ремня, артикул или замеры — подберём оригинал или аналог и сообщим цену.', tgBtn: 'Написать в Telegram',
+    mEyebrow: 'ИНСТРУКЦИЯ', mTitle: 'Как измерить ремень', need: 'Понадобится:', tool1: 'штангенциркуль', tool2: 'рулетка', tool3: 'нить',
+    m0t: 'Сначала найдите маркировку на ремне', m0a: 'На тыльной стороне обычно напечатаны профиль, длина и ширина — например', m0or: 'или', m0b: '. Если маркировка стёрлась — измерьте по схемам ниже.',
+    tAria: 'Зубчатый ремень: шаг между зубьями и ширина', tStep: 'p — шаг', tTeeth: 'z — зубья', tName: 'Зубчатый ремень',
+    t1b: 'Шаг p', t1: '— расстояние между центрами соседних зубьев. Точнее: измерьте 10 шагов и разделите на 10 (5 мм — T5/AT5, 10 мм — T10).',
+    t2b: 'Длина', t2: '= число зубьев z × шаг p. Пример: 329 × 5 = 1645 мм.',
+    t3b: 'Ширина', t3: '— штангенциркулем поперёк ремня, в мм.',
+    t4b: 'Форма зуба', t4: ': трапеция — T, усиленная трапеция — AT. Сфотографируйте профиль сбоку.',
+    pAria: 'Поликлиновой ремень в разрезе: количество ручьёв и шаг', pStepTxt: 'шаг 2,34 мм = PJ', pRibs: 'N ручьёв', pName: 'Поликлиновой ремень',
+    p1b: 'Количество ручьёв', p1: '— посчитайте клинья на рабочей стороне (6 PJ = 6 ручьёв).',
+    p2b: 'Профиль', p2: '— по шагу между вершинами клиньев: 2,34 мм — PJ.',
+    p3b: 'Длина', p3: '— оберните рулетку или нить по наружной стороне ремня, без натяжения, и измерьте в мм.',
+    vAria: 'Клиновой ремень в разрезе: верхняя ширина и высота', vWH: 'ширина × высота', vCode: 'Li · классические', vName: 'Клиновой ремень',
+    v1b: 'Сечение', v1: '— штангенциркулем измерьте верхнюю ширину и высоту ремня (например, 8 мм).',
+    v2b: 'Длина Li', v2: '— внутренняя длина: измерьте по внутренней стороне ремня рулеткой или нитью.',
+    v3: 'Если известна только наружная длина — укажите это при заказе, мы пересчитаем.',
+    rAria: 'Ремень круглого сечения: диаметр', rDia: 'Ø, мм', rLen: 'длина по шкивам', rName: 'Ремень круглого сечения',
+    r1b: 'Диаметр', r1: '— штангенциркулем поперёк ремня.',
+    r2b: 'Длина', r2: '— проведите нить по канавкам шкивов, как идёт ремень, и измерьте её.',
+    r3: 'Ремень продаётся на метры и сваривается в кольцо нужной длины.',
+    tipTitle: 'Чтобы замер был точным', tip1: '— Измеряйте старый ремень на ровной поверхности, не растягивая его.', tip2: '— Изношенный ремень бывает длиннее нового: при сомнении измерьте по шкивам.', tip3: '— Делайте 2–3 замера и берите среднее значение.',
+    cantT: 'Не получается измерить?', cantD: 'Пришлите фото ремня с линейкой рядом — определим тип и размер.', sendPh: 'Отправить фото',
+    iEyebrow: 'ОТРАСЛИ', iTitle: 'Сферы деятельности',
+    i1t: 'Мясные и колбасные производства', i1d: 'Зубчатые ремни T5, T10 и MEGAPOWER2 для пищевого оборудования',
+    i2t: 'Текстильная промышленность', i2d: 'Зубчатые ремни AT5 NOVOBELT для текстильных линий',
+    i3t: 'Ваша отрасль?', i3d: 'Расскажите об оборудовании — подберём ремень или ленту под задачу',
+    mkEyebrow: 'МАРКЕТПЛЕЙСЫ', mkTitle: 'Покупайте там, где вам удобно', mkText: 'Наши ремни есть в магазинах Remen.uz на маркетплейсах — оформляйте заказ с привычной оплатой и доставкой площадки.', mkBtn: 'Перейти в магазин',
+    b2bTitle: 'Корпоративным клиентам', b2bText: 'Поставки для предприятий: любая форма оплаты, рассрочка, бесплатная доставка от 3 000 000 сум.', b2bBtn: 'Запросить предложение',
+    partEyebrow: 'ПАРТНЁРСТВО', partTitle: 'Партнёрам', partText: 'Сервисным компаниям и дилерам — условия сотрудничества по запросу.', partBtn: 'Стать партнёром',
+    newsEyebrow: 'НОВОСТИ · 28 ОКТ.', newsTitle: 'Приводные ремни для промышленного оборудования', allNews: 'Все новости →',
+    addr1: 'ул. Чинабад 1, Юнус-Абад,', addr2: 'Ташкент, 100039',
+    fCompany: 'Компания', fAbout: 'О нас', fContacts: 'Контакты', fNews: 'Новости', fBrands: 'Бренды', fOffer: 'Оферта',
+    fBuyers: 'Покупателям', fHow: 'Как оформить заказ', fDel: 'Доставка', fPay: 'Оплата', fRet: 'Возврат', fInst: 'Рассрочка',
+    fInfo: 'Информация', fCorp: 'Корпоративным клиентам', fPart: 'Партнёрам',
+    copy: '2026 © Remen.uz. Все права защищены.'
+  },
+  uz: {
+    n9: 'Biznes uchun',
+    mkShort: 'Biz marketpleyslardamiz', mkShortD: 'Odatiy toʻlov va yetkazib berish bilan buyurtma qiling',
+    teaGuideE: 'YOʻRIQNOMA', teaGuideT: 'Tasmani qanday tanlash va oʻlchash', teaGuideD: 'Tishli, koʻp ponali, ponasimon va dumaloq tasmalarni oʻlchash sxemalari.', teaGuideB: 'Yoʻriqnomani ochish',
+    teaBizE: 'B2B', teaBizT: 'Biznes va hamkorlar uchun', teaBizD: 'Qoʻllanish sohalari, korxonalarga yetkazib berish, dilerlar uchun shartlar.', teaBizB: 'Batafsil',
+    gEyebrow: 'YOʻRIQNOMA · REMEN.UZ', gTitle: 'Tasmani qanday tanlash va oʻlchash', gLead: 'Uzatma parametrlarini tushunib oling, eski tasma oʻlchamlarini oling — va xatosiz almashtiring.',
+    bEyebrow: 'B2B · REMEN.UZ', bTitle: 'Biznes va hamkorlar uchun', bLead: 'Oʻzbekiston korxonalariga uzatma tasmalari va konveyer lentalarini yetkazib beramiz.',
+    home: 'Bosh sahifa', backFinder: 'Tanlashga oʻtish',
+    lang: 'uz', cat: 'Katalog', search: 'Qidiruv', searchPh: 'Artikul yoki oʻlcham — masalan T5 1645', find: 'Topish',
+    acc: 'Akkaunt', fav: 'Saralanganlar', cart: 'Savat, 0 ta mahsulot', login: 'Kirish', langLabel: 'Sayt tili', navLabel: 'Kategoriyalar',
+    n1: 'Tishli tasmalar', n2: 'Koʻp ponali', n3: 'Ponasimon', n4: 'Dumaloq kesimli', n5: 'Konveyer lentalari', n6: 'Asboblar', n7: 'Tasmani qanday oʻlchash', n8: 'Aksiyalar',
+    allCat: 'Butun katalog →',
+    eyebrow: 'SANOAT UZATMALARI · TOSHKENT',
+    h1: 'Ishlab chiqarishingiz uchun uzatma tasmalari va konveyer lentalari',
+    lead: 'Megadyne, Bando va PIX tishli, koʻp ponali, ponasimon va dumaloq tasmalari. Artikul, oʻlcham yoki eski namuna boʻyicha tanlab beramiz.',
+    openCat: 'Katalogni ochish', sendPhoto: 'Tasma rasmini yuborish',
+    fTitle: 'Tasma tanlash', fSub: 'Parametrlarni kiriting — mos mahsulotlarni koʻrsatamiz', fType: 'Tasma turi', fProf: 'Profil / qadam', fLen: 'Uzunligi, mm', fW: 'Eni, mm',
+    ty1: 'Tishli', ty2: 'Koʻp ponali', ty3: 'Ponasimon', ty4: 'Dumaloq kesimli',
+    fBtn: 'Tasmani topish', fHelp: 'Parametrlarni bilmaysizmi?', fHelpLink: 'Telegram-botga rasm yuboring',
+    dSheet: 'VARAQ 01 · TASMALI UZATMA · SXEMA', dAria: 'Tasmali uzatma sxemasi: ikki shkiv, tishli tasma, oʻqlararo masofa',
+    dA: 'a — oʻqlararo', dL: 'L — tasma uzunligi', dEyebrow: 'TEXNIK PARAMETRLAR', dTitle: 'Tasma uzatma oʻlchamlariga qarab tanlanadi',
+    toothAria: 'T5 tish profili, qadami 5 mm', dTooth: 'p — tish qadami', sProf: 'Profil', sStep: 'Qadam p', sLen: 'Uzunlik L', sW: 'Eni', mm: 'mm', dBtn: 'Parametrlar boʻyicha tanlash',
+    tickerLabel: 'Assortiment',
+    offTitle: 'Maxsus takliflar', sum: 'soʻm', special: 'Maxsus narx',
+    delivery: 'YETKAZIB BERISH', delTitle: '3 000 000 soʻmdan bepul', delText: 'Buyurtmani Toshkent boʻylab korxonangizgacha yetkazamiz.', delFargo: 'orqali Oʻzbekiston viloyatlariga', delBtn: 'Yetkazib berish shartlari',
+    newTitle: 'Yangi mahsulotlar', flAll: 'Barchasi', flT5: 'T5 turi', flPJ: 'PJ turi', flRound: 'Dumaloq kesimli', flClassic: 'Klassik',
+    isNew: 'Yangi', toFav: 'Saralanganlarga', toCart: 'Savatga', more: 'Yana koʻrsatish',
+    chEyebrow: 'ASBOB-USKUNALAR', chTitle: 'Kerakli tasma yoki lentani qanday tanlash',
+    ch1t: 'Parametrlar', ch1d: 'Profil, tish qadami, uzunlik va eni — odatda tasmaning oʻzida yoki uskuna pasportida koʻrsatilgan.',
+    ch2t: 'Xususiyatlar', ch2d: 'Material, kord va qoplama tasmaning xizmat muddati va ishlash sharoitiga taʼsir qiladi.',
+    ch3t: 'Qurilma quvvati', ch3d: 'Uzatiladigan quvvat va aylanishlar soni tasma turi va enini belgilaydi.',
+    nfTitle: 'Kerakli oʻlchamni topmadingizmi?', nfText: 'Tasma rasmi, artikul yoki oʻlchamlarni yuboring — original yoki analogini topib, narxini aytamiz.', tgBtn: 'Telegramga yozish',
+    mEyebrow: 'YOʻRIQNOMA', mTitle: 'Tasmani qanday oʻlchash', need: 'Kerak boʻladi:', tool1: 'shtangensirkul', tool2: 'ruletka', tool3: 'ip',
+    m0t: 'Avval tasmadagi markirovkani toping', m0a: 'Orqa tomonida odatda profil, uzunlik va eni yozilgan boʻladi — masalan', m0or: 'yoki', m0b: '. Markirovka oʻchib ketgan boʻlsa — quyidagi sxemalar boʻyicha oʻlchang.',
+    tAria: 'Tishli tasma: tishlar orasidagi qadam va eni', tStep: 'p — qadam', tTeeth: 'z — tishlar', tName: 'Tishli tasma',
+    t1b: 'Qadam p', t1: '— qoʻshni tishlar markazlari orasidagi masofa. Aniqroq: 10 ta qadamni oʻlchab, 10 ga boʻling (5 mm — T5/AT5, 10 mm — T10).',
+    t2b: 'Uzunlik', t2: '= tishlar soni z × qadam p. Misol: 329 × 5 = 1645 mm.',
+    t3b: 'Eni', t3: '— shtangensirkul bilan tasma koʻndalangiga, mm da.',
+    t4b: 'Tish shakli', t4: ': trapetsiya — T, kuchaytirilgan trapetsiya — AT. Profilni yon tomondan suratga oling.',
+    pAria: 'Koʻp ponali tasma kesimi: ariqchalar soni va qadam', pStepTxt: 'qadam 2,34 mm = PJ', pRibs: 'N ariqcha', pName: 'Koʻp ponali tasma',
+    p1b: 'Ariqchalar soni', p1: '— ishchi tomondagi ponalarni sanang (6 PJ = 6 ta ariqcha).',
+    p2b: 'Profil', p2: '— ponalar uchlari orasidagi qadam boʻyicha: 2,34 mm — PJ.',
+    p3b: 'Uzunlik', p3: '— ruletka yoki ipni tasmaning tashqi tomoniga taranglamasdan oʻrab, mm da oʻlchang.',
+    vAria: 'Ponasimon tasma kesimi: yuqori eni va balandligi', vWH: 'eni × balandligi', vCode: 'Li · klassik', vName: 'Ponasimon tasma',
+    v1b: 'Kesim', v1: '— shtangensirkul bilan tasmaning yuqori eni va balandligini oʻlchang (masalan, 8 mm).',
+    v2b: 'Uzunlik Li', v2: '— ichki uzunlik: tasmaning ichki tomoni boʻylab ruletka yoki ip bilan oʻlchang.',
+    v3: 'Faqat tashqi uzunlik maʼlum boʻlsa — buyurtmada koʻrsating, qayta hisoblab beramiz.',
+    rAria: 'Dumaloq kesimli tasma: diametr', rDia: 'Ø, mm', rLen: 'shkivlar boʻyicha uzunlik', rName: 'Dumaloq kesimli tasma',
+    r1b: 'Diametr', r1: '— shtangensirkul bilan tasma koʻndalangiga.',
+    r2b: 'Uzunlik', r2: '— ipni shkiv ariqchalari boʻylab tasma yuradigan yoʻldan oʻtkazib, uni oʻlchang.',
+    r3: 'Tasma metrlab sotiladi va kerakli uzunlikdagi halqa qilib payvandlanadi.',
+    tipTitle: 'Oʻlchov aniq boʻlishi uchun', tip1: '— Eski tasmani tekis yuzada, choʻzmasdan oʻlchang.', tip2: '— Eskirgan tasma yangisidan uzunroq boʻlishi mumkin: shubha boʻlsa, shkivlar boʻyicha oʻlchang.', tip3: '— 2–3 marta oʻlchab, oʻrtacha qiymatni oling.',
+    cantT: 'Oʻlchay olmayapsizmi?', cantD: 'Tasma yoniga chizgʻich qoʻyib suratga oling — turi va oʻlchamini aniqlaymiz.', sendPh: 'Rasm yuborish',
+    iEyebrow: 'SOHALAR', iTitle: 'Faoliyat sohalari',
+    i1t: 'Goʻsht va kolbasa ishlab chiqarish', i1d: 'Oziq-ovqat uskunalari uchun T5, T10 va MEGAPOWER2 tishli tasmalari',
+    i2t: 'Toʻqimachilik sanoati', i2d: 'Toʻqimachilik liniyalari uchun AT5 NOVOBELT tishli tasmalari',
+    i3t: 'Sizning sohangiz?', i3d: 'Uskunangiz haqida aytib bering — vazifaga mos tasma yoki lenta tanlab beramiz',
+    mkEyebrow: 'MARKETPLEYSLAR', mkTitle: 'Oʻzingizga qulay joydan xarid qiling', mkText: 'Tasmalarimiz marketpleyslardagi Remen.uz doʻkonlarida bor — odatiy toʻlov va yetkazib berish bilan buyurtma qiling.', mkBtn: 'Doʻkonga oʻtish',
+    b2bTitle: 'Korporativ mijozlar uchun', b2bText: 'Korxonalar uchun yetkazib berish: istalgan toʻlov shakli, boʻlib toʻlash, 3 000 000 soʻmdan bepul yetkazib berish.', b2bBtn: 'Taklif soʻrash',
+    partEyebrow: 'HAMKORLIK', partTitle: 'Hamkorlar uchun', partText: 'Servis kompaniyalari va dilerlar uchun — hamkorlik shartlari soʻrov boʻyicha.', partBtn: 'Hamkor boʻlish',
+    newsEyebrow: 'YANGILIKLAR · 28 OKT.', newsTitle: 'Sanoat uskunalari uchun uzatma tasmalari', allNews: 'Barcha yangiliklar →',
+    addr1: 'Chinobod koʻchasi, 1, Yunusobod,', addr2: 'Toshkent, 100039',
+    fCompany: 'Kompaniya', fAbout: 'Biz haqimizda', fContacts: 'Kontaktlar', fNews: 'Yangiliklar', fBrands: 'Brendlar', fOffer: 'Oferta',
+    fBuyers: 'Xaridorlar uchun', fHow: 'Buyurtma qanday beriladi', fDel: 'Yetkazib berish', fPay: 'Toʻlov', fRet: 'Qaytarish', fInst: 'Boʻlib toʻlash',
+    fInfo: 'Maʼlumot', fCorp: 'Korporativ mijozlarga', fPart: 'Hamkorlarga',
+    copy: '2026 © Remen.uz. Barcha huquqlar himoyalangan.'
+  }
+};
+
+export const L = {
+  ru: {
+    ticker: ['ЗУБЧАТЫЕ T5 · T10 · AT5', 'ПОЛИКЛИНОВЫЕ PJ', 'КЛИНОВЫЕ Li', 'КРУГЛЫЕ Ø 3–10 ММ', 'КОНВЕЙЕРНЫЕ ЛЕНТЫ', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'ДОСТАВКА ПО ТАШКЕНТУ'],
+    markets: [
+      { mark: 'U', name: 'Uzum Market', note: 'Магазин Remen.uz на Uzum Market', href: '#' },
+      { mark: 'O', name: 'Ozon', note: 'Магазин Remen.uz на Ozon Узбекистан', href: '#' },
+      { mark: 'ЯМ', name: 'Яндекс Маркет', note: 'Магазин Remen.uz на Яндекс Маркете', href: '#' },
+      { mark: 'WB', name: 'Wildberries', note: 'Магазин Remen.uz на Wildberries', href: '#' },
+      { mark: 'OP', name: 'optom.uz', note: 'Оптовые закупки для бизнеса', href: '#' }
+    ],
+    trust: [
+      { n: 'сум', title: 'Любая форма оплаты', sub: 'Наличные, карта, перечисление' },
+      { n: '24', title: 'Поддержка 24/7', sub: 'Telegram, WhatsApp, телефон' },
+      { n: '0', title: 'Бесплатная доставка', sub: 'По Ташкенту от 3 000 000 сум, в регионы — Fargo' },
+      { n: 'B2B', title: 'Корпоративным клиентам', sub: 'Рассрочка и договор' }
+    ],
+    cats: [
+      { code: 'T5 · T10', name: 'Зубчатые ремни', note: 'Megadyne, Novobelt — бесконечные и с профилями' },
+      { code: 'PJ', name: 'Поликлиновые ремни', note: 'Megadyne PV Belt' },
+      { code: 'Li', name: 'Клиновые ремни', note: 'Классические профили, Bando' },
+      { code: 'Ø 3–10 мм', name: 'Ремни круглого сечения', note: 'Термосвариваемые, продажа на метры' },
+      { code: 'ЛЕНТЫ', name: 'Конвейерные ленты', note: 'В том числе для пищевых производств' },
+      { code: 'СЕРВИС', name: 'Инструменты и оборудование', note: 'Для монтажа и сварки ремней' }
+    ],
+    offers: [
+      { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 Зубчатый ремень тип 1610 SLV14 85.00 MM', price: '3 348 800' },
+      { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 Зубчатый ремень тип 1400 SLV14 85.00 MM', price: '2 665 600' }
+    ],
+    products: [
+      { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 3 мм', price: '17 920', unit: 'сум / м' },
+      { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 6 мм', price: '38 080', unit: 'сум / м' },
+      { tag: 'Круглого сечения', title: 'Термосвариваемый ремень круглого сечения Ø 10 мм', price: '98 560', unit: 'сум / м' },
+      { tag: 'Тип T5', title: 'Зубчатый ремень тип T5 1645 38 NFT C', price: '3 452 960', unit: 'сум' },
+      { tag: 'Тип T5', title: 'Зубчатый ремень тип T5 1645 25 NFT A', price: '3 068 800', unit: 'сум' },
+      { tag: 'Тип PJ · MEGADYNE', title: 'Поликлиновой ремень 8 PJ 1059 MEGADYNE PV BELT', price: '138 880', unit: 'сум' },
+      { tag: 'Тип T10 · MEGADYNE', title: 'Зубчатый ремень 10 T10 530 MEGADYNE MEGAPOWER2', price: '198 240', unit: 'сум' },
+      { tag: 'Тип AT5 · NOVOBELT', title: 'Зубчатый ремень тип 25 AT5 3215 NOVOBELT PERFORMANCE', price: '900 480', unit: 'сум' }
+    ]
+  },
+  uz: {
+    ticker: ['TISHLI T5 · T10 · AT5', 'KOʻP PONALI PJ', 'PONASIMON Li', 'DUMALOQ Ø 3–10 MM', 'KONVEYER LENTALARI', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'TOSHKENT BOʻYLAB YETKAZISH'],
+    markets: [
+      { mark: 'U', name: 'Uzum Market', note: 'Uzum Market’dagi Remen.uz doʻkoni', href: '#' },
+      { mark: 'O', name: 'Ozon', note: 'Ozon Oʻzbekistondagi Remen.uz doʻkoni', href: '#' },
+      { mark: 'YM', name: 'Yandex Market', note: 'Yandex Market’dagi Remen.uz doʻkoni', href: '#' },
+      { mark: 'WB', name: 'Wildberries', note: 'Wildberries’dagi Remen.uz doʻkoni', href: '#' },
+      { mark: 'OP', name: 'optom.uz', note: 'Biznes uchun ulgurji xaridlar', href: '#' }
+    ],
+    trust: [
+      { n: 'soʻm', title: 'Istalgan toʻlov shakli', sub: 'Naqd, karta, pul oʻtkazish' },
+      { n: '24', title: 'Qoʻllab-quvvatlash 24/7', sub: 'Telegram, WhatsApp, telefon' },
+      { n: '0', title: 'Bepul yetkazib berish', sub: 'Toshkentda 3 000 000 soʻmdan, viloyatlarga — Fargo' },
+      { n: 'B2B', title: 'Korporativ mijozlar uchun', sub: 'Boʻlib toʻlash va shartnoma' }
+    ],
+    cats: [
+      { code: 'T5 · T10', name: 'Tishli tasmalar', note: 'Megadyne, Novobelt — uzluksiz va profilli' },
+      { code: 'PJ', name: 'Koʻp ponali tasmalar', note: 'Megadyne PV Belt' },
+      { code: 'Li', name: 'Ponasimon tasmalar', note: 'Klassik profillar, Bando' },
+      { code: 'Ø 3–10 mm', name: 'Dumaloq kesimli tasmalar', note: 'Termopayvandlanadigan, metrlab sotiladi' },
+      { code: 'LENTALAR', name: 'Konveyer lentalari', note: 'Shu jumladan oziq-ovqat ishlab chiqarish uchun' },
+      { code: 'SERVIS', name: 'Asbob-uskunalar', note: 'Tasmalarni oʻrnatish va payvandlash uchun' }
+    ],
+    offers: [
+      { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 tishli tasma 1610 SLV14 85.00 MM', price: '3 348 800' },
+      { brand: 'MEGADYNE', title: 'MEGADYNE SILVER3 tishli tasma 1400 SLV14 85.00 MM', price: '2 665 600' }
+    ],
+    products: [
+      { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 3 mm', price: '17 920', unit: 'soʻm / m' },
+      { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 6 mm', price: '38 080', unit: 'soʻm / m' },
+      { tag: 'Dumaloq kesimli', title: 'Termopayvandlanadigan dumaloq kesimli tasma Ø 10 mm', price: '98 560', unit: 'soʻm / m' },
+      { tag: 'T5 turi', title: 'Tishli tasma T5 1645 38 NFT C', price: '3 452 960', unit: 'soʻm' },
+      { tag: 'T5 turi', title: 'Tishli tasma T5 1645 25 NFT A', price: '3 068 800', unit: 'soʻm' },
+      { tag: 'PJ turi · MEGADYNE', title: 'Koʻp ponali tasma 8 PJ 1059 MEGADYNE PV BELT', price: '138 880', unit: 'soʻm' },
+      { tag: 'T10 turi · MEGADYNE', title: 'Tishli tasma 10 T10 530 MEGADYNE MEGAPOWER2', price: '198 240', unit: 'soʻm' },
+      { tag: 'AT5 turi · NOVOBELT', title: 'Tishli tasma 25 AT5 3215 NOVOBELT PERFORMANCE', price: '900 480', unit: 'soʻm' }
+    ]
+  }
+};
+
+export type Dict = (typeof T)["ru"];
+
+export const ACCENT = "#E2531A";
+
+export const MARKET_LOGOS: Record<string, string> = {
+  U: "/img/uzum.png",
+  O: "/img/ozon.png",
+  WB: "/img/wildberries.png",
+  "ЯМ": "/img/yandex-market.png",
+  YM: "/img/yandex-market.png",
+  OP: "/img/optom.png",
+};
+
+/** Marketplace entries with logo resolved; Yandex Market's logo needs the name next to it. */
+export function withLogos(markets: { mark: string; name: string; note: string; href: string }[]) {
+  return markets.map((m) => {
+    const logo = MARKET_LOGOS[m.mark] || "";
+    const logoText = logo === "/img/yandex-market.png" ? m.name : "";
+    return { ...m, logo, logoText };
+  });
+}

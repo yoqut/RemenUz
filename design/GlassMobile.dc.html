@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Remen.uz — Liquid Glass мобильная</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#FFFFFF;text-decoration:none}a:hover{color:#FFC4A3}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.glass{background:linear-gradient(140deg,rgba(255,255,255,.17),rgba(255,255,255,.05) 60%,rgba(255,255,255,.09));backdrop-filter:blur(26px) saturate(170%);-webkit-backdrop-filter:blur(26px) saturate(170%);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.06),0 20px 50px rgba(0,0,0,.35)}
+.glass-soft{background:rgba(255,255,255,.07);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.drop{border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 4%,rgba(255,255,255,.4) 10%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.03) 70%);border:1px solid rgba(255,255,255,.38);box-shadow:inset -8px -12px 22px rgba(255,255,255,.16),inset 6px 8px 14px rgba(0,0,0,.28),0 14px 32px rgba(0,0,0,.4);backdrop-filter:blur(4px) brightness(1.18);-webkit-backdrop-filter:blur(4px) brightness(1.18)}
+.liquid{background-image:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08) 48%,rgba(255,255,255,0) 52%);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),inset 0 -8px 16px rgba(0,0,0,.22),0 10px 24px rgba(0,0,0,.4)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.field{height:48px;padding:0 12px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.28);color:#FFFFFF;font:inherit;font-size:15px;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.field option{color:#15171A}
+input::placeholder{color:rgba(255,255,255,.55)}
+</style>
+</helmet>
+<div style="width: 390px; height: 2900px; box-sizing: border-box; position: relative; overflow: hidden; font-family: 'Manrope', system-ui, sans-serif; color: #FFFFFF; background: #0B0E14; font-size: 15px; line-height: 1.5">
+<div class="blob" style="top: -80px; left: -120px; width: 360px; height: 360px; background: {{accent}}; opacity: .6"></div>
+<div class="blob" style="top: 380px; right: -140px; width: 340px; height: 340px; background: #2F6BFF; opacity: .5"></div>
+<div class="blob" style="top: 1300px; left: -100px; width: 320px; height: 320px; background: #12B5A6; opacity: .35"></div>
+<div class="blob" style="top: 2100px; right: -120px; width: 340px; height: 340px; background: {{accent}}; opacity: .45"></div>
+
+<div style="position: relative; z-index: 1">
+<!-- Header -->
+<div style="padding: 12px 12px 0">
+<header class="glass" style="border-radius: 26px; padding: 10px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; padding-left: 6px">
+<a href="#" style="display: flex; align-items: center; gap: 8px">
+<span class="drop" style="width: 30px; height: 30px; display: block; background-color: {{accent}}"></span>
+<span style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 19px">remen<span style="color: #FFB088">.uz</span></span>
+</a>
+<div style="display: flex; gap: 6px">
+<a href="tel:+998787771188" aria-label="Позвонить" class="glass-soft" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"></path></svg>
+</a>
+<a href="#" aria-label="Меню" class="glass-soft" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8h14M5 16h14"></path></svg>
+</a>
+</div>
+</div>
+<form class="glass-soft" style="display: flex; align-items: center; height: 46px; border-radius: 999px; padding: 0 14px">
+<label for="gmq" class="sr">Поиск</label>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+<input id="gmq" type="search" placeholder="Артикул, напр. T5 1645" style="flex: 1; min-width: 0; border: 0; background: transparent; color: #FFFFFF; padding: 0 10px; font: inherit; font-size: 15px; outline: none">
+</form>
+</header>
+</div>
+
+<!-- Hero -->
+<section style="position: relative; padding: 32px 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<span class="drop" aria-hidden="true" style="position: absolute; top: 20px; right: 28px; width: 52px; height: 52px"></span>
+<span class="drop" aria-hidden="true" style="position: absolute; top: 96px; right: 90px; width: 18px; height: 18px"></span>
+<span class="glass-soft" style="align-self: start; padding: 6px 12px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px">ТАШКЕНТ · В НАЛИЧИИ</span>
+<h1 style="margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.12; letter-spacing: -0.5px">Приводные ремни и конвейерные ленты</h1>
+<p style="margin: 0; color: rgba(255,255,255,.8)">Megadyne, Bando и PIX. Подберём по артикулу, размерам или образцу.</p>
+</section>
+
+<!-- Finder -->
+<form class="glass" style="margin: 0 12px; padding: 20px; border-radius: 30px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 600">Подбор ремня</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="gm-type" style="font-size: 12px; font-weight: 700">Тип</label><select id="gm-type" class="field"><option>Зубчатый</option><option>Поликлиновой</option><option>Клиновой</option><option>Круглый</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="gm-prof" style="font-size: 12px; font-weight: 700">Профиль</label><select id="gm-prof" class="field"><option>T5</option><option>T10</option><option>PJ</option><option>Li</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="gm-len" style="font-size: 12px; font-weight: 700">Длина, мм</label><input id="gm-len" class="field" inputmode="numeric" placeholder="1645" style="font-family: 'JetBrains Mono', monospace"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><label for="gm-w" style="font-size: 12px; font-weight: 700">Ширина, мм</label><input id="gm-w" class="field" inputmode="numeric" placeholder="25" style="font-family: 'JetBrains Mono', monospace"></div>
+</div>
+<button type="submit" class="liquid" style="height: 52px; border: 0; border-radius: 999px; background-color: {{accent}}; color: #FFFFFF; font: inherit; font-weight: 700; font-size: 16px">Найти ремень</button>
+<a href="https://t.me/Remenuz_bot" style="text-align: center; font-size: 14px; color: #FFB088; font-weight: 700">Отправить фото ремня в Telegram →</a>
+</form>
+
+<!-- Trust capsules -->
+<div style="padding: 16px 12px 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<div class="glass-soft" style="padding: 12px 14px; border-radius: 22px; line-height: 1.3"><b style="display: block">Любая оплата</b><span style="font-size: 12px; color: rgba(255,255,255,.75)">карта, наличные, счёт</span></div>
+<div class="glass-soft" style="padding: 12px 14px; border-radius: 22px; line-height: 1.3"><b style="display: block">Поддержка 24/7</b><span style="font-size: 12px; color: rgba(255,255,255,.75)">Telegram, WhatsApp</span></div>
+<div class="glass-soft" style="padding: 12px 14px; border-radius: 22px; line-height: 1.3"><b style="display: block">Доставка 0 сум</b><span style="font-size: 12px; color: rgba(255,255,255,.75)">от 3 000 000 сум</span></div>
+<div class="glass-soft" style="padding: 12px 14px; border-radius: 22px; line-height: 1.3"><b style="display: block">Рассрочка</b><span style="font-size: 12px; color: rgba(255,255,255,.75)">для бизнеса</span></div>
+<div class="glass-soft" style="grid-column: span 2; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 22px; line-height: 1.3"><span style="flex: none; height: 32px; padding: 5px 10px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center"><img src="/_blob/648c4f81e7748692cb37a2ef33ccb976" alt="Fargo" style="height: 100%; display: block"></span><span><b style="display: block">Доставка в регионы</b><span style="font-size: 12px; color: rgba(255,255,255,.75)">курьером Fargo по всему Узбекистану</span></span></div>
+</div>
+</div>
+
+<!-- Categories -->
+<section style="padding: 32px 12px 0">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding: 0 8px">
+<h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 600">Каталог</h2>
+<a href="#" class="glass-soft" style="padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700">Все →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="6">
+<a href="#" class="glass" style="position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; min-height: 112px; padding: 14px; border-radius: 24px">
+<span class="drop" aria-hidden="true" style="position: absolute; top: -18px; right: -18px; width: 64px; height: 64px"></span>
+<span style="position: relative; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,.78)">{{c.code}}</span>
+<span style="position: relative; font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 600; line-height: 1.25">{{c.name}}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<!-- Products -->
+<section style="padding: 32px 12px 0">
+<h2 style="margin: 0 0 14px; padding: 0 8px; font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 600">Новые товары</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{products}}" as="p" hint-placeholder-count="6">
+<div class="glass" style="display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 24px">
+<div style="height: 110px; border-radius: 18px; background: rgba(0,0,0,.22); box-shadow: inset 0 2px 8px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center">
+<div class="drop" style="width: 88px; height: 88px; display: flex; align-items: center; justify-content: center">
+<svg width="60" height="33" viewBox="0 0 200 110" aria-hidden="true"><rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-dasharray="6 5"></rect></svg>
+</div>
+</div>
+<a href="GlassProduct.dc.html" style="font-size: 13px; font-weight: 700; line-height: 1.35; min-height: 53px; padding: 0 2px">{{p.title}}</a>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-left: 2px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; line-height: 1.2">{{p.price}}<br><span style="font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; color: rgba(255,255,255,.75)">{{p.unit}}</span></span>
+<button type="button" aria-label="В корзину" class="liquid" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background-color: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- Marketplaces -->
+<section style="padding: 28px 12px 0">
+<h2 style="margin: 0 0 4px; padding: 0 8px; font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.2">Мы на маркетплейсах</h2>
+<p style="margin: 0 0 14px; padding: 0 8px; font-size: 13px; color: rgba(255,255,255,.75)">Заказывайте с оплатой и доставкой площадки</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{markets}}" as="m" hint-placeholder-count="5">
+<a href="{{m.href}}" target="_blank" rel="noopener" class="glass" style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 999px">
+<sc-if value="{{m.hasLogo}}" hint-placeholder-val="{{ true }}">
+<span style="flex: 1; height: 40px; padding: 7px 12px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="{{m.logo}}" alt="{{m.name}}" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block"><sc-if value="{{m.hasText}}" hint-placeholder-val="{{ false }}"><span style="margin-left: 6px; color: #15171A; font-weight: 800; font-size: 12px; line-height: 1.05; white-space: nowrap">{{m.logoText}}</span></sc-if></span>
+</sc-if>
+<sc-if value="{{m.noLogo}}" hint-placeholder-val="{{ false }}">
+<span class="drop" style="flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700">{{m.mark}}</span>
+<span style="font-size: 13px; font-weight: 700; line-height: 1.2">{{m.name}}</span>
+</sc-if>
+</a>
+</sc-for>
+</div>
+</section>
+
+<!-- Promo -->
+<section class="glass" style="position: relative; overflow: hidden; margin: 24px 12px 0; padding: 22px; border-radius: 30px; display: flex; flex-direction: column; gap: 12px">
+<span class="drop" aria-hidden="true" style="position: absolute; right: -30px; top: -30px; width: 110px; height: 110px; background-color: rgba(47,107,255,.2)"></span>
+<h2 style="position: relative; margin: 0; font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.2">Не нашли нужный размер?</h2>
+<p style="position: relative; margin: 0; color: rgba(255,255,255,.8)">Пришлите фото или артикул — подберём оригинал или аналог.</p>
+<a href="https://t.me/Remenuz_bot" class="liquid" style="position: relative; height: 50px; display: flex; align-items: center; justify-content: center; background-color: {{accent}}; font-weight: 700; border-radius: 999px">Написать в Telegram</a>
+</section>
+</div>
+
+<!-- Floating glass tab bar -->
+<nav aria-label="Основное меню" class="glass" style="position: absolute; left: 14px; right: 14px; bottom: 18px; z-index: 2; height: 66px; border-radius: 999px; padding: 6px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); font-size: 11px; font-weight: 700">
+<a href="#" class="liquid" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-radius: 999px; background-color: rgba(255,255,255,.2)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"></path></svg>Главная</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-radius: 999px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>Каталог</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-radius: 999px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>Избранное</a>
+<a href="GlassCart.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border-radius: 999px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>Корзина</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#E2531A","options":["#E2531A","#2F6BFF","#12A594","#7C4DFF"]},"$preview":{"width":390,"height":2900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#E2531A',
+      markets: [
+        { mark: 'U', name: 'Uzum Market', href: '#', logo: '/_blob/bf2a05f91cc6061dc01fa4c19df703d2' },
+        { mark: 'O', name: 'Ozon', href: '#', logo: '/_blob/bebbb6bc93c9a6a1cdb8849e55a47959' },
+        { mark: 'ЯМ', name: 'Яндекс Маркет', href: '#', logo: '/_blob/9c868adc45910bcb014913374947ea45', logoText: 'Яндекс Маркет' },
+        { mark: 'WB', name: 'Wildberries', href: '#', logo: '/_blob/a6be7f69637082623ea621ff6278c7f4' },
+        { mark: 'OP', name: 'optom.uz', href: '#', logo: '/_blob/36139a3f01d0f0291fa387e1b066e3cc' }
+      ].map((m) => Object.assign({}, m, { hasLogo: !!m.logo, noLogo: !m.logo, hasText: !!m.logoText })),
+      cats: [
+        { code: 'T5 · T10', name: 'Зубчатые ремни' },
+        { code: 'PJ', name: 'Поликлиновые ремни' },
+        { code: 'Li', name: 'Клиновые ремни' },
+        { code: 'Ø 3–10 мм', name: 'Круглого сечения' },
+        { code: 'ЛЕНТЫ', name: 'Конвейерные ленты' },
+        { code: 'СЕРВИС', name: 'Инструменты' }
+      ],
+      products: [
+        { title: 'Зубчатый ремень тип T5 1645 25 NFT A', price: '3 068 800', unit: 'сум' },
+        { title: 'Поликлиновой ремень 6 PJ 533 MEGADYNE', price: '88 480', unit: 'сум' },
+        { title: 'Клиновой ремень 8 mm 875 Li BANDO', price: '17 920', unit: 'сум' },
+        { title: 'Зубчатый ремень 10 T5 800 MEGAPOWER2', price: '159 040', unit: 'сум' },
+        { title: 'Ремень круглого сечения Ø 6 мм', price: '38 080', unit: 'сум / м' },
+        { title: 'Ремень круглого сечения Ø 10 мм', price: '98 560', unit: 'сум / м' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

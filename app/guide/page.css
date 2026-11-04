@@ -1,0 +1,6 @@
+/* Guide page: tighten the large glass panels on phones */
+@media (max-width: 640px) {
+  .guide-page .g-panel { padding: 18px !important; border-radius: 28px !important; }
+  .guide-page .g-choose { padding: 22px !important; gap: 28px !important; }
+  .guide-page .g-nf { padding: 24px !important; }
+}
