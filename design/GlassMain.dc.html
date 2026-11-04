@@ -219,15 +219,17 @@ input::placeholder{color:rgba(255,255,255,.55)}
 <h2 style="margin: 0; font-family: 'Unbounded', sans-serif; font-size: 38px; font-weight: 600; letter-spacing: -1px">{{t.cat}}</h2>
 <a href="GlassCatalog.dc.html" class="glass-soft" style="padding: 10px 18px; border-radius: 999px; font-weight: 700">{{t.allCat}}</a>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 12px">
 <sc-for list="{{cats}}" as="c" hint-placeholder-count="11">
-<a href="GlassCatalog.dc.html" class="glass lift" style="position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; min-height: 200px; padding: 26px; border-radius: 30px; overflow: hidden; transition: transform .2s">
-<span class="drop" aria-hidden="true" style="position: absolute; top: -30px; right: -30px; width: 130px; height: 130px"></span>
-<span style="position: relative; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(255,255,255,.78)">{{c.code}}</span>
-<div style="position: relative">
-<div style="font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.2">{{c.name}}</div>
-<div style="margin-top: 8px; font-size: 14px; color: rgba(255,255,255,.72)">{{c.note}}</div>
-</div>
+<a href="GlassCatalog.dc.html" class="glass lift" style="display: flex; align-items: center; gap: 14px; min-width: 0; padding: 14px 18px 14px 14px; border-radius: 24px; transition: transform .2s">
+<span class="drop" aria-hidden="true" style="flex: none; width: 56px; height: 56px; padding: 5px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; line-height: 1.15; text-align: center">{{c.code}}</span>
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+<span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px">
+<span style="font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 600; line-height: 1.25; hyphens: auto; overflow-wrap: break-word">{{c.name}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,.6); white-space: nowrap">{{c.countLabel}}</span>
+</span>
+<sc-if value="{{c.hasKids}}" hint-placeholder-val="{{ true }}"><span style="font-size: 13px; line-height: 1.35; color: rgba(255,255,255,.72)">{{c.kidsLine}}</span></sc-if>
+</span>
 </a>
 </sc-for>
 </div>
@@ -626,6 +628,7 @@ class Component extends DCLogic {
     const MENU_CAT = {"ru":{"sections":[{"code":"КЛ","name":"Конвейерные ленты","note":"","kids":[],"hasKids":false},{"code":"ПП","name":"Плоские приводные ремни","note":"","kids":[],"hasKids":false},{"code":"HTD · STD · RPP","name":"Зубчатые ремни","note":"Профиль - HTD, Профиль - STD, Профиль - RPP, Ремни с дюймовым шагом","kids":["Профиль - HTD","Профиль - STD","Профиль - RPP","Ремни с дюймовым шагом"],"hasKids":true},{"code":"T5 · T10 · AT5 …","name":"Зубчатые полиуретановые ремни","note":"Тип - T5, Тип - T10, Тип - AT5, Тип - AT10 …","kids":["Тип - T5","Тип - T10","Тип - AT5","Тип - AT10","Тип - AT20"],"hasKids":true},{"code":"КР","name":"Клиновые ремни","note":"Классические ремни, Узкопрофильные ремни, Узкопрофильные зубчатые ремни","kids":["Классические ремни","Узкопрофильные ремни","Узкопрофильные зубчатые ремни"],"hasKids":true},{"code":"PH · PJ · PK …","name":"Поликлиновые ремни","note":"Тип - PH, Тип - PJ, Тип - PK, Тип - PL …","kids":["Тип - PH","Тип - PJ","Тип - PK","Тип - PL","Тип - PM"],"hasKids":true},{"code":"СР","name":"Специальные ремни","note":"","kids":[],"hasKids":false},{"code":"МЛ","name":"Модульные ленты","note":"","kids":[],"hasKids":false},{"code":"ТР","name":"Термосвариваемые ремни","note":"Ремни круглого сечения","kids":["Ремни круглого сечения"],"hasKids":true},{"code":"ПН","name":"Покрытия на валы","note":"","kids":[],"hasKids":false},{"code":"МЗ","name":"Механические замки для лент и ремней","note":"","kids":[],"hasKids":false}],"spheres":[{"code":"ПП","name":"Пищевая промышленность","note":"Производство кондитерских изделий, Мясные / колбасные изделия","kids":["Производство кондитерских изделий","Мясные / колбасные изделия"],"hasKids":true},{"code":"ТП","name":"Текстильная промышленность","note":"Специфические ремни для текстиля","kids":["Специфические ремни для текстиля"],"hasKids":true}],"spheresLabel":"СФЕРЫ ДЕЯТЕЛЬНОСТИ"},"uz":{"sections":[{"code":"КЛ","name":"Konveyer lentalari","note":"","kids":[],"hasKids":false},{"code":"ПП","name":"Yassi haydovchi kamarlar","note":"","kids":[],"hasKids":false},{"code":"HTD · STD · RPP","name":"Tishli kamarlar","note":"Profil - HTD, Profil - STD, Profil - RPP, Dyuymli chiziqli kamarlar","kids":["Profil - HTD","Profil - STD","Profil - RPP","Dyuymli chiziqli kamarlar"],"hasKids":true},{"code":"T5 · T10 · AT5 …","name":"Tishli poliuretan kamarlari","note":"Turi - T5, Turi - T10, Turi - AT5, Turi - AT10 …","kids":["Turi - T5","Turi - T10","Turi - AT5","Turi - AT10","Turi - AT20"],"hasKids":true},{"code":"КР","name":"V-kamarlar","note":"Klassik kamarlar, Tor profilli kamarlar, Tor profilli vaqt kamarlari","kids":["Klassik kamarlar","Tor profilli kamarlar","Tor profilli vaqt kamarlari"],"hasKids":true},{"code":"PH · PJ · PK …","name":"V-chiziqli kamarlar","note":"Turi - PH, Turi - PJ, Turi - PK, Turi - PL …","kids":["Turi - PH","Turi - PJ","Turi - PK","Turi - PL","Turi - PM"],"hasKids":true},{"code":"СР","name":"Maxsus kamarlar","note":"","kids":[],"hasKids":false},{"code":"МЛ","name":"Modulli kamarlar","note":"","kids":[],"hasKids":false},{"code":"ТР","name":"Issiqlik bilan yopishtiriladigan kamarlar","note":"Dumaloq kamarlar","kids":["Dumaloq kamarlar"],"hasKids":true},{"code":"ПН","name":"Mil qoplamalari","note":"","kids":[],"hasKids":false},{"code":"МЗ","name":"Lenta va kamar uchun mexanik qulflar","note":"","kids":[],"hasKids":false}],"spheres":[{"code":"ПП","name":"Oziq-ovqat sanoati","note":"Qandolat mahsulotlari ishlab chiqarish, Go'sht / kolbasa mahsulotlari","kids":["Qandolat mahsulotlari ishlab chiqarish","Go'sht / kolbasa mahsulotlari"],"hasKids":true},{"code":"ТП","name":"To'qimachilik sanoati","note":"To'qimachilik uchun maxsus kamarlar","kids":["To'qimachilik uchun maxsus kamarlar"],"hasKids":true}],"spheresLabel":"FAOLIYAT SOHALARI"}};
     const lang = this.state.lang ?? this.props.startLang ?? 'ru';
     const menu = MENU_CAT[lang] || MENU_CAT.ru;
+    const SECTION_COUNTS = [0,0,550,38,721,37,16,0,6,0,0];
     const t = T[lang] || T.ru;
     const d = L[lang] || L.ru;
     const accent = this.props.accent ?? '#E2531A';
@@ -706,7 +709,13 @@ class Component extends DCLogic {
         return Object.assign({}, m, { logo, hasLogo: !!logo, noLogo: !logo, logoText, hasText: !!logoText });
       }),
       trust: d.trust,
-      cats: menu.sections,
+      cats: menu.sections.map((c, i) => {
+        const n = SECTION_COUNTS[i];
+        return Object.assign({}, c, {
+          countLabel: n ? n + (lang === 'uz' ? ' ta' : ' шт') : (lang === 'uz' ? 'buyurtmaga' : 'под заказ'),
+          kidsLine: c.kids.map((k) => k.replace(/^(Тип|Профиль|Turi|Profil)\s*-\s*/i, '')).join(' · '),
+        });
+      }),
       offers: d.offers,
       cartCount,
       products: d.products.slice(0, 4).map((p) => withAdd(p, p.title))

@@ -62,8 +62,10 @@ const toCartProduct = (p: ProductCard): CartProduct => ({ id: p.id, slug: p.slug
 
 /** Card subtitle: the first few subcategories, or nothing for a leaf section. */
 function catNote(c: Category, lang: Lang) {
-  const kids = childrenOf(c.id).map((k) => catName(k, lang));
-  return kids.slice(0, 4).join(", ") + (kids.length > 4 ? " …" : "");
+  // "Тип - PJ" / "Профиль - HTD" → "PJ" / "HTD": the prefix repeats on every item and only adds length.
+  return childrenOf(c.id)
+    .map((k) => catName(k, lang).replace(/^(Тип|Профиль|Turi|Profil)\s*-\s*/i, ""))
+    .join(" · ");
 }
 
 export function HomeView({ offers, fresh }: { offers: ProductCard[]; fresh: ProductCard[] }) {
@@ -114,15 +116,18 @@ export function HomeView({ offers, fresh }: { offers: ProductCard[]; fresh: Prod
           <h2 className="h2" style={h2}>{t.cat}</h2>
           <Link href="/catalog" className="glass-soft" style={{ padding: "10px 18px", borderRadius: 999, fontWeight: 700 }}>{t.allCat}</Link>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 18 }}>
+        {/* Compact cards: drop with profile codes, then name, product count and subcategories. */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 290px), 1fr))", gap: 12 }}>
           {childrenOf(CATALOG_ROOT).map((c) => (
-            <Link key={c.id} href={`/catalog/${c.slug}`} className="glass lift" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 48, minHeight: 200, padding: 26, borderRadius: 30, overflow: "hidden", transition: "transform .2s" }}>
-              <span className="drop" aria-hidden="true" style={{ position: "absolute", top: -30, right: -30, width: 130, height: 130 }} />
-              <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, color: "rgba(255,255,255,.78)" }}>{catCode(c)}</span>
-              <div style={{ position: "relative" }}>
-                <div style={{ fontFamily: DISPLAY, fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{catName(c, lang)}</div>
-                <div style={{ marginTop: 8, fontSize: 14, color: "rgba(255,255,255,.72)" }}>{catNote(c, lang)}</div>
-              </div>
+            <Link key={c.id} href={`/catalog/${c.slug}`} className="glass lift" style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px 14px 14px", borderRadius: 24, transition: "transform .2s", minWidth: 0 }}>
+              <span className="drop" aria-hidden="true" style={{ flex: "none", width: 56, height: 56, padding: 5, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: MONO, fontSize: 9, fontWeight: 600, lineHeight: 1.15, textAlign: "center" }}>{catCode(c)}</span>
+              <span style={{ display: "flex", flexDirection: "column", gap: 3, minWidth: 0 }}>
+                <span style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "2px 10px" }}>
+                  <span style={{ fontFamily: DISPLAY, fontSize: 15, fontWeight: 600, lineHeight: 1.25, hyphens: "auto", overflowWrap: "break-word" }}>{catName(c, lang)}</span>
+                  <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.6)", whiteSpace: "nowrap" }}>{c.count ? (lang === "uz" ? `${c.count} ta` : `${c.count} шт`) : lang === "uz" ? "buyurtmaga" : "под заказ"}</span>
+                </span>
+                {catNote(c, lang) && <span style={{ fontSize: 13, lineHeight: 1.35, color: "rgba(255,255,255,.72)" }}>{catNote(c, lang)}</span>}
+              </span>
             </Link>
           ))}
         </div>
