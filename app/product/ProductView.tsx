@@ -81,16 +81,16 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
 
       <div style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
-          <header className="glass" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
+        <div className="sticky-head" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
+          <header className="glass pill-head" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
             <Logo height={32} />
             <Link href="/catalog" className="liquid" style={{ height: 44, padding: "0 20px", display: "flex", alignItems: "center", backgroundColor: accent, fontWeight: 700, borderRadius: 999 }}>Каталог</Link>
-            <form className="glass-soft" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 320px", display: "flex", alignItems: "center", height: 44, borderRadius: 999, padding: "0 16px" }}>
+            <form className="glass-soft pill-search" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 320px", display: "flex", alignItems: "center", height: 44, borderRadius: 999, padding: "0 16px" }}>
               <label htmlFor="gpq" className="sr">Поиск</label>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
               <input id="gpq" type="search" placeholder="Артикул или размер" style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "#FFFFFF", padding: "0 12px", font: "inherit", fontSize: 15, outline: "none" }} />
             </form>
-            <a href="tel:+998787771188" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
+            <a href="tel:+998787771188" className="hide-sm" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
             <Link href="/cart" aria-label={`Корзина, ${goodsRu(cart.count)}`} className="glass-soft" style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="17" cy="19.5" r="1.5" /></svg>
               {cart.count > 0 && (

@@ -29,4 +29,11 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
   .h2{font-size:28px !important}
   /* The full header wraps to several rows on a phone; pinned, it would cover a third of the screen. */
   .sticky-head{position:relative !important}
+  /* Pill headers (cart, product): a wrapped pill becomes a huge oval, so square it off and tighten it. */
+  .pill-head{border-radius:24px !important;padding:8px 8px 8px 14px !important;gap:8px 10px !important}
+  .pill-head img[alt="Remen.uz"]{height:26px !important}
+  .pill-search{order:9;flex-basis:100% !important}
+  .hide-sm{display:none !important}
 }
+.show-sm{display:none}
+@media (max-width: 640px){.show-sm{display:inline}}

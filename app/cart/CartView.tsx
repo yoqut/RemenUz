@@ -225,13 +225,13 @@ export function CartView() {
     <PageShell blobs={blobs}>
       {/* Header */}
       <div className="sec" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
-        <header className="glass" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
+        <header className="glass pill-head" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
           <Logo height={32} />
           <Link href="/" className="glass-soft" style={{ height: 44, padding: "0 18px", display: "flex", alignItems: "center", gap: 8, fontWeight: 700, borderRadius: 999 }}>
-            ← Продолжить покупки
+            ← <span className="hide-sm">Продолжить покупки</span><span className="show-sm">Назад</span>
           </Link>
           <span style={{ flex: 1 }} />
-          <a href="tel:+998787771188" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
+          <a href="tel:+998787771188" className="hide-sm" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
           <span
             aria-label={`Корзина, ${goodsRu(cart.count)}`}
             className="liquid"
