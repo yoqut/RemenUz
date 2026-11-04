@@ -1,10 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties, type MouseEvent } from "react";
+import { useState, type CSSProperties } from "react";
 import { useLang, useT } from "@/lib/lang";
-import { ACCENT, L, T } from "@/lib/i18n";
+import { ACCENT, T } from "@/lib/i18n";
+import { CATALOG_ROOT, CATALOG_T, SPHERES_ROOT, catCode, catName, childrenOf, type Category } from "@/lib/catalog";
 import { Logo } from "./Logo";
+
+/** One section of the catalog menu: drop with profile codes, name, and its subcategories. */
+function CatCard({ c, onPick }: { c: Category; onPick: () => void }) {
+  const { lang } = useLang();
+  const kids = childrenOf(c.id);
+  return (
+    <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 8, padding: "12px 16px 12px 12px", borderRadius: 20 }}>
+      <Link href={`/catalog/${c.slug}`} onClick={onPick} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <span className="drop" style={{ flex: "none", width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'JetBrains Mono', monospace", fontSize: 9, fontWeight: 600, textAlign: "center", lineHeight: 1.1, padding: 4 }}>{catCode(c)}</span>
+        <span style={{ lineHeight: 1.3, fontWeight: 700 }}>{catName(c, lang)}</span>
+      </Link>
+      {kids.length > 0 && (
+        <span style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", paddingLeft: 62, fontSize: 13 }}>
+          {kids.map((k) => (
+            <Link key={k.id} href={`/catalog/${k.slug}`} onClick={onPick} style={{ color: "rgba(255,255,255,.72)" }}>{catName(k, lang)}</Link>
+          ))}
+        </span>
+      )}
+    </div>
+  );
+}
 
 const langBtn = (on: boolean): CSSProperties => ({
   height: 38,
@@ -34,12 +56,11 @@ const pill: CSSProperties = { padding: "8px 14px", borderRadius: 999 };
 export function Header() {
   const { lang, setLang } = useLang();
   const t = useT(T);
-  const { cats } = useT(L);
+  const ct = useT(CATALOG_T);
   const [catOpen, setCatOpen] = useState(false);
-  const closeCat = (e: MouseEvent) => {
-    e.preventDefault();
-    setCatOpen(false);
-  };
+  const closeCat = () => setCatOpen(false);
+  const sections = childrenOf(CATALOG_ROOT);
+  const spheres = childrenOf(SPHERES_ROOT);
 
   return (
     <div style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
@@ -91,17 +112,19 @@ export function Header() {
           <a href="#" style={{ ...pill, color: "#FFB088" }}>{t.n8}</a>
         </nav>
         {catOpen && (
-          <div id="catmenu" style={{ marginTop: 6, padding: 18, borderRadius: 22, background: "rgba(0,0,0,.28)", boxShadow: "inset 0 2px 12px rgba(0,0,0,.35)", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 10 }}>
-            {cats.map((c) => (
-              <a key={c.code} href="#" onClick={closeCat} className="glass-soft" style={{ display: "flex", alignItems: "center", gap: 14, padding: "12px 16px 12px 12px", borderRadius: 20 }}>
-                <span className="drop" style={{ flex: "none", width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fontWeight: 600, textAlign: "center", lineHeight: 1.1 }}>{c.code}</span>
-                <span style={{ lineHeight: 1.3 }}>
-                  <span style={{ display: "block", fontWeight: 700 }}>{c.name}</span>
-                  <span style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.72)" }}>{c.note}</span>
-                </span>
-              </a>
-            ))}
-            <a href="#" onClick={closeCat} className="liquid" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 72, borderRadius: 20, backgroundColor: ACCENT, fontWeight: 700 }}>{t.allCat}</a>
+          <div id="catmenu" style={{ marginTop: 6, padding: 18, borderRadius: 22, background: "rgba(0,0,0,.28)", boxShadow: "inset 0 2px 12px rgba(0,0,0,.35)", display: "flex", flexDirection: "column", gap: 14, maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: 10 }}>
+              {sections.map((c) => (
+                <CatCard key={c.id} c={c} onPick={closeCat} />
+              ))}
+              <Link href="/catalog" onClick={closeCat} className="liquid" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 72, borderRadius: 20, backgroundColor: ACCENT, fontWeight: 700 }}>{t.allCat}</Link>
+            </div>
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: 1, color: "rgba(255,255,255,.72)", padding: "0 4px", textTransform: "uppercase" }}>{ct.spheres}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: 10 }}>
+              {spheres.map((c) => (
+                <CatCard key={c.id} c={c} onPick={closeCat} />
+              ))}
+            </div>
           </div>
         )}
       </header>

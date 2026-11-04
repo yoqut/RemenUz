@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
-import { ProductView } from "./ProductView";
-import "./page.css";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Зубчатый ремень T5 1645 25 NFT A" };
-
-export default function ProductPage() {
-  return <ProductView />;
+// Products live at /product/[slug]; the bare path goes to the catalog.
+export default function ProductIndex() {
+  redirect("/catalog");
 }

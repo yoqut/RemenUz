@@ -5,7 +5,8 @@ import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageShell } from "@/components/PageShell";
-import { useT } from "@/lib/lang";
+import { useLang, useT, type Lang } from "@/lib/lang";
+import { CATALOG_ROOT, catCode, catName, childrenOf, type Category } from "@/lib/catalog";
 import { ACCENT, L, T, withLogos } from "@/lib/i18n";
 
 const MONO = "'JetBrains Mono', monospace";
@@ -48,7 +49,14 @@ function BeltIcon({ width, height }: { width: number; height: number }) {
   );
 }
 
+/** Card subtitle: the first few subcategories, or nothing for a leaf section. */
+function catNote(c: Category, lang: Lang) {
+  const kids = childrenOf(c.id).map((k) => catName(k, lang));
+  return kids.slice(0, 4).join(", ") + (kids.length > 4 ? " …" : "");
+}
+
 export function HomeView() {
+  const { lang } = useLang();
   const t = useT(T);
   const d = useT(L);
   const ticker = d.ticker.concat(d.ticker);
@@ -65,7 +73,7 @@ export function HomeView() {
           <h1 className="h1" style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 56, lineHeight: 1.06, letterSpacing: -1.5 }}>{t.h1}</h1>
           <p style={{ margin: 0, fontSize: 19, color: "rgba(255,255,255,.8)", maxWidth: 540 }}>{t.lead}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            <a href="#" className="liquid" style={{ height: 56, padding: "0 30px", display: "flex", alignItems: "center", backgroundColor: ACCENT, fontWeight: 700, borderRadius: 999 }}>{t.openCat}</a>
+            <Link href="/catalog" className="liquid" style={{ height: 56, padding: "0 30px", display: "flex", alignItems: "center", backgroundColor: ACCENT, fontWeight: 700, borderRadius: 999 }}>{t.openCat}</Link>
             <a href="https://t.me/Remenuz_bot" className="glass" style={{ height: 56, padding: "0 26px", display: "flex", alignItems: "center", gap: 10, fontWeight: 700, borderRadius: 999 }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
               {t.sendPhoto}
@@ -121,18 +129,18 @@ export function HomeView() {
       <section className="sec" style={section}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 12, marginBottom: 28 }}>
           <h2 className="h2" style={h2}>{t.cat}</h2>
-          <a href="#" className="glass-soft" style={{ padding: "10px 18px", borderRadius: 999, fontWeight: 700 }}>{t.allCat}</a>
+          <Link href="/catalog" className="glass-soft" style={{ padding: "10px 18px", borderRadius: 999, fontWeight: 700 }}>{t.allCat}</Link>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 18 }}>
-          {d.cats.map((c) => (
-            <a key={c.code} href="#" className="glass lift" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 48, minHeight: 200, padding: 26, borderRadius: 30, overflow: "hidden", transition: "transform .2s" }}>
+          {childrenOf(CATALOG_ROOT).map((c) => (
+            <Link key={c.id} href={`/catalog/${c.slug}`} className="glass lift" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 48, minHeight: 200, padding: 26, borderRadius: 30, overflow: "hidden", transition: "transform .2s" }}>
               <span className="drop" aria-hidden="true" style={{ position: "absolute", top: -30, right: -30, width: 130, height: 130 }} />
-              <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, color: "rgba(255,255,255,.78)" }}>{c.code}</span>
+              <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, color: "rgba(255,255,255,.78)" }}>{catCode(c)}</span>
               <div style={{ position: "relative" }}>
-                <div style={{ fontFamily: DISPLAY, fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{c.name}</div>
-                <div style={{ marginTop: 8, fontSize: 14, color: "rgba(255,255,255,.72)" }}>{c.note}</div>
+                <div style={{ fontFamily: DISPLAY, fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{catName(c, lang)}</div>
+                <div style={{ marginTop: 8, fontSize: 14, color: "rgba(255,255,255,.72)" }}>{catNote(c, lang)}</div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

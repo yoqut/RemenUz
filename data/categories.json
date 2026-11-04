@@ -1,0 +1,605 @@
+[
+ {
+  "id": 1,
+  "slug": "1-katalog",
+  "parentId": null,
+  "order": 0,
+  "name": "Каталог",
+  "nameUz": "Katalog",
+  "count": 0
+ },
+ {
+  "id": 2,
+  "slug": "2-sfery-deyatelnosti",
+  "parentId": null,
+  "order": 0,
+  "name": "Сферы деятельности",
+  "nameUz": "Faoliyat sohalari",
+  "count": 0
+ },
+ {
+  "id": 4,
+  "slug": "4-tip-xl",
+  "parentId": 98,
+  "order": 0,
+  "name": "Тип - XL",
+  "nameUz": "Turi - XL",
+  "count": 31
+ },
+ {
+  "id": 5,
+  "slug": "5-pishevaya-promyshlennost",
+  "parentId": 2,
+  "order": 0,
+  "name": "Пищевая промышленность",
+  "nameUz": "Oziq-ovqat sanoati",
+  "count": 18
+ },
+ {
+  "id": 6,
+  "slug": "6-proizvodstvo-konditerskih-izdelij",
+  "parentId": 5,
+  "order": 0,
+  "name": "Производство кондитерских изделий",
+  "nameUz": "Qandolat mahsulotlari ishlab chiqarish",
+  "count": 1
+ },
+ {
+  "id": 18,
+  "slug": "18-tip-rpp3-3m",
+  "parentId": 50,
+  "order": 0,
+  "name": "Тип - HTD 3M",
+  "nameUz": "Turi - HTD 3M",
+  "count": 18
+ },
+ {
+  "id": 19,
+  "slug": "19-tip-rpp5-5m",
+  "parentId": 50,
+  "order": 0,
+  "name": "Тип - HTD 5M",
+  "nameUz": "Turi - HTD 5M",
+  "count": 76
+ },
+ {
+  "id": 24,
+  "slug": "24-tip-t5",
+  "parentId": 23,
+  "order": 0,
+  "name": "Тип - T5",
+  "nameUz": "Turi - T5",
+  "count": 17
+ },
+ {
+  "id": 25,
+  "slug": "25-tip-t10",
+  "parentId": 23,
+  "order": 0,
+  "name": "Тип - T10",
+  "nameUz": "Turi - T10",
+  "count": 10
+ },
+ {
+  "id": 26,
+  "slug": "26-tip-at5",
+  "parentId": 23,
+  "order": 0,
+  "name": "Тип - AT5",
+  "nameUz": "Turi - AT5",
+  "count": 5
+ },
+ {
+  "id": 27,
+  "slug": "27-tip-at10",
+  "parentId": 23,
+  "order": 0,
+  "name": "Тип - AT10",
+  "nameUz": "Turi - AT10",
+  "count": 2
+ },
+ {
+  "id": 38,
+  "slug": "38-remni-kruglogo-secheniya",
+  "parentId": 29,
+  "order": 0,
+  "name": "Ремни круглого сечения",
+  "nameUz": "Dumaloq kamarlar",
+  "count": 6
+ },
+ {
+  "id": 46,
+  "slug": "46-tip-ph",
+  "parentId": 30,
+  "order": 0,
+  "name": "Тип - PH",
+  "nameUz": "Turi - PH",
+  "count": 0
+ },
+ {
+  "id": 50,
+  "slug": "50-tip-htd",
+  "parentId": 16,
+  "order": 0,
+  "name": "Профиль - HTD",
+  "nameUz": "Profil - HTD",
+  "count": 230
+ },
+ {
+  "id": 67,
+  "slug": "67-tip-h",
+  "parentId": 98,
+  "order": 0,
+  "name": "Тип - H",
+  "nameUz": "Turi - H",
+  "count": 53
+ },
+ {
+  "id": 70,
+  "slug": "70-myasnye-kolbasnye-izdeliya",
+  "parentId": 5,
+  "order": 0,
+  "name": "Мясные / колбасные изделия",
+  "nameUz": "Go'sht / kolbasa mahsulotlari",
+  "count": 17
+ },
+ {
+  "id": 75,
+  "slug": "75-klassicheskie-remni",
+  "parentId": 7,
+  "order": 0,
+  "name": "Классические ремни",
+  "nameUz": "Klassik kamarlar",
+  "count": 485
+ },
+ {
+  "id": 77,
+  "slug": "77-uzkoprofilnye-remni",
+  "parentId": 7,
+  "order": 0,
+  "name": "Узкопрофильные ремни",
+  "nameUz": "Tor profilli kamarlar",
+  "count": 89
+ },
+ {
+  "id": 78,
+  "slug": "78-uzkoprofilnye-zubchatye-remni",
+  "parentId": 7,
+  "order": 0,
+  "name": "Узкопрофильные зубчатые ремни",
+  "nameUz": "Tor profilli vaqt kamarlari",
+  "count": 147
+ },
+ {
+  "id": 79,
+  "slug": "79-tekstilnaya-promyshlennost",
+  "parentId": 2,
+  "order": 0,
+  "name": "Текстильная промышленность ",
+  "nameUz": "To'qimachilik sanoati",
+  "count": 3
+ },
+ {
+  "id": 80,
+  "slug": "80-specificheskie-remni-dlya-tekstilya",
+  "parentId": 79,
+  "order": 0,
+  "name": "Специфические ремни для текстиля",
+  "nameUz": "To'qimachilik uchun maxsus kamarlar",
+  "count": 3
+ },
+ {
+  "id": 90,
+  "slug": "90-tip-std2-s2m",
+  "parentId": 96,
+  "order": 0,
+  "name": "Тип - STD2 / S2M",
+  "nameUz": "Turi - STD2/S2M",
+  "count": 1
+ },
+ {
+  "id": 91,
+  "slug": "91-tip-std3-s3m",
+  "parentId": 96,
+  "order": 0,
+  "name": "Тип - STD3 / S3M",
+  "nameUz": "Turi - STD3/S3M",
+  "count": 2
+ },
+ {
+  "id": 92,
+  "slug": "92-tip-rpp3",
+  "parentId": 97,
+  "order": 0,
+  "name": "Тип - RPP3",
+  "nameUz": "Turi - RPP3",
+  "count": 4
+ },
+ {
+  "id": 95,
+  "slug": "95-tip-htd-8m",
+  "parentId": 50,
+  "order": 0,
+  "name": "Тип - HTD 8M",
+  "nameUz": "Turi - HTD 8M",
+  "count": 112
+ },
+ {
+  "id": 96,
+  "slug": "96-tip-std",
+  "parentId": 16,
+  "order": 0,
+  "name": "Профиль - STD",
+  "nameUz": "Profil - STD",
+  "count": 106
+ },
+ {
+  "id": 97,
+  "slug": "97-tip-rpp",
+  "parentId": 16,
+  "order": 0,
+  "name": "Профиль - RPP",
+  "nameUz": "Profil - RPP",
+  "count": 85
+ },
+ {
+  "id": 98,
+  "slug": "98-remni-s-dyujmovym-shagom",
+  "parentId": 16,
+  "order": 0,
+  "name": "Ремни с дюймовым шагом",
+  "nameUz": "Dyuymli chiziqli kamarlar",
+  "count": 129
+ },
+ {
+  "id": 100,
+  "slug": "100-tip-std5-s5m",
+  "parentId": 96,
+  "order": 0,
+  "name": "Тип - STD5 / S5M",
+  "nameUz": "Turi - STD5/S5M",
+  "count": 36
+ },
+ {
+  "id": 101,
+  "slug": "101-tip-l",
+  "parentId": 98,
+  "order": 0,
+  "name": "Тип - L",
+  "nameUz": "Turi - L",
+  "count": 45
+ },
+ {
+  "id": 115,
+  "slug": "115-tip-at20",
+  "parentId": 23,
+  "order": 0,
+  "name": "Тип - AT20",
+  "nameUz": "Turi - AT20",
+  "count": 4
+ },
+ {
+  "id": 8,
+  "slug": "8-tip-8-mm",
+  "parentId": 75,
+  "order": 1,
+  "name": "Тип - 8 мм",
+  "nameUz": "Turi - 8 mm",
+  "count": 2
+ },
+ {
+  "id": 20,
+  "slug": "20-tip-rpp5",
+  "parentId": 97,
+  "order": 1,
+  "name": "Тип - RPP5",
+  "nameUz": "Turi - RPP5",
+  "count": 35
+ },
+ {
+  "id": 31,
+  "slug": "31-tip-pj",
+  "parentId": 30,
+  "order": 1,
+  "name": "Тип - PJ",
+  "nameUz": "Turi - PJ",
+  "count": 37
+ },
+ {
+  "id": 32,
+  "slug": "32-konvejernye-lenty",
+  "parentId": 1,
+  "order": 1,
+  "name": "Конвейерные ленты",
+  "nameUz": "Konveyer lentalari",
+  "count": 0
+ },
+ {
+  "id": 37,
+  "slug": "37-ploskie-privodnye-remni",
+  "parentId": 1,
+  "order": 2,
+  "name": "Плоские приводные ремни",
+  "nameUz": "Yassi haydovchi kamarlar",
+  "count": 0
+ },
+ {
+  "id": 39,
+  "slug": "39-tip-9-5-mm",
+  "parentId": 75,
+  "order": 2,
+  "name": "Тип - 9,5 мм",
+  "nameUz": "Turi - 9,5 mm",
+  "count": 3
+ },
+ {
+  "id": 47,
+  "slug": "47-tip-pk",
+  "parentId": 30,
+  "order": 2,
+  "name": "Тип - PK",
+  "nameUz": "Turi - PK",
+  "count": 0
+ },
+ {
+  "id": 99,
+  "slug": "99-tip-rpp8",
+  "parentId": 97,
+  "order": 2,
+  "name": "Тип - RPP8",
+  "nameUz": "Turi - RPP8",
+  "count": 42
+ },
+ {
+  "id": 16,
+  "slug": "16-zubcatyi-remen",
+  "parentId": 1,
+  "order": 3,
+  "name": "Зубчатые ремни",
+  "nameUz": "Tishli kamarlar",
+  "count": 550
+ },
+ {
+  "id": 22,
+  "slug": "22-tip-RPP14",
+  "parentId": 97,
+  "order": 3,
+  "name": "Тип - RPP14",
+  "nameUz": "Turi - RPP14",
+  "count": 4
+ },
+ {
+  "id": 45,
+  "slug": "45-tip-z-0",
+  "parentId": 75,
+  "order": 3,
+  "name": "Тип - Z (0)",
+  "nameUz": "Turi - Z (0)",
+  "count": 51
+ },
+ {
+  "id": 94,
+  "slug": "94-tip-std8-s8m",
+  "parentId": 96,
+  "order": 3,
+  "name": "Тип - STD8 / S8M",
+  "nameUz": "Turi - STD8/S8M",
+  "count": 66
+ },
+ {
+  "id": 23,
+  "slug": "23-zubcatye-poliuretanovye-remni",
+  "parentId": 1,
+  "order": 4,
+  "name": "Зубчатые полиуретановые ремни",
+  "nameUz": "Tishli poliuretan kamarlari",
+  "count": 38
+ },
+ {
+  "id": 48,
+  "slug": "48-tip-pl",
+  "parentId": 30,
+  "order": 4,
+  "name": "Тип - PL",
+  "nameUz": "Turi - PL",
+  "count": 0
+ },
+ {
+  "id": 73,
+  "slug": "73-tip-a",
+  "parentId": 75,
+  "order": 4,
+  "name": "Тип - A",
+  "nameUz": "Turi - A",
+  "count": 142
+ },
+ {
+  "id": 7,
+  "slug": "7-klinovye-remni",
+  "parentId": 1,
+  "order": 5,
+  "name": "Клиновые ремни",
+  "nameUz": "V-kamarlar",
+  "count": 721
+ },
+ {
+  "id": 10,
+  "slug": "10-tip-v",
+  "parentId": 75,
+  "order": 5,
+  "name": "Тип - B (Б)",
+  "nameUz": "Turi - B (B)",
+  "count": 164
+ },
+ {
+  "id": 21,
+  "slug": "21-tip-rpp14-14m",
+  "parentId": 50,
+  "order": 5,
+  "name": "Тип - HTD 14M",
+  "nameUz": "Turi - HTD 14M",
+  "count": 24
+ },
+ {
+  "id": 49,
+  "slug": "49-tip-pm",
+  "parentId": 30,
+  "order": 5,
+  "name": "Тип - PM",
+  "nameUz": "Turi - PM",
+  "count": 0
+ },
+ {
+  "id": 93,
+  "slug": "93-tip-std14-s14m",
+  "parentId": 96,
+  "order": 5,
+  "name": "Тип - STD14 / S14M",
+  "nameUz": "Turi - STD14/S14M",
+  "count": 1
+ },
+ {
+  "id": 11,
+  "slug": "11-tip-s",
+  "parentId": 75,
+  "order": 6,
+  "name": "Тип - C (В)",
+  "nameUz": "Turi - C (B)",
+  "count": 104
+ },
+ {
+  "id": 30,
+  "slug": "30-poliklinovye-remni",
+  "parentId": 1,
+  "order": 6,
+  "name": "Поликлиновые ремни",
+  "nameUz": "V-chiziqli kamarlar",
+  "count": 37
+ },
+ {
+  "id": 12,
+  "slug": "12-tip-spz",
+  "parentId": 77,
+  "order": 7,
+  "name": "Тип - SPZ",
+  "nameUz": "Turi - SPZ",
+  "count": 39
+ },
+ {
+  "id": 28,
+  "slug": "28-specialnye-remni",
+  "parentId": 1,
+  "order": 7,
+  "name": "Специальные ремни",
+  "nameUz": "Maxsus kamarlar",
+  "count": 16
+ },
+ {
+  "id": 74,
+  "slug": "74-tip-d-g",
+  "parentId": 75,
+  "order": 7,
+  "name": "Тип - D (Г)",
+  "nameUz": "Turi - D (G)",
+  "count": 19
+ },
+ {
+  "id": 13,
+  "slug": "13-tip-spa",
+  "parentId": 77,
+  "order": 8,
+  "name": "Тип - SPA",
+  "nameUz": "Turi - SPA",
+  "count": 30
+ },
+ {
+  "id": 34,
+  "slug": "34-modulnye-lenty",
+  "parentId": 1,
+  "order": 8,
+  "name": "Модульные ленты",
+  "nameUz": "Modulli kamarlar",
+  "count": 0
+ },
+ {
+  "id": 42,
+  "slug": "42-tip-e-d",
+  "parentId": 75,
+  "order": 8,
+  "name": "Тип - E (Д)",
+  "nameUz": "Turi - E (D)",
+  "count": 0
+ },
+ {
+  "id": 14,
+  "slug": "14-tip-spb",
+  "parentId": 77,
+  "order": 9,
+  "name": "Тип - SPB",
+  "nameUz": "Turi - SPB",
+  "count": 18
+ },
+ {
+  "id": 29,
+  "slug": "29-termosvarivaemye-remni",
+  "parentId": 1,
+  "order": 9,
+  "name": "Термосвариваемые ремни",
+  "nameUz": "Issiqlik bilan yopishtiriladigan kamarlar",
+  "count": 6
+ },
+ {
+  "id": 35,
+  "slug": "35-pokrytiya-na-valy",
+  "parentId": 1,
+  "order": 10,
+  "name": "Покрытия на валы",
+  "nameUz": "Mil qoplamalari",
+  "count": 0
+ },
+ {
+  "id": 41,
+  "slug": "41-tip-spc",
+  "parentId": 77,
+  "order": 10,
+  "name": "Тип - SPC",
+  "nameUz": "Turi - SPC",
+  "count": 2
+ },
+ {
+  "id": 15,
+  "slug": "15-tip-xpz",
+  "parentId": 78,
+  "order": 11,
+  "name": "Тип - XPZ",
+  "nameUz": "Turi - XPZ",
+  "count": 39
+ },
+ {
+  "id": 36,
+  "slug": "36-mehanicheskie-zamki-dlya-lent-i-remnej",
+  "parentId": 1,
+  "order": 11,
+  "name": "Механические замки для лент и ремней",
+  "nameUz": "Lenta va kamar uchun mexanik qulflar",
+  "count": 0
+ },
+ {
+  "id": 43,
+  "slug": "43-tip-xpa",
+  "parentId": 78,
+  "order": 12,
+  "name": "Тип - XPA",
+  "nameUz": "Turi - XPA",
+  "count": 62
+ },
+ {
+  "id": 44,
+  "slug": "44-tip-xpb",
+  "parentId": 78,
+  "order": 12,
+  "name": "Тип - XPB",
+  "nameUz": "Turi - XPB",
+  "count": 46
+ }
+]
