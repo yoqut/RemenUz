@@ -73,18 +73,18 @@ export function Header() {
 
   return (
     <div className="sticky-head" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
-      <header className="glass" style={{ borderRadius: 28, padding: "14px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px" }}>
+      <header className="glass main-head" style={{ borderRadius: 28, padding: "14px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
+        <div className="head-row" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px" }}>
           <Logo />
-          <form className="glass-soft" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 340px", display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 6px 0 18px" }}>
+          <form className="glass-soft head-search" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 340px", display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 6px 0 18px" }}>
             <label htmlFor="gq" className="sr">{t.search}</label>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
             <input id="gq" type="search" placeholder={t.searchPh} style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "#FFFFFF", padding: "0 12px", font: "inherit", fontSize: 15, outline: "none" }} />
             <button type="submit" className="liquid" style={{ height: 36, padding: "0 16px", border: 0, borderRadius: 999, backgroundColor: "rgba(255,255,255,.18)", color: "#FFFFFF", font: "inherit", fontWeight: 600, fontSize: 14, cursor: "pointer" }}>{t.find}</button>
           </form>
-          <a href="tel:+998787771188" style={{ fontWeight: 700, fontSize: 16 }}>+998 78 777 11 88</a>
-          <nav aria-label={t.acc} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <a href="#" aria-label={t.fav} className="glass-soft" style={circle}>
+          <a href="tel:+998787771188" className="hide-sm" style={{ fontWeight: 700, fontSize: 16 }}>+998 78 777 11 88</a>
+          <nav aria-label={t.acc} className="head-icons" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <a href="#" aria-label={t.fav} className="glass-soft hide-sm" style={circle}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg>
             </a>
             <Link href="/cart" aria-label={lang === "uz" ? `Savat, ${count} ta mahsulot` : `Корзина, ${goodsRu(count)}`} className="glass-soft" style={{ ...circle, position: "relative" }}>
@@ -100,7 +100,7 @@ export function Header() {
             </div>
           </nav>
         </div>
-        <nav aria-label={t.navLabel} style={{ display: "flex", flexWrap: "wrap", gap: 6, fontSize: 14, fontWeight: 600, alignItems: "center" }}>
+        <nav aria-label={t.navLabel} className="head-nav" style={{ display: "flex", flexWrap: "wrap", gap: 6, fontSize: 14, fontWeight: 600, alignItems: "center" }}>
           <button
             type="button"
             onClick={() => setCatOpen(!catOpen)}

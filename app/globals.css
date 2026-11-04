@@ -28,12 +28,25 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
   .h1{font-size:36px !important;letter-spacing:-1px !important}
   .h2{font-size:28px !important}
   /* The full header wraps to several rows on a phone; pinned, it would cover a third of the screen. */
-  .sticky-head{position:relative !important}
+  .sticky-head{position:relative !important;padding:8px 12px 0 !important}
   /* Pill headers (cart, product): a wrapped pill becomes a huge oval, so square it off and tighten it. */
   .pill-head{border-radius:24px !important;padding:8px 8px 8px 14px !important;gap:8px 10px !important}
   .pill-head img[alt="Remen.uz"]{height:26px !important}
   .pill-search{order:9;flex-basis:100% !important}
   .hide-sm{display:none !important}
+  /* Main header on a phone: logo + icons, then search, then one scrollable row of links. */
+  .main-head{padding:10px 12px !important;gap:8px !important;border-radius:22px !important}
+  .main-head img[alt="Remen.uz"]{height:26px !important}
+  .head-row{gap:8px 10px !important;justify-content:space-between}
+  .head-search{order:9;flex-basis:100% !important;height:44px !important}
+  .head-icons{gap:4px !important}
+  .head-icons > a{width:40px !important;height:40px !important}
+  .head-icons [role=group]{padding:3px !important}
+  .head-icons [role=group] button{height:32px !important;min-width:36px !important;padding:0 8px !important;font-size:13px !important}
+  .head-nav{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .head-nav::-webkit-scrollbar{display:none}
+  .head-nav > *{flex:none;white-space:nowrap}
+  .head-nav > button{height:38px !important}
 }
 .show-sm{display:none}
 @media (max-width: 640px){.show-sm{display:inline}}
