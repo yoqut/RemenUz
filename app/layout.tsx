@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { LangProvider } from "@/lib/lang";
+import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body>
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          <CartProvider>{children}</CartProvider>
+        </LangProvider>
       </body>
     </html>
   );

@@ -64,7 +64,7 @@ input::placeholder{color:rgba(255,255,255,.55)}
 </a>
 <a href="GlassCart.dc.html" aria-label="{{t.cart}}" class="glass-soft" style="position: relative; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>
-<span style="position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; background: {{accent}}; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">0</span>
+<span aria-hidden="true" style="position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; padding: 0 4px; box-sizing: border-box; border-radius: 9px; background: {{accent}}; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{cartCount}}</span>
 </a>
 <a href="GlassOrders.dc.html" aria-label="{{t.login}}" class="glass-soft" style="width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
@@ -184,9 +184,10 @@ input::placeholder{color:rgba(255,255,255,.55)}
 </div>
 <div style="margin-top: auto; padding: 0 0 0 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px">
 <span style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600">{{p.priceF}} <span style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.72)">{{t.sum}}</span></span>
-<a href="GlassCart.dc.html" aria-label="{{t.toCart}}" class="liquid" style="flex: none; width: 46px; height: 46px; border-radius: 50%; background-color: {{accent}}; display: flex; align-items: center; justify-content: center">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-</a>
+<button type="button" aria-label="{{p.addLabel}}" onClick="{{p.add}}" class="liquid" style="{{p.addStyle}}">
+<sc-if value="{{p.inCart}}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+<sc-if value="{{p.notInCart}}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></sc-if>
+</button>
 </div>
 </div>
 </sc-for>
@@ -243,7 +244,7 @@ input::placeholder{color:rgba(255,255,255,.55)}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { catOpen: false, lang: null, q: '', brand: '', sort: 'default' };
+    this.state = { catOpen: false, lang: null, q: '', brand: '', sort: 'default', cart: {} };
   }
   renderVals() {
     const T = {
@@ -485,7 +486,20 @@ class Component extends DCLogic {
     if (sort === 'dear') items = items.slice().sort((a, b) => b.price - a.price);
     if (sort === 'name') items = items.slice().sort((a, b) => a.name.localeCompare(b.name, 'ru'));
     const nItems = items.length;
+
+    const cartMap = this.state.cart || {};
+    const withAdd = (p, key) => {
+      const inCart = !!cartMap[key];
+      return Object.assign({}, p, {
+        inCart, notInCart: !inCart,
+        addLabel: inCart ? t.toCart + ' (+1)' : t.toCart,
+        add: () => this.setState({ cart: Object.assign({}, this.state.cart || {}, { [key]: ((this.state.cart || {})[key] || 0) + 1 }) }),
+        addStyle: 'flex: none; width: 46px; height: 46px; border: 0; border-radius: 50%; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color .2s; background-color: ' + (inCart ? '#12A594' : accent),
+      });
+    };
+    const cartCount = Object.keys(cartMap).length;
     const catalogVals = {
+      cartCount,
       ct,
       secName: SEC[lang] || SEC.ru,
       subs: SUBS[lang] || SUBS.ru,
@@ -494,7 +508,7 @@ class Component extends DCLogic {
       setQ: (e) => this.setState({ q: e.target.value }),
       setBrand: (e) => this.setState({ brand: e.target.value }),
       setSort: (e) => this.setState({ sort: e.target.value }),
-      items: items.map((p) => Object.assign({}, p, {
+      items: items.map((p) => Object.assign(withAdd(p, p.id), {
         priceF: fmt(p.price), hasBadge: !!p.badge, badgeLabel: p.badge === 'hit' ? ct.hit : ct.isNew, hasLen: !!p.len,
       })),
       hasItems: nItems > 0,

@@ -5,6 +5,7 @@ import { useState, type CSSProperties } from "react";
 import { useLang, useT } from "@/lib/lang";
 import { ACCENT, T } from "@/lib/i18n";
 import { CATALOG_ROOT, CATALOG_T, SPHERES_ROOT, catCode, catName, childrenOf, type Category } from "@/lib/catalog";
+import { goodsRu, useCart } from "@/lib/cart";
 import { Logo } from "./Logo";
 
 /** One section of the catalog menu: drop with profile codes, name, and its subcategories. */
@@ -57,6 +58,7 @@ export function Header() {
   const { lang, setLang } = useLang();
   const t = useT(T);
   const ct = useT(CATALOG_T);
+  const { count } = useCart();
   const [catOpen, setCatOpen] = useState(false);
   const closeCat = () => setCatOpen(false);
   const sections = childrenOf(CATALOG_ROOT);
@@ -78,9 +80,9 @@ export function Header() {
             <a href="#" aria-label={t.fav} className="glass-soft" style={circle}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg>
             </a>
-            <Link href="/cart" aria-label={t.cart} className="glass-soft" style={{ ...circle, position: "relative" }}>
+            <Link href="/cart" aria-label={lang === "uz" ? `Savat, ${count} ta mahsulot` : `Корзина, ${goodsRu(count)}`} className="glass-soft" style={{ ...circle, position: "relative" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="17" cy="19.5" r="1.5" /></svg>
-              <span style={{ position: "absolute", top: -2, right: -2, width: 18, height: 18, borderRadius: "50%", background: ACCENT, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>0</span>
+              <span aria-hidden="true" style={{ position: "absolute", top: -2, right: -2, minWidth: 18, height: 18, padding: "0 4px", borderRadius: 9, background: ACCENT, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>{count}</span>
             </Link>
             <Link href="/orders" aria-label={t.login} className="glass-soft" style={circle}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>

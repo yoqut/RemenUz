@@ -5,23 +5,19 @@ import { Logo } from "@/components/Logo";
 import { useState, type ChangeEvent, type CSSProperties } from "react";
 import { ACCENT } from "@/lib/i18n";
 import { PageShell } from "@/components/PageShell";
+import { goodsRu, useCart, type CartItem } from "@/lib/cart";
+import { fullImg } from "@/lib/images";
 
-type Item = { id: number; tag: string; title: string; price: number; unit: string; qty: number };
 type Dl = "tash" | "fargo" | "pickup";
 type Pay = "cash" | "card" | "bank" | "inst";
 type Cust = "person" | "company";
 type Step = "cart" | "pay" | "invoice" | "done";
 type Fm = { name: string; phone: string; inn: string; city: string; addr: string };
 
-const SEED: Item[] = [
-  { id: 1, tag: "Тип T5", title: "Зубчатый ремень тип T5 1645 25 NFT A", price: 3068800, unit: "шт", qty: 1 },
-  { id: 2, tag: "Тип PJ · MEGADYNE", title: "Поликлиновой ремень 8 PJ 1059 MEGADYNE PV BELT", price: 138880, unit: "шт", qty: 2 },
-  { id: 3, tag: "Круглого сечения", title: "Термосвариваемый ремень круглого сечения Ø 6 мм", price: 38080, unit: "м", qty: 10 },
-];
-const seedItems = () => SEED.map((x) => ({ ...x }));
 const EMPTY_FM: Fm = { name: "", phone: "", inn: "", city: "", addr: "" };
 
 const FREE = 3000000;
+const unitOf = (it: CartItem) => (it.perMeter ? "м" : "шт");
 const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
 const MONO = "'JetBrains Mono', monospace";
@@ -99,7 +95,9 @@ const CartIcon = ({ size, stroke, sw }: { size: number; stroke: string; sw: stri
 );
 
 export function CartView() {
-  const [items, setItems] = useState<Item[]>(seedItems);
+  const cart = useCart();
+  // Once the order is placed the cart is emptied; the pay / invoice / done screens show this snapshot.
+  const [order, setOrder] = useState<CartItem[] | null>(null);
   const [dl, setDl] = useState<Dl>("tash");
   const [pay, setPay] = useState<Pay>("cash");
   const [cust, setCust] = useState<Cust>("person");
@@ -107,9 +105,9 @@ export function CartView() {
   const [paid, setPaid] = useState(false);
   const [tried, setTried] = useState(false);
   const [fm, setFm] = useState<Fm>(EMPTY_FM);
+  const items = step === "cart" ? cart.items : order ?? [];
 
   const accent = ACCENT;
-  const setQty = (id: number, d: number) => setItems((xs) => xs.map((x) => (x.id === id ? { ...x, qty: Math.max(1, x.qty + d) } : x)));
   const subtotal = items.reduce((s, x) => s + x.price * x.qty, 0);
   const left = Math.max(0, FREE - subtotal);
   const pct = Math.min(100, Math.round((subtotal / FREE) * 100));
@@ -187,6 +185,8 @@ export function CartView() {
       return;
     }
     setTried(false);
+    setOrder(cart.items);
+    cart.clear();
     setStep(pay === "card" ? "pay" : pay === "bank" ? "invoice" : "done");
     setPaid(false);
   };
@@ -198,12 +198,11 @@ export function CartView() {
   const backToCart = () => setStep("cart");
   const newOrder = () => {
     setStep("cart");
-    setItems(seedItems());
+    setOrder(null);
     setTried(false);
     setPaid(false);
     setFm(EMPTY_FM);
   };
-  const restore = () => setItems(seedItems());
 
   const payStatus =
     pay === "card" ? (paid ? "Оплачено картой" : "Картой онлайн") : pay === "bank" ? "Счёт выставлен" : pay === "inst" ? "Рассрочка — уточнит менеджер" : "Наличными при получении";
@@ -234,13 +233,13 @@ export function CartView() {
           <span style={{ flex: 1 }} />
           <a href="tel:+998787771188" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
           <span
-            aria-label={`Корзина, ${count} товаров`}
+            aria-label={`Корзина, ${goodsRu(cart.count)}`}
             className="liquid"
             style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: accent }}
           >
             <CartIcon size={20} stroke="currentColor" sw="1.8" />
             <span style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, borderRadius: 10, background: "#FFFFFF", color: "#15171A", fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {count}
+              {cart.count}
             </span>
           </span>
         </header>
@@ -277,38 +276,47 @@ export function CartView() {
 
               {/* Items */}
               <section aria-label="Товары в корзине" className="glass" style={{ borderRadius: 34, padding: 10 }}>
-                {items.length === 0 && (
+                {cart.lastRemoved && (
+                  <div role="status" className="glass-soft" style={{ margin: 4, padding: "10px 10px 10px 18px", borderRadius: 22, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                    <span style={{ minWidth: 0, fontSize: 14 }}>Удалено: <b>{cart.lastRemoved.name}</b></span>
+                    <button type="button" onClick={cart.undoRemove} className="liquid" style={{ height: 40, padding: "0 18px", border: 0, borderRadius: 999, backgroundColor: "rgba(255,255,255,.2)", color: "#FFFFFF", font: "inherit", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+                      Вернуть
+                    </button>
+                  </div>
+                )}
+                {cart.ready && items.length === 0 && (
                   <div style={{ padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: 14, textAlign: "center" }}>
                     <span className="drop" style={{ width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <CartIcon size={40} stroke="#FFFFFF" sw="1.6" />
                     </span>
                     <b style={{ fontSize: 20 }}>Корзина пуста</b>
                     <span style={{ color: "rgba(255,255,255,.75)" }}>Подберите ремень в каталоге или по параметрам.</span>
-                    <button type="button" onClick={restore} className="liquid" style={{ height: 50, padding: "0 24px", border: 0, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
-                      Вернуть товары
-                    </button>
+                    <Link href="/catalog" className="liquid" style={{ height: 50, padding: "0 24px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: accent, fontWeight: 700 }}>
+                      Перейти в каталог
+                    </Link>
                   </div>
                 )}
                 {items.map((it) => (
                   <div key={it.id} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16, padding: 14, borderRadius: 26, borderBottom: "1px solid rgba(255,255,255,.08)" }}>
-                    <div style={{ flex: "none", width: 96, height: 96, borderRadius: 22, background: "rgba(0,0,0,.25)", boxShadow: "inset 0 2px 8px rgba(0,0,0,.35)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span className="drop" style={{ width: 76, height: 76, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="50" height="28" viewBox="0 0 200 110" aria-hidden="true">
-                          <rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="#FFFFFF" strokeWidth="12" strokeDasharray="6 5" />
-                        </svg>
-                      </span>
+                    <div style={{ flex: "none", width: 96, height: 96, borderRadius: 22, overflow: "hidden", background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {it.img ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={fullImg(it.img) ?? ""} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+                      ) : (
+                        <span className="drop" style={{ width: 76, height: 76 }} />
+                      )}
                     </div>
                     <div style={{ flex: "1 1 240px", minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
-                      <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)" }}>{it.tag}</span>
-                      <Link href="/product" style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.35 }}>{it.title}</Link>
+                      <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)", overflowWrap: "anywhere" }}>{[it.brand, it.sku].filter(Boolean).join(" · ")}</span>
+                      <Link href={`/product/${it.slug}`} style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.35 }}>{it.name}</Link>
                       <span style={{ fontSize: 13, color: "rgba(255,255,255,.72)" }}>
-                        <span style={{ fontFamily: MONO }}>{fmt(it.price)}</span> сум / {it.unit} · <span style={{ color: "#7CF2C9" }}>● в наличии</span>
+                        <span style={{ fontFamily: MONO }}>{fmt(it.price)}</span> сум / {unitOf(it)} · <span style={{ color: "#7CF2C9" }}>● в наличии</span>
                       </span>
                     </div>
                     <div className="glass-soft" style={{ display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 4px" }}>
-                      <button type="button" className="qbtn" aria-label="Уменьшить количество" onClick={() => setQty(it.id, -1)}>−</button>
-                      <span style={{ minWidth: 56, textAlign: "center", fontFamily: MONO, fontSize: 15, fontWeight: 600 }}>{it.qty} {it.unit}</span>
-                      <button type="button" className="qbtn" aria-label="Увеличить количество" onClick={() => setQty(it.id, 1)}>+</button>
+                      <button type="button" className="qbtn" aria-label="Уменьшить количество" disabled={it.qty <= 1} onClick={() => cart.setQty(it.id, it.qty - 1)} style={it.qty <= 1 ? { opacity: 0.35, cursor: "not-allowed" } : undefined}>−</button>
+                      <span aria-live="polite" style={{ minWidth: 56, textAlign: "center", fontFamily: MONO, fontSize: 15, fontWeight: 600 }}>{it.qty} {unitOf(it)}</span>
+                      <button type="button" className="qbtn" aria-label="Увеличить количество" onClick={() => cart.setQty(it.id, it.qty + 1)}>+</button>
                     </div>
                     <div style={{ minWidth: 150, textAlign: "right", fontFamily: MONO, fontSize: 19, fontWeight: 600 }}>
                       {fmt(it.price * it.qty)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,.72)" }}>сум</span>
@@ -316,7 +324,7 @@ export function CartView() {
                     <button
                       type="button"
                       aria-label="Удалить из корзины"
-                      onClick={() => setItems((xs) => xs.filter((y) => y.id !== it.id))}
+                      onClick={() => cart.remove(it.id)}
                       className="glass-soft"
                       style={{ width: 44, height: 44, borderRadius: "50%", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
                     >

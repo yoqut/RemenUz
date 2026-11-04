@@ -8,6 +8,11 @@ import { PageShell } from "@/components/PageShell";
 import { useLang, useT, type Lang } from "@/lib/lang";
 import { CATALOG_ROOT, catCode, catName, childrenOf, type Category } from "@/lib/catalog";
 import { ACCENT, L, T, withLogos } from "@/lib/i18n";
+import { formatPrice } from "@/lib/catalog";
+import { fullImg } from "@/lib/images";
+import type { CartProduct } from "@/lib/cart";
+import type { ProductCard } from "@/lib/products";
+import { AddToCartButton } from "@/components/AddToCartButton";
 
 const MONO = "'JetBrains Mono', monospace";
 const DISPLAY = "'Unbounded', sans-serif";
@@ -39,15 +44,22 @@ function Pulley() {
   );
 }
 
-function BeltIcon({ width, height }: { width: number; height: number }) {
+/** Product photo on a white card; falls back to the original when api.remen.uz lacks the small variant. */
+function ProductImg({ src }: { src: string | null }) {
+  if (!src) return <span className="drop" style={{ display: "block", width: 120, height: 120, margin: "35px auto" }} />;
   return (
-    <svg width={width} height={height} viewBox="0 0 200 110" aria-hidden="true">
-      <rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="#FFFFFF" strokeWidth="10" strokeDasharray="5 4" />
-      <circle cx="47" cy="55" r="22" fill="rgba(255,255,255,.25)" />
-      <circle cx="153" cy="55" r="22" fill="rgba(255,255,255,.25)" />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      onError={(e) => { const full = fullImg(src); if (full && e.currentTarget.src !== full) e.currentTarget.src = full; }}
+      style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+    />
   );
 }
+
+const toCartProduct = (p: ProductCard): CartProduct => ({ id: p.id, slug: p.slug, name: p.name, sku: p.sku, brand: p.brand, price: p.price, perMeter: p.perMeter, img: p.imgSmall });
 
 /** Card subtitle: the first few subcategories, or nothing for a leaf section. */
 function catNote(c: Category, lang: Lang) {
@@ -55,13 +67,12 @@ function catNote(c: Category, lang: Lang) {
   return kids.slice(0, 4).join(", ") + (kids.length > 4 ? " …" : "");
 }
 
-export function HomeView() {
+export function HomeView({ offers, fresh }: { offers: ProductCard[]; fresh: ProductCard[] }) {
   const { lang } = useLang();
   const t = useT(T);
   const d = useT(L);
   const ticker = d.ticker.concat(d.ticker);
   const markets = withLogos(d.markets);
-  const products = d.products.slice(0, 4);
 
   return (
     <PageShell blobs={BLOBS}>
@@ -167,22 +178,23 @@ export function HomeView() {
       <section className="sec" style={section}>
         <h2 className="h2" style={{ ...h2, margin: "0 0 28px" }}>{t.offTitle}</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: 18 }}>
-          {d.offers.map((o) => (
-            <Link key={o.title} href="/product" className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 20, padding: 22, borderRadius: 32, transition: "transform .2s" }}>
-              <div style={{ height: 200, borderRadius: 24, background: "rgba(0,0,0,.22)", boxShadow: "inset 0 2px 10px rgba(0,0,0,.35)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div className="drop" style={{ width: 170, height: 170, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <BeltIcon width={120} height={66} />
-                </div>
-              </div>
+          {offers.map((o) => (
+            <div key={o.id} className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 20, padding: 22, borderRadius: 32, transition: "transform .2s" }}>
+              <Link href={`/product/${o.slug}`} aria-hidden="true" tabIndex={-1} style={{ height: 200, borderRadius: 24, overflow: "hidden", background: "#FFFFFF", display: "block" }}>
+                <ProductImg src={o.imgSmall} />
+              </Link>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)" }}>{o.brand}</span>
-                <span style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.35 }}>{o.title}</span>
+                <Link href={`/product/${o.slug}`} style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.35 }}>{o.name}</Link>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "auto" }}>
-                <span style={{ fontFamily: MONO, fontSize: 20, fontWeight: 600 }}>{o.price} {t.sum}</span>
-                <span className="liquid" style={{ padding: "6px 12px", borderRadius: 999, backgroundColor: ACCENT, fontSize: 13, fontWeight: 700 }}>{t.special}</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, marginTop: "auto" }}>
+                <span style={{ fontFamily: MONO, fontSize: 20, fontWeight: 600 }}>{formatPrice(o.price)} {t.sum}</span>
+                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span className="liquid" style={{ padding: "6px 12px", borderRadius: 999, backgroundColor: ACCENT, fontSize: 13, fontWeight: 700 }}>{t.special}</span>
+                  <AddToCartButton label={t.toCart} product={toCartProduct(o)} />
+                </span>
               </div>
-            </Link>
+            </div>
           ))}
           <div className="liquid" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24, padding: 34, borderRadius: 32, backgroundColor: ACCENT }}>
             <span className="drop" aria-hidden="true" style={{ position: "absolute", right: -40, bottom: -40, width: 200, height: 200 }} />
@@ -216,32 +228,30 @@ export function HomeView() {
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>
-          {products.map((p) => (
-            <div key={p.title} className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 14, padding: 16, borderRadius: 28, transition: "transform .2s" }}>
-              <div style={{ position: "relative", height: 190, borderRadius: 20, background: "rgba(0,0,0,.22)", boxShadow: "inset 0 2px 10px rgba(0,0,0,.35)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div className="drop" style={{ width: 150, height: 150, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <BeltIcon width={104} height={57} />
-                </div>
+          {fresh.map((p) => (
+            <div key={p.id} className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 14, padding: 16, borderRadius: 28, transition: "transform .2s" }}>
+              <div style={{ position: "relative", height: 190, borderRadius: 20, overflow: "hidden", background: "#FFFFFF" }}>
+                <Link href={`/product/${p.slug}`} aria-hidden="true" tabIndex={-1} style={{ display: "block", width: "100%", height: "100%" }}>
+                  <ProductImg src={p.imgSmall} />
+                </Link>
                 <span className="glass-soft" style={{ position: "absolute", top: 10, left: 10, padding: "4px 10px", borderRadius: 999, fontSize: 12, fontWeight: 700 }}>{t.isNew}</span>
                 <button type="button" aria-label={t.toFav} className="glass-soft" style={{ position: "absolute", top: 8, right: 8, width: 40, height: 40, borderRadius: "50%", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg>
                 </button>
               </div>
-              <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)", padding: "0 4px" }}>{p.tag}</span>
-              <Link href="/product" style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.4, minHeight: 63, padding: "0 4px" }}>{p.title}</Link>
+              <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)", padding: "0 4px", overflowWrap: "anywhere" }}>{[p.brand, p.sku].filter(Boolean).join(" · ")}</span>
+              <Link href={`/product/${p.slug}`} style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.4, minHeight: 63, padding: "0 4px" }}>{p.name}</Link>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginTop: "auto", padding: "0 0 0 4px" }}>
                 <span style={{ fontFamily: MONO, fontSize: 19, fontWeight: 600 }}>
-                  {p.price} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,.72)" }}>{p.unit}</span>
+                  {formatPrice(p.price)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,.72)" }}>{p.perMeter ? `${t.sum} / ${lang === "uz" ? "m" : "м"}` : t.sum}</span>
                 </span>
-                <button type="button" aria-label={t.toCart} className="liquid" style={{ width: 48, height: 48, border: 0, borderRadius: "50%", backgroundColor: ACCENT, color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-                </button>
+                <AddToCartButton label={t.toCart} product={toCartProduct(p)} size={48} />
               </div>
             </div>
           ))}
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-          <a href="#" className="glass" style={{ height: 54, padding: "0 34px", display: "flex", alignItems: "center", borderRadius: 999, fontWeight: 700 }}>{t.more}</a>
+          <Link href="/catalog" className="glass" style={{ height: 54, padding: "0 34px", display: "flex", alignItems: "center", borderRadius: 999, fontWeight: 700 }}>{t.more}</Link>
         </div>
       </section>
 

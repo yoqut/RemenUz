@@ -12,6 +12,7 @@ import {
 } from "@/lib/catalog";
 import type { ProductCard } from "@/lib/products";
 import { fullImg } from "@/lib/images";
+import { AddToCartButton } from "@/components/AddToCartButton";
 
 const MONO = "'JetBrains Mono', monospace";
 const DISPLAY = "'Unbounded', sans-serif";
@@ -72,9 +73,7 @@ function ProductTile({ p }: { p: ProductCard }) {
         ) : (
           <span style={{ fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,.8)" }}>{ct.onRequest}</span>
         )}
-        <Link href="/cart" aria-label={ct.toCart} className="liquid" style={{ flex: "none", width: 46, height: 46, borderRadius: "50%", backgroundColor: ACCENT, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-        </Link>
+        <AddToCartButton label={ct.toCart} product={{ id: p.id, slug: p.slug, name: p.name, sku: p.sku, brand: p.brand, price: p.price, perMeter: p.perMeter, img: p.imgSmall }} />
       </div>
     </div>
   );

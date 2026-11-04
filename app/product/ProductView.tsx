@@ -7,6 +7,8 @@ import { ACCENT } from "@/lib/i18n";
 import { formatPrice } from "@/lib/catalog";
 import { fullImg } from "@/lib/images";
 import type { Product, ProductCard } from "@/lib/products";
+import { goodsRu, useCart } from "@/lib/cart";
+import { useRouter } from "next/navigation";
 
 type DeliveryId = "tash" | "fargo";
 
@@ -55,6 +57,16 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
   const accent = ACCENT;
   const [qty, setQty] = useState(1);
   const [dl, setDl] = useState<DeliveryId>("tash");
+  const [added, setAdded] = useState<number | null>(null);
+  const router = useRouter();
+  const cart = useCart();
+  const inCart = cart.items.find((x) => x.id === p.id);
+  const unit = p.perMeter ? "м" : "шт";
+  const addToCart = () => {
+    cart.add({ id: p.id, slug: p.slug, name: p.name, sku: p.sku, brand: p.brand, price: p.price, perMeter: p.perMeter, img: p.imgSmall ?? p.img }, qty);
+    setAdded(qty);
+    setQty(1);
+  };
 
   const specs = [...p.attrs.map(([k, v]) => ({ k, v })), ...(p.brand ? [{ k: "Бренд", v: p.brand }] : [])];
   const tiles = stats(p.attrs);
@@ -79,8 +91,11 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
               <input id="gpq" type="search" placeholder="Артикул или размер" style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "#FFFFFF", padding: "0 12px", font: "inherit", fontSize: 15, outline: "none" }} />
             </form>
             <a href="tel:+998787771188" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
-            <Link href="/cart" aria-label="Корзина" className="glass-soft" style={{ width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Link href="/cart" aria-label={`Корзина, ${goodsRu(cart.count)}`} className="glass-soft" style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="17" cy="19.5" r="1.5" /></svg>
+              {cart.count > 0 && (
+                <span aria-hidden="true" style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, padding: "0 5px", borderRadius: 10, background: accent, fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{cart.count}</span>
+              )}
             </Link>
           </header>
         </div>
@@ -151,9 +166,17 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                   <span style={{ minWidth: 34, textAlign: "center", fontFamily: mono, fontSize: 17, fontWeight: 600 }}>{qty}</span>
                   <button type="button" aria-label="Больше" onClick={() => setQty(qty + 1)} style={qtyBtn}>+</button>
                 </div>
-                <Link href="/cart" className="liquid" style={{ flex: "1 1 200px", height: 56, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", fontWeight: 700, fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>В корзину</Link>
-                <button type="button" className="glass" style={{ flex: "1 1 170px", height: 56, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>Купить в 1 клик</button>
+                <button type="button" onClick={addToCart} className="liquid" style={{ flex: "1 1 200px", height: 56, border: 0, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 16, cursor: "pointer" }}>В корзину</button>
+                <button type="button" onClick={() => { addToCart(); router.push("/cart"); }} className="glass" style={{ flex: "1 1 170px", height: 56, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>Купить в 1 клик</button>
               </div>
+              {added !== null && (
+                <div role="status" className="glass-soft" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "12px 12px 12px 18px", borderRadius: 22, border: "1px solid rgba(124,242,201,.5)" }}>
+                  <span style={{ fontWeight: 700 }}>
+                    <span style={{ color: "#7CF2C9" }}>✓</span> Добавлено: {added} {unit} · в корзине {inCart?.qty ?? added} {unit}
+                  </span>
+                  <Link href="/cart" className="liquid" style={{ height: 40, padding: "0 18px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: "rgba(255,255,255,.2)", fontSize: 14, fontWeight: 700 }}>Перейти в корзину →</Link>
+                </div>
+              )}
 
               {/* Delivery method */}
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

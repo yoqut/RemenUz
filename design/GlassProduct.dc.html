@@ -40,8 +40,9 @@ input::placeholder{color:rgba(255,255,255,.55)}
 <input id="gpq" type="search" placeholder="Артикул или размер" style="flex: 1; min-width: 0; border: 0; background: transparent; color: #FFFFFF; padding: 0 12px; font: inherit; font-size: 15px; outline: none">
 </form>
 <a href="tel:+998787771188" style="font-weight: 700">+998 78 777 11 88</a>
-<a href="GlassCart.dc.html" aria-label="Корзина" class="glass-soft" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<a href="GlassCart.dc.html" aria-label="{{cartLabel}}" class="glass-soft" style="position: relative; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>
+<sc-if value="{{hasCart}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box; border-radius: 10px; background: {{accent}}; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">1</span></sc-if>
 </a>
 </header>
 </div>
@@ -110,9 +111,15 @@ input::placeholder{color:rgba(255,255,255,.55)}
 <span style="min-width: 34px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">{{qty}}</span>
 <button type="button" aria-label="Больше" onClick="{{inc}}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; font-size: 22px; cursor: pointer">+</button>
 </div>
-<a href="GlassCart.dc.html" class="liquid" style="flex: 1 1 200px; height: 56px; border-radius: 999px; background-color: {{accent}}; color: #FFFFFF; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center">В корзину</a>
+<button type="button" onClick="{{addToCart}}" class="liquid" style="flex: 1 1 200px; height: 56px; border: 0; border-radius: 999px; background-color: {{accent}}; color: #FFFFFF; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer">В корзину</button>
 <button type="button" class="glass" style="flex: 1 1 170px; height: 56px; border-radius: 999px; color: #FFFFFF; font: inherit; font-weight: 700; cursor: pointer">Купить в 1 клик</button>
 </div>
+<sc-if value="{{hasAdded}}" hint-placeholder-val="{{ false }}">
+<div role="status" class="glass-soft" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 12px 12px 18px; border-radius: 22px; border: 1px solid rgba(124,242,201,.5)">
+<span style="font-weight: 700"><span style="color: #7CF2C9">✓</span> Добавлено: {{added}} шт · в корзине {{cartQty}} шт</span>
+<a href="GlassCart.dc.html" class="liquid" style="height: 40px; padding: 0 18px; display: flex; align-items: center; border-radius: 999px; background-color: rgba(255,255,255,.2); font-size: 14px; font-weight: 700">Перейти в корзину →</a>
+</div>
+</sc-if>
 
 <!-- Delivery method -->
 <div style="display: flex; flex-direction: column; gap: 10px">
@@ -219,7 +226,7 @@ input::placeholder{color:rgba(255,255,255,.55)}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { v: 'A', qty: 1, dl: 'tash' };
+    this.state = { v: 'A', qty: 1, dl: 'tash', added: 0, cartQty: 0 };
   }
   renderVals() {
     const prices = { A: '3 068 800', B: '2 685 760', C: '3 452 960', G: '1 472 800' };
@@ -252,6 +259,12 @@ class Component extends DCLogic {
           pick: () => this.setState({ dl: d.id })
         });
       }),
+      addToCart: () => this.setState({ cartQty: this.state.cartQty + this.state.qty, added: this.state.qty, qty: 1 }),
+      hasAdded: this.state.added > 0,
+      added: this.state.added,
+      cartQty: this.state.cartQty,
+      hasCart: this.state.cartQty > 0,
+      cartLabel: this.state.cartQty > 0 ? 'Корзина, 1 товар' : 'Корзина пуста',
       price: prices[sel],
       width: widths[sel],
       qty: this.state.qty,
