@@ -27,4 +27,6 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
   .sec{padding-left:16px !important;padding-right:16px !important}
   .h1{font-size:36px !important;letter-spacing:-1px !important}
   .h2{font-size:28px !important}
+  /* The full header wraps to several rows on a phone; pinned, it would cover a third of the screen. */
+  .sticky-head{position:relative !important}
 }

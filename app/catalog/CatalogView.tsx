@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageShell } from "@/components/PageShell";
@@ -88,16 +88,25 @@ export function CatalogView({ catId, products }: { catId: number | null; product
   const subs = cat ? childrenOf(cat.id) : childrenOf(CATALOG_ROOT);
 
   const [q, setQ] = useState("");
+  // The belt finder links here with ?q=<sizes>; prefill the search from it.
+  useEffect(() => {
+    const fromUrl = new URLSearchParams(window.location.search).get("q");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read the URL once after mount
+    if (fromUrl) setQ(fromUrl);
+  }, []);
   const [brand, setBrand] = useState("");
   const [sort, setSort] = useState<Sort>("default");
   const [shown, setShown] = useState(PAGE);
 
   const brands = useMemo(() => [...new Set(products.map((p) => p.brand).filter((b): b is string => !!b))].sort(), [products]);
   const list = useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    const out = products.filter(
-      (p) => (!brand || p.brand === brand) && (!needle || `${p.name} ${p.sku} ${p.brand ?? ""}`.toLowerCase().includes(needle)),
-    );
+    // Every word must match somewhere in name / SKU / brand, in any order ("1645 25" finds "T5 1645 25 NFT A").
+    const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const out = products.filter((p) => {
+      if (brand && p.brand !== brand) return false;
+      const hay = `${p.name} ${p.sku} ${p.brand ?? ""}`.toLowerCase();
+      return words.every((w) => hay.includes(w));
+    });
     if (sort === "cheap") out.sort((a, b) => (a.price || Infinity) - (b.price || Infinity));
     if (sort === "dear") out.sort((a, b) => b.price - a.price);
     if (sort === "name") out.sort((a, b) => a.name.localeCompare(b.name, "ru"));

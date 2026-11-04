@@ -65,7 +65,7 @@ export function Header() {
   const spheres = childrenOf(SPHERES_ROOT);
 
   return (
-    <div style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
+    <div className="sticky-head" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
       <header className="glass" style={{ borderRadius: 28, padding: "14px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px" }}>
           <Logo />

@@ -13,14 +13,13 @@ import { fullImg } from "@/lib/images";
 import type { CartProduct } from "@/lib/cart";
 import type { ProductCard } from "@/lib/products";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { BeltFinder } from "@/components/BeltFinder";
 
 const MONO = "'JetBrains Mono', monospace";
 const DISPLAY = "'Unbounded', sans-serif";
 
 const section: CSSProperties = { maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px" };
 const h2: CSSProperties = { margin: 0, fontFamily: DISPLAY, fontSize: 38, fontWeight: 600, letterSpacing: -1 };
-const fieldWrap: CSSProperties = { display: "flex", flexDirection: "column", gap: 6 };
-const fieldLabel: CSSProperties = { fontSize: 13, fontWeight: 700 };
 const filterPill: CSSProperties = { padding: "8px 16px", borderRadius: 999 };
 const teaser: CSSProperties = { position: "relative", overflow: "hidden", minHeight: 240, padding: 34, borderRadius: 36, display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 22, transition: "transform .2s" };
 
@@ -93,34 +92,7 @@ export function HomeView({ offers, fresh }: { offers: ProductCard[]; fresh: Prod
         </div>
 
         {/* Glass belt finder */}
-        <form id="finder" className="glass" onSubmit={(e) => e.preventDefault()} style={{ position: "relative", borderRadius: 36, padding: 34, display: "flex", flexDirection: "column", gap: 20 }}>
-          <div>
-            <h2 style={{ margin: 0, fontFamily: DISPLAY, fontSize: 26, fontWeight: 600 }}>{t.fTitle}</h2>
-            <p style={{ margin: "4px 0 0", fontSize: 14, color: "rgba(255,255,255,.72)" }}>{t.fSub}</p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 14 }}>
-            <div style={fieldWrap}>
-              <label htmlFor="g-type" style={fieldLabel}>{t.fType}</label>
-              <select id="g-type" className="field"><option>{t.ty1}</option><option>{t.ty2}</option><option>{t.ty3}</option><option>{t.ty4}</option></select>
-            </div>
-            <div style={fieldWrap}>
-              <label htmlFor="g-prof" style={fieldLabel}>{t.fProf}</label>
-              <select id="g-prof" className="field"><option>T5</option><option>T10</option><option>PJ</option><option>Li</option></select>
-            </div>
-            <div style={fieldWrap}>
-              <label htmlFor="g-len" style={fieldLabel}>{t.fLen}</label>
-              <input id="g-len" className="field" inputMode="numeric" placeholder="1645" style={{ fontFamily: MONO, minWidth: 0 }} />
-            </div>
-            <div style={fieldWrap}>
-              <label htmlFor="g-w" style={fieldLabel}>{t.fW}</label>
-              <input id="g-w" className="field" inputMode="numeric" placeholder="25" style={{ fontFamily: MONO, minWidth: 0 }} />
-            </div>
-          </div>
-          <button type="submit" className="liquid" style={{ height: 56, border: 0, borderRadius: 999, backgroundColor: ACCENT, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 16, cursor: "pointer" }}>{t.fBtn}</button>
-          <p style={{ margin: 0, fontSize: 14, color: "rgba(255,255,255,.75)" }}>
-            {t.fHelp} <a href="https://t.me/Remenuz_bot" style={{ color: "#FFB088", fontWeight: 700 }}>{t.fHelpLink}</a>
-          </p>
-        </form>
+        <BeltFinder />
       </section>
 
       {/* Trust capsules */}
