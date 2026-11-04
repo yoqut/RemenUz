@@ -4,30 +4,37 @@ import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import { useLang, useT } from "@/lib/lang";
 import { ACCENT, T } from "@/lib/i18n";
-import { CATALOG_ROOT, CATALOG_T, SPHERES_ROOT, catCode, catName, childrenOf, type Category } from "@/lib/catalog";
+import { CATALOG_ROOT, CATALOG_T, SPHERES_ROOT, catName, childrenOf, type Category } from "@/lib/catalog";
 import { goodsRu, useCart } from "@/lib/cart";
 import { Logo } from "./Logo";
 
-/** One section of the catalog menu: drop with profile codes, name, and its subcategories. */
+/** "Тип - PJ" / "Профиль - HTD" → "PJ" / "HTD": the prefix repeats on every item and only adds length. */
+const shortName = (c: Category, lang: "ru" | "uz") => catName(c, lang).replace(/^(Тип|Профиль|Turi|Profil)\s*-\s*/i, "");
+
+/** One section of the catalog menu, compact: name and product count, then its subcategories as links. */
 function CatCard({ c, onPick }: { c: Category; onPick: () => void }) {
   const { lang } = useLang();
   const kids = childrenOf(c.id);
   return (
-    <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 8, padding: "12px 16px 12px 12px", borderRadius: 20 }}>
-      <Link href={`/catalog/${c.slug}`} onClick={onPick} style={{ display: "flex", alignItems: "center", gap: 14 }}>
-        <span className="drop" style={{ flex: "none", width: 48, height: 48, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'JetBrains Mono', monospace", fontSize: 9, fontWeight: 600, textAlign: "center", lineHeight: 1.1, padding: 4 }}>{catCode(c)}</span>
-        <span style={{ lineHeight: 1.3, fontWeight: 700 }}>{catName(c, lang)}</span>
+    <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 4, padding: "10px 14px", borderRadius: 16, minWidth: 0, breakInside: "avoid", marginBottom: 8 }}>
+      <Link href={`/catalog/${c.slug}`} onClick={onPick} style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "0 8px", fontWeight: 700, fontSize: 15, lineHeight: 1.3 }}>
+        <span style={{ hyphens: "auto", overflowWrap: "break-word" }}>{catName(c, lang)}</span>
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,.55)" }}>{c.count || (lang === "uz" ? "buyurtmaga" : "под заказ")}</span>
       </Link>
       {kids.length > 0 && (
-        <span style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", paddingLeft: 62, fontSize: 13 }}>
+        <span style={{ display: "flex", flexWrap: "wrap", gap: "0 10px", fontSize: 13, lineHeight: 1.45 }}>
           {kids.map((k) => (
-            <Link key={k.id} href={`/catalog/${k.slug}`} onClick={onPick} style={{ color: "rgba(255,255,255,.72)" }}>{catName(k, lang)}</Link>
+            <Link key={k.id} href={`/catalog/${k.slug}`} onClick={onPick} style={{ color: "rgba(255,255,255,.72)" }}>{shortName(k, lang)}</Link>
           ))}
         </span>
       )}
     </div>
   );
 }
+
+const menuLabel: CSSProperties = { fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: 1, color: "rgba(255,255,255,.65)", textTransform: "uppercase" };
+// Masonry columns: each card keeps its own height instead of stretching to the tallest in its row.
+const menuGrid: CSSProperties = { columns: "220px", columnGap: 8 };
 
 const langBtn = (on: boolean): CSSProperties => ({
   height: 38,
@@ -114,18 +121,22 @@ export function Header() {
           <a href="#" style={{ ...pill, color: "#FFB088" }}>{t.n8}</a>
         </nav>
         {catOpen && (
-          <div id="catmenu" style={{ marginTop: 6, padding: 18, borderRadius: 22, background: "rgba(0,0,0,.28)", boxShadow: "inset 0 2px 12px rgba(0,0,0,.35)", display: "flex", flexDirection: "column", gap: 14, maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: 10 }}>
+          <div id="catmenu" style={{ marginTop: 4, padding: 12, borderRadius: 20, background: "rgba(0,0,0,.28)", boxShadow: "inset 0 2px 12px rgba(0,0,0,.35)", display: "flex", flexDirection: "column", gap: 8, maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 8, padding: "0 4px" }}>
+              <span style={menuLabel}>{ct.sections}</span>
+              <Link href="/catalog" onClick={closeCat} className="liquid" style={{ height: 34, padding: "0 14px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: ACCENT, fontSize: 13, fontWeight: 700 }}>{t.allCat}</Link>
+            </div>
+            {/* Industries flow on after the sections, so they fill the free column space instead of a new row. */}
+            <div style={menuGrid}>
               {sections.map((c) => (
                 <CatCard key={c.id} c={c} onPick={closeCat} />
               ))}
-              <Link href="/catalog" onClick={closeCat} className="liquid" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 72, borderRadius: 20, backgroundColor: ACCENT, fontWeight: 700 }}>{t.allCat}</Link>
-            </div>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: 1, color: "rgba(255,255,255,.72)", padding: "0 4px", textTransform: "uppercase" }}>{ct.spheres}</div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: 10 }}>
-              {spheres.map((c) => (
-                <CatCard key={c.id} c={c} onPick={closeCat} />
-              ))}
+              <div style={{ breakInside: "avoid" }}>
+                <div style={{ ...menuLabel, padding: "2px 4px 8px" }}>{ct.spheres}</div>
+                {spheres.map((c) => (
+                  <CatCard key={c.id} c={c} onPick={closeCat} />
+                ))}
+              </div>
             </div>
           </div>
         )}
