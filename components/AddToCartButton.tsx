@@ -21,7 +21,7 @@ export function AddToCartButton({ product, label, size = 46 }: { product: CartPr
       }}
       className="liquid"
       style={{
-        flex: "none", width: size, height: size, border: 0, borderRadius: "50%", color: "#FFFFFF", cursor: "pointer",
+        flex: "none", width: size, height: size, border: 0, borderRadius: "50%", color: "var(--fg)", cursor: "pointer",
         display: "flex", alignItems: "center", justifyContent: "center",
         backgroundColor: inCart ? "#12A594" : ACCENT,
         transform: pulse ? "scale(1.12)" : "scale(1)", transition: "transform .2s, background-color .2s",

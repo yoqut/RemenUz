@@ -8,7 +8,7 @@ import { PageShell } from "@/components/PageShell";
 import { goodsRu, useCart, type CartItem } from "@/lib/cart";
 import { fullImg } from "@/lib/images";
 
-type Dl = "tash" | "fargo" | "pickup";
+type Dl = "tash" | "yandex" | "fargo" | "pickup";
 type Pay = "cash" | "card" | "bank" | "inst";
 type Cust = "person" | "company";
 type Step = "cart" | "pay" | "invoice" | "done";
@@ -17,11 +17,14 @@ type Fm = { name: string; phone: string; inn: string; city: string; addr: string
 const EMPTY_FM: Fm = { name: "", phone: "", inn: "", city: "", addr: "" };
 
 const FREE = 3000000;
+// Fargo shipping is already built into the price of every piece over this amount, but an order ships once:
+// with Fargo each extra such piece costs this much less. The customer only sees it as a quantity discount.
+const FARGO = 77000;
 const unitOf = (it: CartItem) => (it.perMeter ? "м" : "шт");
 const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
 const MONO = "'JetBrains Mono', monospace";
-const UNB = "'Unbounded', sans-serif";
+const UNB = "'Oswald', sans-serif";
 
 const PAYMENTS: { id: Pay; title: string; sub: string }[] = [
   { id: "cash", title: "Наличными", sub: "При получении или на складе" },
@@ -29,7 +32,7 @@ const PAYMENTS: { id: Pay; title: string; sub: string }[] = [
   { id: "bank", title: "Перечислением", sub: "Счёт для юридических лиц" },
   { id: "inst", title: "Рассрочка", sub: "Условия уточнит менеджер" },
 ];
-const DL_NAMES: Record<Dl, string> = { tash: "Курьер по Ташкенту", fargo: "Fargo — в регионы", pickup: "Самовывоз со склада" };
+const DL_NAMES: Record<Dl, string> = { tash: "Курьер по Ташкенту", yandex: "Yandex Go — по Ташкенту", fargo: "Fargo — в регионы", pickup: "Самовывоз со склада" };
 const CUST_TYPES: { id: Cust; label: string }[] = [
   { id: "person", label: "Физ. лицо" },
   { id: "company", label: "Юр. лицо" },
@@ -41,13 +44,13 @@ const optStyle = (on: boolean): CSSProperties => ({
   alignItems: "stretch",
   padding: "14px 16px",
   borderRadius: 22,
-  color: "#FFFFFF",
+  color: "var(--fg)",
   font: "inherit",
   cursor: "pointer",
   textAlign: "left",
   ...(on
-    ? { border: "1px solid rgba(255,255,255,.6)", backgroundColor: "rgba(255,255,255,.2)" }
-    : { border: "1px solid rgba(255,255,255,.18)", backgroundColor: "rgba(255,255,255,.05)" }),
+    ? { border: "1px solid rgb(var(--ink) / .6)", backgroundColor: "rgb(var(--ink) / .2)" }
+    : { border: "1px solid rgb(var(--ink) / .18)", backgroundColor: "rgb(var(--ink) / .05)" }),
 });
 const optDot = (on: boolean): CSSProperties => ({
   flex: "none",
@@ -55,7 +58,7 @@ const optDot = (on: boolean): CSSProperties => ({
   height: 16,
   borderRadius: "50%",
   boxSizing: "border-box",
-  ...(on ? { border: "5px solid #FFFFFF", background: ACCENT } : { border: "2px solid rgba(255,255,255,.6)" }),
+  ...(on ? { border: "5px solid #FFFFFF", background: ACCENT, color: "#FFFFFF" } : { border: "2px solid rgb(var(--ink) / .6)" }),
 });
 const pill = (on: boolean): CSSProperties => ({
   height: 38,
@@ -66,7 +69,7 @@ const pill = (on: boolean): CSSProperties => ({
   fontSize: 14,
   fontWeight: 700,
   cursor: "pointer",
-  ...(on ? { backgroundColor: ACCENT, color: "#FFFFFF" } : { backgroundColor: "transparent", color: "rgba(255,255,255,.8)" }),
+  ...(on ? { backgroundColor: ACCENT, color: "#FFFFFF" } : { backgroundColor: "transparent", color: "rgb(var(--ink) / .8)" }),
 });
 
 const badStyle: CSSProperties = { borderColor: "#FF8C6E", boxShadow: "0 0 0 3px rgba(255,140,110,.25)" };
@@ -78,10 +81,10 @@ const sectionStyle: CSSProperties = { borderRadius: 34, padding: 28, display: "f
 const row: CSSProperties = { display: "flex", justifyContent: "space-between", gap: 12 };
 const optHead: CSSProperties = { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, width: "100%" };
 const optTitle: CSSProperties = { fontWeight: 800, fontSize: 15 };
-const optSub: CSSProperties = { display: "block", fontSize: 13, color: "rgba(255,255,255,.75)", marginTop: 4 };
+const optSub: CSSProperties = { display: "block", fontSize: 13, color: "rgb(var(--ink) / .75)", marginTop: 4 };
 
 const blobs: CSSProperties[] = [
-  { top: -140, left: -160, width: 640, height: 640, background: ACCENT, opacity: 0.5 },
+  { top: -140, left: -160, width: 640, height: 640, background: ACCENT, color: "#FFFFFF", opacity: 0.5 },
   { top: 300, right: -180, width: 600, height: 600, background: "#2F6BFF", opacity: 0.42 },
   { top: 1200, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.28 },
 ];
@@ -112,7 +115,15 @@ export function CartView() {
   const left = Math.max(0, FREE - subtotal);
   const pct = Math.min(100, Math.round((subtotal / FREE) * 100));
   const tashFree = subtotal >= FREE;
-  const deliveryF = dl === "pickup" ? "Бесплатно" : dl === "fargo" ? "По тарифу Fargo: [ТАРИФ]" : tashFree ? "Бесплатно" : "[СТОИМОСТЬ]";
+  const deliveryF = dl === "pickup" ? "Бесплатно" : dl === "fargo" ? "Включена в цену" : dl === "yandex" ? "По тарифу Yandex Go" : tashFree ? "Бесплатно" : "[СТОИМОСТЬ]";
+  // Pieces that carry the built-in Fargo fee: sold by the piece (not by the metre) and priced above it.
+  const fargoLines = items.filter((x) => !x.perMeter && x.price > FARGO);
+  const fargoUnits = fargoLines.reduce((n, x) => n + x.qty, 0);
+  const discount = dl === "fargo" && fargoUnits > 1 ? FARGO * (fargoUnits - 1) : 0;
+  const total = subtotal - discount;
+  // "More is cheaper": the order total with one or two more of the first such piece.
+  const ladderLine = dl === "fargo" && step === "cart" ? fargoLines[0] : undefined;
+  const ladder = ladderLine ? [1, 2].map((k) => ({ k, units: fargoUnits + k, total: total + k * (ladderLine.price - FARGO) })) : [];
   const cur = PAYMENTS.find((p) => p.id === pay) || PAYMENTS[0];
 
   const setF = (k: keyof Fm) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -133,7 +144,9 @@ export function CartView() {
       ? { title: "Готов к выдаче", sub: "Склад: ул. Чинабад 1, Юнус-Абад" }
       : dl === "fargo"
         ? { title: "Передан в Fargo", sub: "Трек-номер придёт в Telegram / SMS" }
-        : { title: "Передан курьеру", sub: "Курьер позвонит перед доставкой" };
+        : dl === "yandex"
+          ? { title: "Передан курьеру Yandex Go", sub: "Курьер позвонит перед доставкой" }
+          : { title: "Передан курьеру", sub: "Курьер позвонит перед доставкой" };
   const tlDefs = [
     { title: "Заказ принят", sub: "Номер " + orderNo },
     { title: "Подтверждение менеджером", sub: "Проверим наличие и сроки, свяжемся по телефону" },
@@ -155,12 +168,12 @@ export function CartView() {
       ...(state === "done"
         ? { background: "#12B5A6", border: "2px solid #7CF2C9" }
         : state === "now"
-          ? { background: accent, border: "3px solid #FFFFFF", boxShadow: "0 0 0 5px rgba(255,255,255,.12)" }
-          : { border: "2px solid rgba(255,255,255,.4)" }),
+          ? { background: accent, color: "#FFFFFF", border: "3px solid #FFFFFF", boxShadow: "0 0 0 5px rgb(var(--ink) / .12)" }
+          : { border: "2px solid rgb(var(--ink) / .4)" }),
     };
     const line: CSSProperties =
-      i === arr.length - 1 ? { display: "none" } : { flex: 1, width: 2, minHeight: 22, background: state === "done" ? "#12B5A6" : "rgba(255,255,255,.2)" };
-    const titleStyle: CSSProperties = { fontWeight: 800, fontSize: 15, color: state === "next" ? "rgba(255,255,255,.7)" : "#FFFFFF" };
+      i === arr.length - 1 ? { display: "none" } : { flex: 1, width: 2, minHeight: 22, background: state === "done" ? "#12B5A6" : "rgb(var(--ink) / .2)" };
+    const titleStyle: CSSProperties = { fontWeight: 800, fontSize: 15, color: state === "next" ? "rgb(var(--ink) / .7)" : "#FFFFFF" };
     return { ...x, dot, line, titleStyle };
   });
 
@@ -170,11 +183,11 @@ export function CartView() {
   const steps = ["1 · Корзина", "2 · Оплата", "3 · Готово"].map((label, i) => ({
     label,
     cur: i === stepIdx ? ("step" as const) : ("false" as const),
-    cls: i === stepIdx ? "liquid" : "",
+    cls: i === stepIdx ? "liquid liq-n" : "",
     style: {
       padding: "8px 16px",
       borderRadius: 999,
-      ...(i === stepIdx ? { backgroundColor: "rgba(255,255,255,.2)" } : i < stepIdx ? { color: "#7CF2C9" } : { color: "rgba(255,255,255,.75)" }),
+      ...(i === stepIdx ? { backgroundColor: "rgb(var(--ink) / .2)" } : i < stepIdx ? { color: "var(--ok)" } : { color: "rgb(var(--ink) / .75)" }),
     } as CSSProperties,
   }));
 
@@ -209,7 +222,8 @@ export function CartView() {
   const doneLead = "Менеджер свяжется с вами по номеру " + (fm.phone || "—") + ", чтобы подтвердить наличие и сроки.";
   const freeText = left > 0 ? "До бесплатной доставки по Ташкенту осталось " + fmt(left) + " сум" : "Бесплатная доставка по Ташкенту — ваша";
   const subtotalF = fmt(subtotal);
-  const totalF = fmt(subtotal);
+  const totalF = fmt(total);
+  const discountF = fmt(discount);
   const count = items.length;
   const isCompany = cust === "company";
   const needAddress = dl !== "pickup";
@@ -217,7 +231,8 @@ export function CartView() {
   const cityPh = dl === "fargo" ? "Например, Самарканд" : "Ташкент";
   const deliveries: { id: Dl; title: string; sub: string; logo?: string }[] = [
     { id: "tash", title: "Курьер по Ташкенту", sub: tashFree ? "Бесплатно — заказ от 3 000 000 сум" : "Бесплатно от 3 000 000 сум" },
-    { id: "fargo", title: "В регионы —", sub: "Курьерская служба по всему Узбекистану", logo: "/img/fargo.png" },
+    { id: "yandex", title: "Yandex Go", sub: "Срочная доставка по Ташкенту. Оплата по тарифу Yandex Go" },
+    { id: "fargo", title: "В регионы —", sub: "Курьерская служба по всему Узбекистану. От 2 шт. — дешевле", logo: "/img/fargo.png" },
     { id: "pickup", title: "Самовывоз", sub: "Склад на ул. Чинабад 1" },
   ];
 
@@ -235,7 +250,7 @@ export function CartView() {
           <span
             aria-label={`Корзина, ${goodsRu(cart.count)}`}
             className="liquid"
-            style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: accent }}
+            style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: accent, color: "#FFFFFF" }}
           >
             <CartIcon size={20} stroke="currentColor" sw="1.8" />
             <span style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, borderRadius: 10, background: "#FFFFFF", color: "#15171A", fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -249,7 +264,7 @@ export function CartView() {
         {/* Steps */}
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 16, marginBottom: 24 }}>
           <div>
-            <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: 1, color: "rgba(255,255,255,.72)" }}>ОФОРМЛЕНИЕ ЗАКАЗА</span>
+            <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: 1, color: "rgb(var(--ink) / .72)" }}>ОФОРМЛЕНИЕ ЗАКАЗА</span>
             <h1 className="h1" style={{ margin: "6px 0 0", fontFamily: UNB, fontSize: 44, fontWeight: 700, letterSpacing: -1 }}>{pageTitle}</h1>
           </div>
           <ol aria-label="Шаги" className="glass-soft" style={{ listStyle: "none", margin: 0, padding: 6, display: "flex", gap: 4, borderRadius: 999, fontSize: 14, fontWeight: 700 }}>
@@ -267,10 +282,10 @@ export function CartView() {
               <div className="glass-soft" style={{ padding: "18px 22px", borderRadius: 26, display: "flex", flexDirection: "column", gap: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap", fontSize: 15 }}>
                   <span style={{ fontWeight: 700 }}>{freeText}</span>
-                  <span style={{ fontFamily: MONO, color: "rgba(255,255,255,.75)" }}>порог 3 000 000 сум</span>
+                  <span style={{ fontFamily: MONO, color: "rgb(var(--ink) / .75)" }}>порог 3 000 000 сум</span>
                 </div>
-                <div style={{ height: 12, borderRadius: 999, background: "rgba(0,0,0,.35)", boxShadow: "inset 0 2px 4px rgba(0,0,0,.4)", overflow: "hidden" }}>
-                  <div className="liquid" style={{ height: "100%", width: pct + "%", borderRadius: 999, backgroundColor: accent, transition: "width .3s" }} />
+                <div style={{ height: 12, borderRadius: 999, background: "rgb(0 0 0 / calc(.35 * var(--well)))", boxShadow: "inset 0 2px 4px rgba(0,0,0,.4)", overflow: "hidden" }}>
+                  <div className="liquid" style={{ height: "100%", width: pct + "%", borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", transition: "width .3s" }} />
                 </div>
               </div>
 
@@ -279,7 +294,7 @@ export function CartView() {
                 {cart.lastRemoved && (
                   <div role="status" className="glass-soft" style={{ margin: 4, padding: "10px 10px 10px 18px", borderRadius: 22, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
                     <span style={{ minWidth: 0, fontSize: 14 }}>Удалено: <b>{cart.lastRemoved.name}</b></span>
-                    <button type="button" onClick={cart.undoRemove} className="liquid" style={{ height: 40, padding: "0 18px", border: 0, borderRadius: 999, backgroundColor: "rgba(255,255,255,.2)", color: "#FFFFFF", font: "inherit", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+                    <button type="button" onClick={cart.undoRemove} className="liquid liq-n" style={{ height: 40, padding: "0 18px", border: 0, borderRadius: 999, backgroundColor: "rgb(var(--ink) / .2)", color: "var(--fg)", font: "inherit", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
                       Вернуть
                     </button>
                   </div>
@@ -287,18 +302,18 @@ export function CartView() {
                 {cart.ready && items.length === 0 && (
                   <div style={{ padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: 14, textAlign: "center" }}>
                     <span className="drop" style={{ width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <CartIcon size={40} stroke="#FFFFFF" sw="1.6" />
+                      <CartIcon size={40} stroke="currentColor" sw="1.6" />
                     </span>
                     <b style={{ fontSize: 20 }}>Корзина пуста</b>
-                    <span style={{ color: "rgba(255,255,255,.75)" }}>Подберите ремень в каталоге или по параметрам.</span>
-                    <Link href="/catalog" className="liquid" style={{ height: 50, padding: "0 24px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: accent, fontWeight: 700 }}>
+                    <span style={{ color: "rgb(var(--ink) / .75)" }}>Подберите ремень в каталоге или по параметрам.</span>
+                    <Link href="/catalog" className="liquid" style={{ height: 50, padding: "0 24px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", fontWeight: 700 }}>
                       Перейти в каталог
                     </Link>
                   </div>
                 )}
                 {items.map((it) => (
-                  <div key={it.id} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16, padding: 14, borderRadius: 26, borderBottom: "1px solid rgba(255,255,255,.08)" }}>
-                    <div style={{ flex: "none", width: 96, height: 96, borderRadius: 22, overflow: "hidden", background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div key={it.id} className="cart-item" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16, padding: 14, borderRadius: 26, borderBottom: "1px solid rgb(var(--ink) / .08)" }}>
+                    <div className="cart-img" style={{ flex: "none", width: 96, height: 96, borderRadius: 22, overflow: "hidden", background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       {it.img ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={fullImg(it.img) ?? ""} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
@@ -306,27 +321,27 @@ export function CartView() {
                         <span className="drop" style={{ width: 76, height: 76 }} />
                       )}
                     </div>
-                    <div style={{ flex: "1 1 240px", minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
-                      <span style={{ fontFamily: MONO, fontSize: 12, color: "rgba(255,255,255,.72)", overflowWrap: "anywhere" }}>{[it.brand, it.sku].filter(Boolean).join(" · ")}</span>
+                    <div className="cart-info" style={{ flex: "1 1 240px", minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+                      <span style={{ fontFamily: MONO, fontSize: 12, color: "rgb(var(--ink) / .72)", overflowWrap: "anywhere" }}>{[it.brand, it.sku].filter(Boolean).join(" · ")}</span>
                       <Link href={`/product/${it.slug}`} style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.35 }}>{it.name}</Link>
-                      <span style={{ fontSize: 13, color: "rgba(255,255,255,.72)" }}>
-                        <span style={{ fontFamily: MONO }}>{fmt(it.price)}</span> сум / {unitOf(it)} · <span style={{ color: "#7CF2C9" }}>● в наличии</span>
+                      <span style={{ fontSize: 13, color: "rgb(var(--ink) / .72)" }}>
+                        <span style={{ fontFamily: MONO }}>{fmt(it.price)}</span> сум / {unitOf(it)} · <span style={{ color: "var(--ok)" }}>● в наличии</span>
                       </span>
                     </div>
-                    <div className="glass-soft" style={{ display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 4px" }}>
+                    <div className="glass-soft cart-qty" style={{ display: "flex", alignItems: "center", height: 48, borderRadius: 999, padding: "0 4px" }}>
                       <button type="button" className="qbtn" aria-label="Уменьшить количество" disabled={it.qty <= 1} onClick={() => cart.setQty(it.id, it.qty - 1)} style={it.qty <= 1 ? { opacity: 0.35, cursor: "not-allowed" } : undefined}>−</button>
                       <span aria-live="polite" style={{ minWidth: 56, textAlign: "center", fontFamily: MONO, fontSize: 15, fontWeight: 600 }}>{it.qty} {unitOf(it)}</span>
                       <button type="button" className="qbtn" aria-label="Увеличить количество" onClick={() => cart.setQty(it.id, it.qty + 1)}>+</button>
                     </div>
-                    <div style={{ minWidth: 150, textAlign: "right", fontFamily: MONO, fontSize: 19, fontWeight: 600 }}>
-                      {fmt(it.price * it.qty)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,.72)" }}>сум</span>
+                    <div className="cart-sum" style={{ minWidth: 150, textAlign: "right", fontFamily: MONO, fontSize: 19, fontWeight: 600 }}>
+                      {fmt(it.price * it.qty)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgb(var(--ink) / .72)" }}>сум</span>
                     </div>
                     <button
                       type="button"
                       aria-label="Удалить из корзины"
                       onClick={() => cart.remove(it.id)}
                       className="glass-soft"
-                      style={{ width: 44, height: 44, borderRadius: "50%", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                      style={{ width: 44, height: 44, borderRadius: "50%", color: "var(--fg)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
                     >
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" /></svg>
                     </button>
@@ -375,7 +390,7 @@ export function CartView() {
                   {deliveries.map((dv) => {
                     const on = dl === dv.id;
                     return (
-                      <button key={dv.id} type="button" role="radio" aria-checked={on} onClick={() => setDl(dv.id)} className={on ? "liquid" : ""} style={optStyle(on)}>
+                      <button key={dv.id} type="button" role="radio" aria-checked={on} onClick={() => setDl(dv.id)} className={on ? "liquid liq-n" : ""} style={optStyle(on)}>
                         <span style={optHead}>
                           <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                             <span style={optTitle}>{dv.title}</span>
@@ -406,7 +421,7 @@ export function CartView() {
                   </div>
                 )}
                 {isPickup && (
-                  <div className="glass-soft" style={{ padding: "14px 18px", borderRadius: 20, fontSize: 14, color: "rgba(255,255,255,.85)" }}>
+                  <div className="glass-soft" style={{ padding: "14px 18px", borderRadius: 20, fontSize: 14, color: "rgb(var(--ink) / .85)" }}>
                     Склад: ул. Чинабад 1, Юнус-Абад, Ташкент. Сообщим, когда заказ будет готов к выдаче.
                   </div>
                 )}
@@ -423,7 +438,7 @@ export function CartView() {
                   {PAYMENTS.map((pm) => {
                     const on = pay === pm.id;
                     return (
-                      <button key={pm.id} type="button" role="radio" aria-checked={on} onClick={() => setPay(pm.id)} className={on ? "liquid" : ""} style={optStyle(on)}>
+                      <button key={pm.id} type="button" role="radio" aria-checked={on} onClick={() => setPay(pm.id)} className={on ? "liquid liq-n" : ""} style={optStyle(on)}>
                         <span style={optHead}>
                           <span style={optTitle}>{pm.title}</span>
                           <span aria-hidden="true" style={optDot(on)} />
@@ -441,16 +456,34 @@ export function CartView() {
               <div className="glass" style={{ borderRadius: 34, padding: 28, display: "flex", flexDirection: "column", gap: 16 }}>
                 <h2 style={h2Style}>Ваш заказ</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 15 }}>
-                  <div style={row}><span style={{ color: "rgba(255,255,255,.78)" }}>Товары, {count} поз.</span><span style={{ fontFamily: MONO }}>{subtotalF} сум</span></div>
-                  <div style={row}><span style={{ color: "rgba(255,255,255,.78)" }}>Доставка</span><span style={{ fontFamily: MONO, textAlign: "right" }}>{deliveryF}</span></div>
-                  <div style={row}><span style={{ color: "rgba(255,255,255,.78)" }}>Оплата</span><span style={{ textAlign: "right" }}>{cur.title}</span></div>
+                  <div style={row}><span style={{ color: "rgb(var(--ink) / .78)" }}>Товары, {count} поз.</span><span style={{ fontFamily: MONO }}>{subtotalF} сум</span></div>
+                  <div style={row}><span style={{ color: "rgb(var(--ink) / .78)" }}>Доставка</span><span style={{ fontFamily: MONO, textAlign: "right" }}>{deliveryF}</span></div>
+                  {discount > 0 && <div style={row}><span style={{ color: "rgb(var(--ink) / .78)" }}>Скидка за количество</span><span style={{ fontFamily: MONO, color: "var(--ok)", fontWeight: 700 }}>−{discountF} сум</span></div>}
+                  <div style={row}><span style={{ color: "rgb(var(--ink) / .78)" }}>Оплата</span><span style={{ textAlign: "right" }}>{cur.title}</span></div>
                 </div>
-                <div style={{ borderTop: "1px dashed rgba(255,255,255,.25)", paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+                <div style={{ borderTop: "1px dashed rgb(var(--ink) / .25)", paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
                   <span style={{ fontWeight: 800, fontSize: 17 }}>Итого</span>
                   <span style={{ fontFamily: MONO, fontSize: 30, fontWeight: 600, lineHeight: 1 }}>
-                    {totalF} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 15, fontWeight: 500, color: "rgba(255,255,255,.75)" }}>сум</span>
+                    {totalF} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 15, fontWeight: 500, color: "rgb(var(--ink) / .75)" }}>сум</span>
                   </span>
                 </div>
+                {ladderLine && (
+                  <div className="glass-soft" style={{ borderRadius: 18, padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 800 }}>Больше — дешевле</span>
+                    {ladder.map((l) => (
+                      <button
+                        key={l.k}
+                        type="button"
+                        onClick={() => cart.setQty(ladderLine.id, ladderLine.qty + l.k)}
+                        aria-label={`Добавить ${l.k} шт. — итого ${fmt(l.total)} сум`}
+                        style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10, padding: "6px 10px", border: "1px solid rgb(var(--ink) / .14)", borderRadius: 12, background: "transparent", color: "var(--fg)", font: "inherit", fontSize: 14, cursor: "pointer", textAlign: "left" }}
+                      >
+                        <span>{l.units} шт.</span>
+                        <span style={{ fontFamily: MONO, fontWeight: 600 }}>{fmt(l.total)} сум <span style={{ color: "var(--ok)" }}>+</span></span>
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {hasErrors && (
                   <div role="alert" style={{ padding: "10px 14px", borderRadius: 16, background: "rgba(255,90,60,.18)", border: "1px solid rgba(255,140,110,.5)", fontSize: 13, fontWeight: 600 }}>
                     Заполните имя и телефон — без них менеджер не сможет подтвердить заказ.
@@ -463,11 +496,11 @@ export function CartView() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
                   Оформить через Telegram
                 </a>
-                <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,.65)" }}>
+                <p style={{ margin: 0, fontSize: 12, color: "rgb(var(--ink) / .65)" }}>
                   Нажимая «Оформить заказ», вы соглашаетесь с <a href="#" style={{ textDecoration: "underline" }}>офертой</a>. Менеджер подтвердит наличие и сроки.
                 </p>
               </div>
-              <div className="glass-soft" style={{ borderRadius: 26, padding: "18px 20px", display: "flex", flexDirection: "column", gap: 10, fontSize: 14, color: "rgba(255,255,255,.85)" }}>
+              <div className="glass-soft" style={{ borderRadius: 26, padding: "18px 20px", display: "flex", flexDirection: "column", gap: 10, fontSize: 14, color: "rgb(var(--ink) / .85)" }}>
                 <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                   <span className="drop" style={{ flex: "none", width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: MONO, fontSize: 11, fontWeight: 600 }}>24</span>
                   Поддержка 24/7 — Telegram, WhatsApp, телефон
@@ -487,25 +520,26 @@ export function CartView() {
             <div className="glass" style={{ borderRadius: 38, padding: 34, display: "flex", flexDirection: "column", gap: 20 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <span className="drop" style={{ width: 56, height: 56, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
                 </span>
                 <div>
                   <div style={{ fontFamily: UNB, fontSize: 22, fontWeight: 600 }}>Оплата картой</div>
-                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.75)" }}>Заказ {orderNo} · {totalF} сум</div>
+                  <div style={{ fontSize: 14, color: "rgb(var(--ink) / .75)" }}>Заказ {orderNo} · {totalF} сум</div>
                 </div>
               </div>
-              <p style={{ margin: 0, color: "rgba(255,255,255,.82)" }}>
+              <p style={{ margin: 0, color: "rgb(var(--ink) / .82)" }}>
                 Вы будете перенаправлены на защищённую страницу платёжной системы [ПЛАТЁЖНЫЙ СЕРВИС]. Данные карты вводятся только там — Remen.uz их не видит и не хранит.
               </p>
               <div className="glass-soft" style={{ padding: "16px 18px", borderRadius: 22, display: "flex", flexDirection: "column", gap: 8, fontSize: 15 }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "rgba(255,255,255,.75)" }}>Товары</span><span style={{ fontFamily: MONO }}>{subtotalF} сум</span></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "rgba(255,255,255,.75)" }}>Доставка</span><span style={{ fontFamily: MONO }}>{deliveryF}</span></div>
-                <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px dashed rgba(255,255,255,.25)", paddingTop: 10, fontWeight: 800 }}><span>К оплате</span><span style={{ fontFamily: MONO }}>{totalF} сум</span></div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "rgb(var(--ink) / .75)" }}>Товары</span><span style={{ fontFamily: MONO }}>{subtotalF} сум</span></div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "rgb(var(--ink) / .75)" }}>Доставка</span><span style={{ fontFamily: MONO }}>{deliveryF}</span></div>
+                {discount > 0 && <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "rgb(var(--ink) / .75)" }}>Скидка за количество</span><span style={{ fontFamily: MONO, color: "var(--ok)" }}>−{discountF} сум</span></div>}
+                <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px dashed rgb(var(--ink) / .25)", paddingTop: 10, fontWeight: 800 }}><span>К оплате</span><span style={{ fontFamily: MONO }}>{totalF} сум</span></div>
               </div>
               <button type="button" onClick={payNow} className="liquid" style={{ height: 58, border: 0, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", font: "inherit", fontWeight: 800, fontSize: 17, cursor: "pointer" }}>
                 Перейти к оплате {totalF} сум
               </button>
-              <button type="button" onClick={backToCart} className="glass-soft" style={{ height: 48, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
+              <button type="button" onClick={backToCart} className="glass-soft" style={{ height: 48, borderRadius: 999, color: "var(--fg)", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
                 ← Изменить заказ
               </button>
             </div>
@@ -518,20 +552,20 @@ export function CartView() {
             <div className="glass" style={{ borderRadius: 38, padding: 34, display: "flex", flexDirection: "column", gap: 20 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <span className="drop" style={{ width: 56, height: 56, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.8" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" /><path d="M14 2v6h6M9 13h8M9 17h8" /></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" /><path d="M14 2v6h6M9 13h8M9 17h8" /></svg>
                 </span>
                 <div>
                   <div style={{ fontFamily: UNB, fontSize: 22, fontWeight: 600 }}>Счёт на оплату сформирован</div>
-                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.75)" }}>Заказ {orderNo} · ИНН {innOr}</div>
+                  <div style={{ fontSize: 14, color: "rgb(var(--ink) / .75)" }}>Заказ {orderNo} · ИНН {innOr}</div>
                 </div>
               </div>
               <div className="glass-soft" style={{ padding: "16px 18px", borderRadius: 22, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "10px 18px", fontSize: 14 }}>
-                <span style={{ color: "rgba(255,255,255,.72)" }}>Получатель</span><span>[РЕКВИЗИТЫ REMEN.UZ]</span>
-                <span style={{ color: "rgba(255,255,255,.72)" }}>Плательщик</span><span>ИНН {innOr}</span>
-                <span style={{ color: "rgba(255,255,255,.72)" }}>Сумма</span><span style={{ fontFamily: MONO, fontWeight: 700 }}>{totalF} сум</span>
-                <span style={{ color: "rgba(255,255,255,.72)" }}>Назначение</span><span>Оплата по счёту {orderNo}</span>
+                <span style={{ color: "rgb(var(--ink) / .72)" }}>Получатель</span><span>[РЕКВИЗИТЫ REMEN.UZ]</span>
+                <span style={{ color: "rgb(var(--ink) / .72)" }}>Плательщик</span><span>ИНН {innOr}</span>
+                <span style={{ color: "rgb(var(--ink) / .72)" }}>Сумма</span><span style={{ fontFamily: MONO, fontWeight: 700 }}>{totalF} сум</span>
+                <span style={{ color: "rgb(var(--ink) / .72)" }}>Назначение</span><span>Оплата по счёту {orderNo}</span>
               </div>
-              <p style={{ margin: 0, fontSize: 14, color: "rgba(255,255,255,.8)" }}>
+              <p style={{ margin: 0, fontSize: 14, color: "rgb(var(--ink) / .8)" }}>
                 Счёт и договор отправим в Telegram или на WhatsApp по номеру {fm.phone}. Заказ уйдёт в сборку после поступления оплаты.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -550,11 +584,11 @@ export function CartView() {
             <div className="glass" style={{ flex: "999 1 560px", minWidth: 0, borderRadius: 38, padding: 34, display: "flex", flexDirection: "column", gap: 24 }}>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 18 }}>
                 <span className="drop" style={{ width: 76, height: 76, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "rgba(18,181,166,.35)" }}>
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
                 </span>
                 <div style={{ flex: "1 1 260px" }}>
                   <div style={{ fontFamily: UNB, fontSize: 30, fontWeight: 700, lineHeight: 1.15 }}>Заказ {orderNo} принят</div>
-                  <div style={{ marginTop: 4, color: "rgba(255,255,255,.8)" }}>{doneLead}</div>
+                  <div style={{ marginTop: 4, color: "rgb(var(--ink) / .8)" }}>{doneLead}</div>
                 </div>
               </div>
               <ol aria-label="Статус заказа" style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>
@@ -566,13 +600,13 @@ export function CartView() {
                     </div>
                     <div style={{ paddingBottom: 18 }}>
                       <div style={tl.titleStyle}>{tl.title}</div>
-                      <div style={{ fontSize: 13, color: "rgba(255,255,255,.7)" }}>{tl.sub}</div>
+                      <div style={{ fontSize: 13, color: "rgb(var(--ink) / .7)" }}>{tl.sub}</div>
                     </div>
                   </li>
                 ))}
               </ol>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                <a href="https://t.me/Remenuz_bot" className="liquid" style={{ flex: "1 1 220px", height: 54, display: "flex", alignItems: "center", justifyContent: "center", gap: 10, borderRadius: 999, backgroundColor: accent, fontWeight: 800 }}>
+                <a href="https://t.me/Remenuz_bot" className="liquid" style={{ flex: "1 1 220px", height: 54, display: "flex", alignItems: "center", justifyContent: "center", gap: 10, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", fontWeight: 800 }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
                   Отслеживать в Telegram
                 </a>
@@ -586,13 +620,13 @@ export function CartView() {
             </div>
             <aside aria-label="Детали заказа" className="glass" style={{ flex: "1 1 340px", minWidth: 0, borderRadius: 34, padding: 28, display: "flex", flexDirection: "column", gap: 12, fontSize: 15 }}>
               <h2 style={{ margin: "0 0 4px", fontFamily: UNB, fontSize: 20, fontWeight: 600 }}>Детали</h2>
-              <div style={row}><span style={{ color: "rgba(255,255,255,.75)" }}>Номер</span><span style={{ fontFamily: MONO }}>{orderNo}</span></div>
-              <div style={row}><span style={{ color: "rgba(255,255,255,.75)" }}>Покупатель</span><span style={{ textAlign: "right" }}>{fm.name}</span></div>
-              <div style={row}><span style={{ color: "rgba(255,255,255,.75)" }}>Телефон</span><span style={{ fontFamily: MONO }}>{fm.phone}</span></div>
-              <div style={row}><span style={{ color: "rgba(255,255,255,.75)" }}>Доставка</span><span style={{ textAlign: "right" }}>{DL_NAMES[dl]}</span></div>
-              <div style={row}><span style={{ color: "rgba(255,255,255,.75)" }}>Оплата</span><span style={{ textAlign: "right" }}>{payStatus}</span></div>
-              <div style={{ ...row, borderTop: "1px dashed rgba(255,255,255,.25)", paddingTop: 12, fontWeight: 800 }}><span>Итого</span><span style={{ fontFamily: MONO }}>{totalF} сум</span></div>
-              <button type="button" onClick={newOrder} className="glass-soft" style={{ marginTop: 6, height: 46, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
+              <div style={row}><span style={{ color: "rgb(var(--ink) / .75)" }}>Номер</span><span style={{ fontFamily: MONO }}>{orderNo}</span></div>
+              <div style={row}><span style={{ color: "rgb(var(--ink) / .75)" }}>Покупатель</span><span style={{ textAlign: "right" }}>{fm.name}</span></div>
+              <div style={row}><span style={{ color: "rgb(var(--ink) / .75)" }}>Телефон</span><span style={{ fontFamily: MONO }}>{fm.phone}</span></div>
+              <div style={row}><span style={{ color: "rgb(var(--ink) / .75)" }}>Доставка</span><span style={{ textAlign: "right" }}>{DL_NAMES[dl]}</span></div>
+              <div style={row}><span style={{ color: "rgb(var(--ink) / .75)" }}>Оплата</span><span style={{ textAlign: "right" }}>{payStatus}</span></div>
+              <div style={{ ...row, borderTop: "1px dashed rgb(var(--ink) / .25)", paddingTop: 12, fontWeight: 800 }}><span>Итого</span><span style={{ fontFamily: MONO }}>{totalF} сум</span></div>
+              <button type="button" onClick={newOrder} className="glass-soft" style={{ marginTop: 6, height: 46, borderRadius: 999, color: "var(--fg)", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
                 Новый заказ
               </button>
             </aside>

@@ -54,3 +54,29 @@ export function finderHref(slug: string, len: string, second: string, type: Belt
   const words = [len.trim(), type === "poly" && second.trim() ? `${second.trim()} PJ` : second.trim()].filter(Boolean);
   return words.length ? `/catalog/${slug}?q=${encodeURIComponent(words.join(" "))}` : `/catalog/${slug}`;
 }
+
+// Inch-pitch profiles carry the length in tenths of an inch: "150 XL" = 15.0″ ≈ 381 mm, "1100 H" ≈ 2794 mm.
+const INCH = /(?:^|\s)(?:MXL|XXH|XH|XL|L|H)(?:\s|$)/;
+
+export const isInchBelt = (name: string) => INCH.test(name);
+
+/**
+ * Belt length in mm read from a product name: its largest standalone number. Widths are smaller
+ * ("15 T5 630", "1400 SLV14 85.00 MM") and profile digits are glued to letters (T5, D5M, 32*9).
+ */
+export function lengthMm(name: string): number | null {
+  const nums = [...name.matchAll(/(?<![\p{L}\d.,*])\d+(?:[.,]\d+)?(?![\p{L}\d*])/gu)].map((m) => parseFloat(m[0].replace(",", ".")));
+  if (!nums.length) return null;
+  const n = Math.max(...nums);
+  return isInchBelt(name) ? Math.round(n * 2.54) : n;
+}
+
+/** Up to `n` items closest in length to `mm`, nearest first (for "no exact size" fallbacks). */
+export function nearestByLength<T extends { name: string }>(items: T[], mm: number, n = 6): T[] {
+  return items
+    .map((it) => ({ it, d: Math.abs((lengthMm(it.name) ?? Infinity) - mm) }))
+    .filter((x) => x.d !== Infinity)
+    .sort((a, b) => a.d - b.d)
+    .slice(0, n)
+    .map((x) => x.it);
+}

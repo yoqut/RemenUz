@@ -17,7 +17,7 @@ export function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/img/logo-full.png" alt="Remen.uz — Driven by precision" style={{ height: 62, width: "auto", alignSelf: "start", display: "block" }} />
             <a href="tel:+998787771188" style={{ fontWeight: 700, fontSize: 18 }}>+998 78 777 11 88</a>
-            <span style={{ color: "rgba(255,255,255,.78)" }}>{t.addr1}<br />{t.addr2}</span>
+            <span style={{ color: "rgb(var(--ink) / .78)" }}>{t.addr1}<br />{t.addr2}</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               <a href="https://t.me/remen_uz_store" className="glass-soft" style={social}>Telegram</a>
               <a href="https://wa.me/998935509590" className="glass-soft" style={social}>WhatsApp</a>
@@ -25,8 +25,8 @@ export function Footer() {
               <a href="https://fb.com/remen_uz_store" className="glass-soft" style={social}>Facebook</a>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, color: "rgba(255,255,255,.78)" }}>
-            <span style={{ color: "#FFFFFF", fontWeight: 700 }}>{t.fCompany}</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, color: "rgb(var(--ink) / .78)" }}>
+            <span style={{ color: "var(--fg)", fontWeight: 700 }}>{t.fCompany}</span>
             <Link href="/info/about">{t.fAbout}</Link>
             <Link href="/info/contacts">{t.fContacts}</Link>
             <Link href="/info/news">{t.fNews}</Link>
@@ -47,7 +47,7 @@ export function Footer() {
             <Link href="/business">{t.fPart}</Link>
           </div>
         </div>
-        <div style={{ padding: "18px 40px 26px", borderTop: "1px solid rgba(255,255,255,.14)", fontSize: 13, color: "rgba(255,255,255,.7)" }}>{t.copy}</div>
+        <div style={{ padding: "18px 40px 26px", borderTop: "1px solid rgb(var(--ink) / .14)", fontSize: 13, color: "rgb(var(--ink) / .7)" }}>{t.copy}</div>
       </footer>
     </div>
   );

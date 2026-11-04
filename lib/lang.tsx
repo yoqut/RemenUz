@@ -6,12 +6,13 @@ export type Lang = "ru" | "uz";
 
 type LangCtx = { lang: Lang; setLang: (l: Lang) => void };
 
-const Ctx = createContext<LangCtx>({ lang: "ru", setLang: () => {} });
+const Ctx = createContext<LangCtx>({ lang: "uz", setLang: () => {} });
 
 const KEY = "remen-lang";
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("ru");
+  // Uzbek by default; a visitor who picked RU keeps it via localStorage.
+  const [lang, setLangState] = useState<Lang>("uz");
 
   useEffect(() => {
     try {

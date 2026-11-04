@@ -34,3 +34,16 @@ export const toCard = ({ id, slug, name, sku, brand, price, perMeter, isNew, isH
 });
 
 export const productsIn = (catId: number) => PRODUCTS.filter((p) => p.cats.includes(catId));
+
+/** api.remen.uz serves a grey "no image" placeholder for some products; those don't count as photos. */
+export const hasPhoto = (p: Product) => !!p.imgSmall && !p.imgSmall.includes("no-image");
+
+// Special offers: the two MEGADYNE SILVER3 belts featured in the design first, then the shop's hits.
+const OFFER_SLUGS = ["233-zubcatyi-remen-rpp-silver2-belt-1400-slv14-8500-mm", "235-zubcatyi-remen-rpp-silver2-belt-1610-slv14-8500-mm"];
+
+/** Featured offers plus every priced hit with a photo, featured first; `limit` trims the list. */
+export function specialOffers(limit?: number): Product[] {
+  const featured = OFFER_SLUGS.map(getProduct).filter((p): p is Product => !!p);
+  const hits = PRODUCTS.filter((p) => p.isHit && p.price > 0 && hasPhoto(p) && !featured.includes(p));
+  return [...featured, ...hits].slice(0, limit);
+}

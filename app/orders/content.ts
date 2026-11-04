@@ -57,6 +57,6 @@ export const BADGE: Record<OrderStatus, [string, string]> = {
   shipping: ["rgba(47,107,255,.28)", "rgba(140,175,255,.7)"],
   invoice: ["rgba(255,170,60,.25)", "rgba(255,200,120,.7)"],
   done: ["rgba(18,181,166,.28)", "rgba(124,242,201,.7)"],
-  accepted: ["rgba(255,255,255,.12)", "rgba(255,255,255,.4)"],
-  confirmed: ["rgba(255,255,255,.12)", "rgba(255,255,255,.4)"],
+  accepted: ["rgb(var(--ink) / .12)", "rgb(var(--ink) / .4)"],
+  confirmed: ["rgb(var(--ink) / .12)", "rgb(var(--ink) / .4)"],
 };

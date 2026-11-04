@@ -1,31 +1,47 @@
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;background:#0B0E14}
-body{font-family:'Manrope',system-ui,sans-serif;color:#FFFFFF}
-a{color:#FFFFFF;text-decoration:none}a:hover{color:#FFC4A3}
+/* Theme: --ink is the text colour as an RGB triplet, so inline styles can tint with rgb(var(--ink) / .5). */
+:root{--bg:#0B0E14;--fg:#FFFFFF;--ink:255 255 255;--ok:#7CF2C9;--ok-tag:#CFFFEF;--promo:#FFB088;--hover:#FFC4A3;--well:1;color-scheme:dark}
+:root[data-theme=light]{--bg:#EEF1F6;--fg:#15171A;--ink:21 23 26;--ok:#0E8A6E;--ok-tag:#0B5E4E;--promo:#C2410C;--hover:#C2410C;--well:.2;color-scheme:light}
+html,body{margin:0;background:var(--bg)}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--fg)}
+a{color:var(--fg);text-decoration:none}a:hover{color:var(--hover)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .glass{background:linear-gradient(140deg,rgba(255,255,255,.17),rgba(255,255,255,.05) 60%,rgba(255,255,255,.09));backdrop-filter:blur(26px) saturate(170%);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.06),0 24px 60px rgba(0,0,0,.35)}
 .glass-soft{background:rgba(255,255,255,.07);backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .drop{border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 4%,rgba(255,255,255,.4) 10%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.03) 70%);border:1px solid rgba(255,255,255,.38);box-shadow:inset -10px -14px 26px rgba(255,255,255,.16),inset 8px 10px 18px rgba(0,0,0,.28),0 20px 44px rgba(0,0,0,.4);backdrop-filter:blur(4px) brightness(1.18)}
 .liquid{background-image:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08) 48%,rgba(255,255,255,0) 52%);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),inset 0 -8px 16px rgba(0,0,0,.22),0 12px 28px rgba(0,0,0,.4)}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
-.field{height:50px;padding:0 16px;border-radius:16px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.28);color:#FFFFFF;font:inherit;font-size:15px;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.field{height:50px;padding:0 16px;border-radius:16px;border:1px solid rgb(var(--ink) / .22);background:rgb(0 0 0 / calc(.28 * var(--well)));color:var(--fg);font:inherit;font-size:15px;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
 .field option{color:#15171A}
 textarea.field{height:88px;padding:12px 16px;resize:vertical}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
+input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 .lift:hover{transform:translateY(-3px)}
-.qbtn{width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:#FFFFFF;font-size:20px;cursor:pointer}
-.qbtn:hover{background:rgba(255,255,255,.12)}
-.bp{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px,24px 24px,120px 120px,120px 120px}
-@keyframes beltrun{to{transform:translateX(-50%)}}
-.belt-run{display:flex;width:max-content;animation:beltrun 45s linear infinite}
+.qbtn{width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:var(--fg);font-size:20px;cursor:pointer}
+.qbtn:hover{background:rgb(var(--ink) / .12)}
+.bp{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgb(var(--ink) / .035) 1px,transparent 1px),linear-gradient(90deg,rgb(var(--ink) / .035) 1px,transparent 1px),linear-gradient(rgb(var(--ink) / .07) 1px,transparent 1px),linear-gradient(90deg,rgb(var(--ink) / .07) 1px,transparent 1px);background-size:24px 24px,24px 24px,120px 120px,120px 120px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{transform-box:fill-box;transform-origin:center;animation:spin 12s linear infinite}
-@media (prefers-reduced-motion: reduce){.belt-run,.spin{animation:none}}
+@media (prefers-reduced-motion: reduce){.spin{animation:none}}
+
+/* Light theme: frosted white glass on a pale ground; the colour blobs are dimmed so dark text stays readable. */
+[data-theme=light] .glass{background:linear-gradient(140deg,rgba(255,255,255,.82),rgba(255,255,255,.6) 60%,rgba(255,255,255,.72));border-color:rgba(21,23,26,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 44px rgba(30,40,70,.12)}
+[data-theme=light] .glass-soft{background:rgba(255,255,255,.62);border-color:rgba(21,23,26,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+[data-theme=light] .blob{opacity:.28 !important}
+[data-theme=light] .field{background:rgba(255,255,255,.75);box-shadow:inset 0 1px 3px rgba(21,23,26,.12)}
+[data-theme=light] .liquid{color:#FFFFFF !important;box-shadow:inset 0 1px 1px rgba(255,255,255,.7),inset 0 -8px 16px rgba(0,0,0,.18),0 8px 20px rgba(30,40,70,.18)}
+[data-theme=light] .liquid.liq-n{color:var(--fg) !important}
+/* The logo PNGs are white + orange: invert then rotate hue back, so white turns ink and orange stays orange. */
+[data-theme=light] img[alt^="Remen.uz"]{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+[data-theme=light] .drop{border-color:rgba(21,23,26,.18);box-shadow:inset -10px -14px 26px rgba(255,255,255,.5),inset 8px 10px 18px rgba(21,23,26,.12),0 12px 28px rgba(30,40,70,.15)}
 
 /* Phone-width tightening (the design's sections use 40px side padding and 56px h1) */
 @media (max-width: 640px){
   .sec{padding-left:16px !important;padding-right:16px !important}
   .h1{font-size:36px !important;letter-spacing:-1px !important}
+  /* Brand banners: a swipeable row instead of three squeezed columns. */
+  .banner-row{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;scrollbar-width:none;padding-bottom:40px !important}
+  .banner-row::-webkit-scrollbar{display:none}
+  .banner-row > *{flex:0 0 82%;scroll-snap-align:start}
   .h2{font-size:28px !important}
   /* The full header wraps to several rows on a phone; pinned, it would cover a third of the screen. */
   .sticky-head{position:relative !important;padding:8px 12px 0 !important}
@@ -36,17 +52,34 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
   .hide-sm{display:none !important}
   /* Main header on a phone: logo + icons, then search, then one scrollable row of links. */
   .main-head{padding:10px 12px !important;gap:8px !important;border-radius:22px !important}
-  .main-head img[alt="Remen.uz"]{height:26px !important}
-  .head-row{gap:8px 10px !important;justify-content:space-between}
+  .main-head img[alt="Remen.uz"]{height:22px !important}
+  .head-row{gap:8px !important;justify-content:space-between}
   .head-search{order:9;flex-basis:100% !important;height:44px !important}
   .head-icons{gap:4px !important}
-  .head-icons > a{width:40px !important;height:40px !important}
+  .head-icons > a,.head-icons > button{width:36px !important;height:36px !important}
   .head-icons [role=group]{padding:3px !important}
-  .head-icons [role=group] button{height:32px !important;min-width:36px !important;padding:0 8px !important;font-size:13px !important}
+  .head-icons [role=group] button{height:30px !important;min-width:30px !important;padding:0 6px !important;font-size:13px !important}
   .head-nav{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
   .head-nav::-webkit-scrollbar{display:none}
   .head-nav > *{flex:none;white-space:nowrap}
   .head-nav > button{height:38px !important}
+  /* Promotions sat last and scrolled off-screen; on a phone show them right after the catalog button. */
+  .head-nav > button{order:-2}
+  .head-promo{order:-1}
+  /* Belt-type switch (guide): four tabs wrap 3+1 into a lopsided oval, so lay them out as an even 2x2 grid. */
+  .type-tabs{display:grid !important;grid-template-columns:1fr 1fr;border-radius:22px !important}
+  .type-tabs > button{height:auto !important;min-height:40px;padding:4px 6px !important;border-radius:17px !important;font-size:13px !important;line-height:1.15}
+  /* Cart item: stepper + 150px total + delete don't fit one row, so delete fell onto a row of its own.
+     Picture beside the name, then stepper | total | delete as one row. */
+  .cart-item{display:grid !important;grid-template-columns:72px 40px minmax(0,1fr) 44px;gap:12px 10px !important}
+  .cart-img{width:72px !important;height:72px !important;border-radius:18px !important;align-self:start}
+  .cart-info{grid-column:2 / -1}
+  .cart-qty{grid-column:1 / 3;height:44px !important}
+  .cart-qty .qbtn{width:34px;height:34px}
+  .cart-qty > span{min-width:44px !important;font-size:14px !important}
+  .cart-sum{min-width:0 !important;font-size:16px !important;line-height:1.2}
 }
+/* Narrowest phones: the cart total gets too little width beside the stepper, so it takes its own line. */
+@media (max-width: 370px){.cart-sum{grid-column:1 / -1;grid-row:3;text-align:left !important}}
 .show-sm{display:none}
 @media (max-width: 640px){.show-sm{display:inline}}

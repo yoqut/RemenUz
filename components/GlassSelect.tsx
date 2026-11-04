@@ -76,7 +76,7 @@ export function GlassSelect({ id, value, options, onChange, labelledBy }: {
         className="field"
         style={{
           width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, textAlign: "left", cursor: "pointer",
-          borderColor: open ? "rgba(255,255,255,.55)" : undefined, boxShadow: open ? "inset 0 2px 6px rgba(0,0,0,.3), 0 0 0 3px rgba(255,255,255,.12)" : undefined,
+          borderColor: open ? "rgb(var(--ink) / .55)" : undefined, boxShadow: open ? "inset 0 2px 6px rgba(0,0,0,.3), 0 0 0 3px rgba(255,255,255,.12)" : undefined,
         }}
       >
         <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{current?.label}</span>
@@ -94,7 +94,7 @@ export function GlassSelect({ id, value, options, onChange, labelledBy }: {
             position: "absolute", zIndex: 30, top: "calc(100% + 8px)", left: 0, minWidth: "100%", width: "max-content", maxWidth: 280, margin: 0, padding: 6, listStyle: "none",
             maxHeight: 280, overflowY: "auto", borderRadius: 20,
             background: "rgba(16,20,30,.92)", backdropFilter: "blur(24px) saturate(160%)", WebkitBackdropFilter: "blur(24px) saturate(160%)",
-            border: "1px solid rgba(255,255,255,.18)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.18), 0 24px 50px rgba(0,0,0,.55)",
+            border: "1px solid rgb(var(--ink) / .18)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.18), 0 24px 50px rgba(0,0,0,.55)",
           }}
         >
           {options.map((o, i) => {
@@ -111,17 +111,17 @@ export function GlassSelect({ id, value, options, onChange, labelledBy }: {
                 onClick={() => pick(i)}
                 style={{
                   display: "flex", alignItems: "center", gap: 10, minHeight: 44, padding: "0 12px", borderRadius: 14, cursor: "pointer",
-                  background: hot ? "rgba(255,255,255,.12)" : "transparent",
-                  color: o.muted ? "rgba(255,255,255,.55)" : "#FFFFFF", fontWeight: selected ? 700 : 500, fontSize: 15,
+                  background: hot ? "rgb(var(--ink) / .12)" : "transparent",
+                  color: o.muted ? "rgb(var(--ink) / .55)" : "#FFFFFF", fontWeight: selected ? 700 : 500, fontSize: 15,
                 }}
               >
-                <span style={{ flex: "none", width: 18, color: "#FFB088" }} aria-hidden="true">
+                <span style={{ flex: "none", width: 18, color: "var(--promo)" }} aria-hidden="true">
                   {selected && (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                   )}
                 </span>
                 <span style={{ flex: 1, minWidth: 0, whiteSpace: "nowrap" }}>{o.label}</span>
-                {o.hint && <span style={{ flex: "none", marginLeft: 12, whiteSpace: "nowrap", fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "rgba(255,255,255,.6)" }}>{o.hint}</span>}
+                {o.hint && <span style={{ flex: "none", marginLeft: 12, whiteSpace: "nowrap", fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "rgb(var(--ink) / .6)" }}>{o.hint}</span>}
               </li>
             );
           })}

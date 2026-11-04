@@ -23,9 +23,8 @@ export const T = {
     dSheet: 'ЛИСТ 01 · РЕМЕННАЯ ПЕРЕДАЧА · СХЕМА', dAria: 'Схема ременной передачи: два шкива, зубчатый ремень, межосевое расстояние',
     dA: 'a — межосевое', dL: 'L — длина ремня', dEyebrow: 'ТЕХНИЧЕСКИЕ ПАРАМЕТРЫ', dTitle: 'Ремень подбирается по размерам привода',
     toothAria: 'Профиль зубьев T5, шаг 5 мм', dTooth: 'p — шаг зуба', sProf: 'Профиль', sStep: 'Шаг p', sLen: 'Длина L', sW: 'Ширина', mm: 'мм', dBtn: 'Подобрать по параметрам',
-    tickerLabel: 'Ассортимент',
     offTitle: 'Спецпредложения', sum: 'сум', special: 'Спеццена',
-    delivery: 'ДОСТАВКА', delTitle: 'Бесплатно от 3 000 000 сум', delText: 'Доставим заказ до вашего предприятия по Ташкенту.', delFargo: 'в регионы Узбекистана', delBtn: 'Условия доставки',
+    delivery: 'ДОСТАВКА', delTitle: 'Бесплатно от 3 000 000 сум', delText: 'Доставим заказ до вашего предприятия по Ташкенту.', delFargo: 'в регионы Узбекистана', delBtn: 'Условия доставки',
     newTitle: 'Новые товары', flAll: 'Все', flT5: 'Тип T5', flPJ: 'Тип PJ', flRound: 'Круглого сечения', flClassic: 'Классические',
     isNew: 'Новинка', toFav: 'В избранное', toCart: 'В корзину', more: 'Показать ещё',
     chEyebrow: 'ИНСТРУМЕНТЫ И ОБОРУДОВАНИЕ', chTitle: 'Как выбрать нужный ремень или ленту',
@@ -90,9 +89,8 @@ export const T = {
     dSheet: 'VARAQ 01 · TASMALI UZATMA · SXEMA', dAria: 'Tasmali uzatma sxemasi: ikki shkiv, tishli tasma, oʻqlararo masofa',
     dA: 'a — oʻqlararo', dL: 'L — tasma uzunligi', dEyebrow: 'TEXNIK PARAMETRLAR', dTitle: 'Tasma uzatma oʻlchamlariga qarab tanlanadi',
     toothAria: 'T5 tish profili, qadami 5 mm', dTooth: 'p — tish qadami', sProf: 'Profil', sStep: 'Qadam p', sLen: 'Uzunlik L', sW: 'Eni', mm: 'mm', dBtn: 'Parametrlar boʻyicha tanlash',
-    tickerLabel: 'Assortiment',
     offTitle: 'Maxsus takliflar', sum: 'soʻm', special: 'Maxsus narx',
-    delivery: 'YETKAZIB BERISH', delTitle: '3 000 000 soʻmdan bepul', delText: 'Buyurtmani Toshkent boʻylab korxonangizgacha yetkazamiz.', delFargo: 'orqali Oʻzbekiston viloyatlariga', delBtn: 'Yetkazib berish shartlari',
+    delivery: 'YETKAZIB BERISH', delTitle: '3 000 000 soʻmdan bepul', delText: 'Buyurtmani Toshkent boʻylab korxonangizgacha yetkazamiz.', delFargo: 'orqali Oʻzbekiston viloyatlariga', delBtn: 'Yetkazib berish shartlari',
     newTitle: 'Yangi mahsulotlar', flAll: 'Barchasi', flT5: 'T5 turi', flPJ: 'PJ turi', flRound: 'Dumaloq kesimli', flClassic: 'Klassik',
     isNew: 'Yangi', toFav: 'Saralanganlarga', toCart: 'Savatga', more: 'Yana koʻrsatish',
     chEyebrow: 'ASBOB-USKUNALAR', chTitle: 'Kerakli tasma yoki lentani qanday tanlash',
@@ -139,7 +137,6 @@ export const T = {
 
 export const L = {
   ru: {
-    ticker: ['ЗУБЧАТЫЕ T5 · T10 · AT5', 'ПОЛИКЛИНОВЫЕ PJ', 'КЛИНОВЫЕ Li', 'КРУГЛЫЕ Ø 3–10 ММ', 'КОНВЕЙЕРНЫЕ ЛЕНТЫ', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'ДОСТАВКА ПО ТАШКЕНТУ'],
     markets: [
       { mark: 'U', name: 'Uzum Market', note: 'Магазин Remen.uz на Uzum Market', href: '#' },
       { mark: 'O', name: 'Ozon', note: 'Магазин Remen.uz на Ozon Узбекистан', href: '#' },
@@ -148,10 +145,10 @@ export const L = {
       { mark: 'OP', name: 'optom.uz', note: 'Оптовые закупки для бизнеса', href: '#' }
     ],
     trust: [
-      { n: 'сум', title: 'Любая форма оплаты', sub: 'Наличные, карта, перечисление' },
-      { n: '24', title: 'Поддержка 24/7', sub: 'Telegram, WhatsApp, телефон' },
-      { n: '0', title: 'Бесплатная доставка', sub: 'По Ташкенту от 3 000 000 сум, в регионы — Fargo' },
-      { n: 'B2B', title: 'Корпоративным клиентам', sub: 'Рассрочка и договор' }
+      { icon: 'doc', title: 'Счёт и договор для юрлиц', sub: 'Перечисление, наличные или карта; рассрочка' },
+      { icon: 'truck', title: 'Бесплатно по Ташкенту от 3 000 000 сум', sub: 'Курьером; в регионы — Fargo' },
+      { icon: 'chat', title: 'Подбор по фото и размерам', sub: 'Telegram, WhatsApp, +998 78 777 11 88' },
+      { icon: 'box', title: '1 300+ позиций в наличии', sub: 'Megadyne, PIX, Novobelt' }
     ],
     cats: [
       { code: 'T5 · T10', name: 'Зубчатые ремни', note: 'Megadyne, Novobelt — бесконечные и с профилями' },
@@ -177,7 +174,6 @@ export const L = {
     ]
   },
   uz: {
-    ticker: ['TISHLI T5 · T10 · AT5', 'KOʻP PONALI PJ', 'PONASIMON Li', 'DUMALOQ Ø 3–10 MM', 'KONVEYER LENTALARI', 'MEGADYNE', 'BANDO', 'PIX', 'NOVOBELT', 'TOSHKENT BOʻYLAB YETKAZISH'],
     markets: [
       { mark: 'U', name: 'Uzum Market', note: 'Uzum Market’dagi Remen.uz doʻkoni', href: '#' },
       { mark: 'O', name: 'Ozon', note: 'Ozon Oʻzbekistondagi Remen.uz doʻkoni', href: '#' },
@@ -186,10 +182,10 @@ export const L = {
       { mark: 'OP', name: 'optom.uz', note: 'Biznes uchun ulgurji xaridlar', href: '#' }
     ],
     trust: [
-      { n: 'soʻm', title: 'Istalgan toʻlov shakli', sub: 'Naqd, karta, pul oʻtkazish' },
-      { n: '24', title: 'Qoʻllab-quvvatlash 24/7', sub: 'Telegram, WhatsApp, telefon' },
-      { n: '0', title: 'Bepul yetkazib berish', sub: 'Toshkentda 3 000 000 soʻmdan, viloyatlarga — Fargo' },
-      { n: 'B2B', title: 'Korporativ mijozlar uchun', sub: 'Boʻlib toʻlash va shartnoma' }
+      { icon: 'doc', title: 'Yuridik shaxslarga hisob va shartnoma', sub: 'Pul oʻtkazish, naqd yoki karta; boʻlib toʻlash' },
+      { icon: 'truck', title: 'Toshkentda 3 000 000 soʻmdan bepul', sub: 'Kuryer orqali; viloyatlarga — Fargo' },
+      { icon: 'chat', title: 'Rasm va oʻlcham boʻyicha tanlash', sub: 'Telegram, WhatsApp, +998 78 777 11 88' },
+      { icon: 'box', title: '1 300+ mahsulot omborda', sub: 'Megadyne, PIX, Novobelt' }
     ],
     cats: [
       { code: 'T5 · T10', name: 'Tishli tasmalar', note: 'Megadyne, Novobelt — uzluksiz va profilli' },

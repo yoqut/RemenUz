@@ -10,10 +10,10 @@ import { PageShell, type Blob } from "@/components/PageShell";
 import { BADGE, O, ORD } from "./content";
 
 const blobs: Blob[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, opacity: 0.55 },
+  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, color: "#FFFFFF", opacity: 0.55 },
   { top: 260, right: -200, width: 620, height: 620, background: "#2F6BFF", opacity: 0.5 },
   { top: 1500, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.32 },
-  { top: 2500, left: -160, width: 620, height: 620, background: ACCENT, opacity: 0.4 },
+  { top: 2500, left: -160, width: 620, height: 620, background: ACCENT, color: "#FFFFFF", opacity: 0.4 },
   { top: 3300, right: -120, width: 600, height: 600, background: "#6A4CFF", opacity: 0.38 },
 ];
 
@@ -74,8 +74,8 @@ export function OrdersView() {
       <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px", display: "flex", flexDirection: "column", gap: 22 }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 14 }}>
           <div>
-            <span style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, color: "rgba(255,255,255,.72)" }}>{o.eyebrow}</span>
-            <h1 className="h1" style={{ margin: "6px 0 0", fontFamily: "'Unbounded', sans-serif", fontSize: 44, fontWeight: 700, letterSpacing: -1 }}>{o.title}</h1>
+            <span style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, color: "rgb(var(--ink) / .72)" }}>{o.eyebrow}</span>
+            <h1 className="h1" style={{ margin: "6px 0 0", fontFamily: "'Oswald', sans-serif", fontSize: 44, fontWeight: 700, letterSpacing: -1 }}>{o.title}</h1>
           </div>
           {isList && (
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10 }}>
@@ -88,7 +88,7 @@ export function OrdersView() {
                   setPhone("");
                 }}
                 className="glass-soft"
-                style={{ height: 40, padding: "0 16px", borderRadius: 999, color: "#FFFFFF", font: "inherit", fontSize: 14, fontWeight: 700, cursor: "pointer" }}
+                style={{ height: 40, padding: "0 16px", borderRadius: 999, color: "var(--fg)", font: "inherit", fontSize: 14, fontWeight: 700, cursor: "pointer" }}
               >
                 {o.logoutL}
               </button>
@@ -101,10 +101,10 @@ export function OrdersView() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 22, alignItems: "stretch" }}>
             <form onSubmit={submitAuth} className="glass" style={{ flex: "1 1 420px", minWidth: 0, borderRadius: 36, padding: 32, display: "flex", flexDirection: "column", gap: 16 }}>
               <span className="drop" style={{ width: 64, height: 64, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg>
               </span>
-              <h2 style={{ margin: 0, fontFamily: "'Unbounded', sans-serif", fontSize: 24, fontWeight: 600 }}>{o.authTitle}</h2>
-              <p style={{ margin: 0, color: "rgba(255,255,255,.8)", fontSize: 15 }}>{o.authText}</p>
+              <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 24, fontWeight: 600 }}>{o.authTitle}</h2>
+              <p style={{ margin: 0, color: "rgb(var(--ink) / .8)", fontSize: 15 }}>{o.authText}</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <label htmlFor="o-phone" style={label}>{o.phoneL}</label>
                 <input
@@ -139,7 +139,7 @@ export function OrdersView() {
                     }}
                     style={{ fontFamily: mono, fontSize: 22, letterSpacing: 10, textAlign: "center" }}
                   />
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.65)" }}>{o.codeHint}</span>
+                  <span style={{ fontSize: 12, color: "rgb(var(--ink) / .65)" }}>{o.codeHint}</span>
                 </div>
               )}
               {err && (
@@ -156,21 +156,21 @@ export function OrdersView() {
                     setCode("");
                   }}
                   className="glass-soft"
-                  style={{ height: 46, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}
+                  style={{ height: 46, borderRadius: 999, color: "var(--fg)", font: "inherit", fontWeight: 700, cursor: "pointer" }}
                 >
                   {o.changeL}
                 </button>
               )}
             </form>
             <div className="glass-soft" style={{ flex: "1 1 360px", minWidth: 0, borderRadius: 36, padding: 32, display: "flex", flexDirection: "column", gap: 14 }}>
-              <h3 style={{ margin: 0, fontFamily: "'Unbounded', sans-serif", fontSize: 20, fontWeight: 600 }}>{o.whyTitle}</h3>
+              <h3 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 20, fontWeight: 600 }}>{o.whyTitle}</h3>
               {o.why.map((w) => (
                 <div key={w.n} style={{ display: "flex", gap: 14, alignItems: "start" }}>
                   <span className="drop" style={{ flex: "none", width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: mono, fontSize: 12, fontWeight: 600 }}>{w.n}</span>
-                  <div style={{ color: "rgba(255,255,255,.85)", fontSize: 15 }}>{w.t}</div>
+                  <div style={{ color: "rgb(var(--ink) / .85)", fontSize: 15 }}>{w.t}</div>
                 </div>
               ))}
-              <a href="https://t.me/Remenuz_bot" style={{ marginTop: "auto", color: "#FFB088", fontWeight: 700 }}>{o.tgL} →</a>
+              <a href="https://t.me/Remenuz_bot" style={{ marginTop: "auto", color: "var(--promo)", fontWeight: 700 }}>{o.tgL} →</a>
             </div>
           </div>
         )}
@@ -206,33 +206,33 @@ export function OrdersView() {
                     <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 20px" }}>
                       <div style={{ flex: "1 1 220px" }}>
                         <div style={{ fontFamily: mono, fontSize: 18, fontWeight: 600 }}>{x.no}</div>
-                        <div style={{ fontSize: 13, color: "rgba(255,255,255,.72)" }}>{x.date} · {x.items.length + " " + o.pos}</div>
+                        <div style={{ fontSize: 13, color: "rgb(var(--ink) / .72)" }}>{x.date} · {x.items.length + " " + o.pos}</div>
                       </div>
                       <span style={{ padding: "6px 14px", borderRadius: 999, fontSize: 13, fontWeight: 800, background: bc[0], border: "1px solid " + bc[1] }}>{o.st[x.st]}</span>
                       <span style={{ minWidth: 140, textAlign: "right", fontFamily: mono, fontSize: 19, fontWeight: 600 }}>
-                        {fmt(total)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,.72)" }}>{o.sum}</span>
+                        {fmt(total)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgb(var(--ink) / .72)" }}>{o.sum}</span>
                       </span>
-                      <button type="button" onClick={() => setOpenNo(open ? "" : x.no)} aria-expanded={open} className="glass-soft" style={{ height: 44, padding: "0 18px", borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
+                      <button type="button" onClick={() => setOpenNo(open ? "" : x.no)} aria-expanded={open} className="glass-soft" style={{ height: 44, padding: "0 18px", borderRadius: 999, color: "var(--fg)", font: "inherit", fontWeight: 700, cursor: "pointer" }}>
                         {open ? o.close : o.open}
                       </button>
                     </div>
                     {/* progress */}
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 6 }}>
                       {[0, 1, 2, 3, 4].map((i) => (
-                        <span key={i} style={{ height: 6, borderRadius: 999, background: i <= x.stage ? (x.st === "done" ? "#12B5A6" : ACCENT) : "rgba(255,255,255,.15)" }} />
+                        <span key={i} style={{ height: 6, borderRadius: 999, background: i <= x.stage ? (x.st === "done" ? "#12B5A6" : ACCENT) : "rgb(var(--ink) / .15)" }} />
                       ))}
                     </div>
                     {open && (
                       <>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: 18, borderTop: "1px solid rgba(255,255,255,.12)", paddingTop: 16 }}>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 18, borderTop: "1px solid rgb(var(--ink) / .12)", paddingTop: 16 }}>
                           <div style={{ flex: "999 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                             {x.items.map((it) => (
                               <div key={it.t} style={{ display: "flex", alignItems: "center", gap: 14 }}>
                                 <span className="drop" style={{ flex: "none", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                  <svg width="28" height="16" viewBox="0 0 200 110" aria-hidden="true"><rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="#FFFFFF" strokeWidth="14" strokeDasharray="6 5" /></svg>
+                                  <svg width="28" height="16" viewBox="0 0 200 110" aria-hidden="true"><rect x="12" y="20" width="176" height="70" rx="35" fill="none" stroke="currentColor" strokeWidth="14" strokeDasharray="6 5" /></svg>
                                 </span>
                                 <span style={{ flex: 1, minWidth: 0, fontWeight: 600, fontSize: 14 }}>{it.t}</span>
-                                <span style={{ fontFamily: mono, fontSize: 14, color: "rgba(255,255,255,.8)" }}>{it.q}</span>
+                                <span style={{ fontFamily: mono, fontSize: 14, color: "rgb(var(--ink) / .8)" }}>{it.q}</span>
                                 <span style={{ minWidth: 110, textAlign: "right", fontFamily: mono, fontSize: 14 }}>{fmt(it.p) + " " + o.sum}</span>
                               </div>
                             ))}
@@ -244,10 +244,10 @@ export function OrdersView() {
                                 s === "done"
                                   ? { background: "#12B5A6", border: "2px solid #7CF2C9" }
                                   : s === "now"
-                                    ? { background: ACCENT, border: "3px solid #FFFFFF" }
-                                    : { border: "2px solid rgba(255,255,255,.4)" };
+                                    ? { background: ACCENT, color: "#FFFFFF", border: "3px solid #FFFFFF" }
+                                    : { border: "2px solid rgb(var(--ink) / .4)" };
                               const line: CSSProperties =
-                                i === arr.length - 1 ? { display: "none" } : { flex: 1, width: 2, minHeight: 16, background: s === "done" ? "#12B5A6" : "rgba(255,255,255,.2)" };
+                                i === arr.length - 1 ? { display: "none" } : { flex: 1, width: 2, minHeight: 16, background: s === "done" ? "#12B5A6" : "rgb(var(--ink) / .2)" };
                               return (
                                 <li key={i} style={{ display: "flex", gap: 12 }}>
                                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -255,10 +255,10 @@ export function OrdersView() {
                                     <span style={line} />
                                   </div>
                                   <div style={{ paddingBottom: 12 }}>
-                                    <div style={{ fontWeight: 700, fontSize: 14, ...(s === "next" ? { color: "rgba(255,255,255,.65)" } : {}) }}>
+                                    <div style={{ fontWeight: 700, fontSize: 14, ...(s === "next" ? { color: "rgb(var(--ink) / .65)" } : {}) }}>
                                       {x.st === "invoice" && i === 2 ? o.st.invoice : title}
                                     </div>
-                                    <div style={{ fontSize: 12, color: "rgba(255,255,255,.65)" }}>{i === 0 ? x.date : ""}</div>
+                                    <div style={{ fontSize: 12, color: "rgb(var(--ink) / .65)" }}>{i === 0 ? x.date : ""}</div>
                                   </div>
                                 </li>
                               );
@@ -266,7 +266,7 @@ export function OrdersView() {
                           </ol>
                         </div>
                         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                          <Link href="/cart" className="liquid" style={{ ...pillBtn, backgroundColor: ACCENT }}>{o.repeatL}</Link>
+                          <Link href="/cart" className="liquid" style={{ ...pillBtn, backgroundColor: ACCENT, color: "#FFFFFF" }}>{o.repeatL}</Link>
                           <a href="https://t.me/Remenuz_bot" className="glass-soft" style={pillBtn}>{o.askL}</a>
                           {x.track && (
                             <span className="glass-soft" style={{ height: 44, padding: "0 18px", display: "flex", alignItems: "center", gap: 8, borderRadius: 999, fontSize: 14 }}>
@@ -282,10 +282,10 @@ export function OrdersView() {
                 );
               })}
               {shown.length === 0 && (
-                <div className="glass-soft" style={{ padding: 24, borderRadius: 26, textAlign: "center", color: "rgba(255,255,255,.8)" }}>{o.emptyL}</div>
+                <div className="glass-soft" style={{ padding: 24, borderRadius: 26, textAlign: "center", color: "rgb(var(--ink) / .8)" }}>{o.emptyL}</div>
               )}
             </div>
-            <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,.55)" }}>{o.demoNote}</p>
+            <p style={{ margin: 0, fontSize: 12, color: "rgb(var(--ink) / .55)" }}>{o.demoNote}</p>
           </>
         )}
       </section>

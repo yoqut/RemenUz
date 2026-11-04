@@ -47,8 +47,8 @@ export function BeltFinder() {
   return (
     <form id="finder" className="glass" onSubmit={submit} style={{ position: "relative", borderRadius: 36, padding: "clamp(20px, 5vw, 34px)", display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
       <div>
-        <h2 style={{ margin: 0, fontFamily: "'Unbounded', sans-serif", fontSize: 26, fontWeight: 600 }}>{t.fTitle}</h2>
-        <p style={{ margin: "4px 0 0", fontSize: 14, color: "rgba(255,255,255,.72)" }}>{t.fSub}</p>
+        <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 26, fontWeight: 600 }}>{t.fTitle}</h2>
+        <p style={{ margin: "4px 0 0", fontSize: 14, color: "rgb(var(--ink) / .72)" }}>{t.fSub}</p>
       </div>
 
       <fieldset style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
@@ -66,9 +66,9 @@ export function BeltFinder() {
                 className={on ? "liquid" : ""}
                 style={{
                   display: "flex", alignItems: "center", gap: 8, minHeight: 50, padding: "0 12px", borderRadius: 16, cursor: "pointer",
-                  font: "inherit", fontSize: 14, fontWeight: 700, color: "#FFFFFF", textAlign: "left",
-                  border: on ? "1px solid rgba(255,255,255,.55)" : "1px solid rgba(255,255,255,.16)",
-                  backgroundColor: on ? ACCENT : "rgba(0,0,0,.22)", transition: "background-color .2s, border-color .2s",
+                  font: "inherit", fontSize: 14, fontWeight: 700, color: "var(--fg)", textAlign: "left",
+                  border: on ? "1px solid rgb(var(--ink) / .55)" : "1px solid rgb(var(--ink) / .16)",
+                  backgroundColor: on ? ACCENT : "rgb(0 0 0 / calc(.22 * var(--well)))", transition: "background-color .2s, border-color .2s",
                 }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" aria-hidden="true" style={{ flex: "none", opacity: on ? 1 : 0.75 }}>{ICONS[k]}</svg>
@@ -113,8 +113,8 @@ export function BeltFinder() {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
         {t.fBtn}
       </button>
-      <p style={{ margin: 0, fontSize: 14, color: "rgba(255,255,255,.75)" }}>
-        {t.fHelp} <a href="https://t.me/Remenuz_bot" style={{ color: "#FFB088", fontWeight: 700 }}>{t.fHelpLink}</a>
+      <p style={{ margin: 0, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
+        {t.fHelp} <a href="https://t.me/Remenuz_bot" style={{ color: "var(--promo)", fontWeight: 700 }}>{t.fHelpLink}</a>
       </p>
     </form>
   );

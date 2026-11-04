@@ -47,11 +47,11 @@ const paragraphs = (html: string) =>
     .filter(Boolean);
 
 const mono = "'JetBrains Mono', monospace";
-const unb = "'Unbounded', sans-serif";
-const crumb: CSSProperties = { color: "rgba(255,255,255,.75)" };
-const statLabel: CSSProperties = { fontSize: 12, color: "rgba(255,255,255,.72)" };
+const unb = "'Oswald', sans-serif";
+const crumb: CSSProperties = { color: "rgb(var(--ink) / .75)" };
+const statLabel: CSSProperties = { fontSize: 12, color: "rgb(var(--ink) / .72)" };
 const statVal: CSSProperties = { fontFamily: mono, fontSize: 22, fontWeight: 600 };
-const qtyBtn: CSSProperties = { width: 48, height: 48, border: 0, borderRadius: "50%", background: "transparent", color: "#FFFFFF", fontSize: 22, cursor: "pointer" };
+const qtyBtn: CSSProperties = { width: 48, height: 48, border: 0, borderRadius: "50%", background: "transparent", color: "var(--fg)", fontSize: 22, cursor: "pointer" };
 
 export function ProductView({ p, trail, related, relatedTitle }: { p: Product; trail: Crumb[]; related: ProductCard[]; relatedTitle: string }) {
   const accent = ACCENT;
@@ -74,8 +74,8 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
   const img = fullImg(p.img);
 
   return (
-    <div className="gp" style={{ position: "relative", overflow: "clip", fontFamily: "'Manrope', system-ui, sans-serif", color: "#FFFFFF", background: "#0B0E14", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
-      <div className="blob" style={{ top: -120, left: -160, width: 640, height: 640, background: accent, opacity: 0.5 }} />
+    <div className="gp" style={{ position: "relative", overflow: "clip", fontFamily: "'Manrope', system-ui, sans-serif", color: "var(--fg)", background: "var(--bg)", fontSize: 16, lineHeight: 1.55, minHeight: "100vh" }}>
+      <div className="blob" style={{ top: -120, left: -160, width: 640, height: 640, background: accent, color: "#FFFFFF", opacity: 0.5 }} />
       <div className="blob" style={{ top: 200, right: -180, width: 600, height: 600, background: "#2F6BFF", opacity: 0.45 }} />
       <div className="blob" style={{ top: 1300, left: "35%", width: 560, height: 560, background: "#12B5A6", opacity: 0.3 }} />
 
@@ -84,24 +84,24 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
         <div className="sticky-head" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
           <header className="glass pill-head" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
             <Logo height={32} />
-            <Link href="/catalog" className="liquid" style={{ height: 44, padding: "0 20px", display: "flex", alignItems: "center", backgroundColor: accent, fontWeight: 700, borderRadius: 999 }}>Каталог</Link>
+            <Link href="/catalog" className="liquid" style={{ height: 44, padding: "0 20px", display: "flex", alignItems: "center", backgroundColor: accent, color: "#FFFFFF", fontWeight: 700, borderRadius: 999 }}>Каталог</Link>
             <form className="glass-soft pill-search" role="search" onSubmit={(e) => e.preventDefault()} style={{ flex: "1 1 320px", display: "flex", alignItems: "center", height: 44, borderRadius: 999, padding: "0 16px" }}>
               <label htmlFor="gpq" className="sr">Поиск</label>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
-              <input id="gpq" type="search" placeholder="Артикул или размер" style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "#FFFFFF", padding: "0 12px", font: "inherit", fontSize: 15, outline: "none" }} />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeOpacity=".75" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
+              <input id="gpq" type="search" placeholder="Артикул или размер" style={{ flex: 1, minWidth: 0, border: 0, background: "transparent", color: "var(--fg)", padding: "0 12px", font: "inherit", fontSize: 15, outline: "none" }} />
             </form>
             <a href="tel:+998787771188" className="hide-sm" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
             <Link href="/cart" aria-label={`Корзина, ${goodsRu(cart.count)}`} className="glass-soft" style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="17" cy="19.5" r="1.5" /></svg>
               {cart.count > 0 && (
-                <span aria-hidden="true" style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, padding: "0 5px", borderRadius: 10, background: accent, fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{cart.count}</span>
+                <span aria-hidden="true" style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, padding: "0 5px", borderRadius: 10, background: accent, color: "#FFFFFF", fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{cart.count}</span>
               )}
             </Link>
           </header>
         </div>
 
         <main className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 40px 96px" }}>
-          <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgba(255,255,255,.75)" }}>
+          <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
             <Link href="/" style={crumb}>Главная</Link><span aria-hidden="true">›</span>
             <Link href="/catalog" style={crumb}>Каталог</Link><span aria-hidden="true">›</span>
             {trail.map((c) => (
@@ -109,7 +109,7 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                 <Link href={`/catalog/${c.slug}`} style={crumb}>{c.name}</Link><span aria-hidden="true">›</span>
               </span>
             ))}
-            <span aria-current="page" style={{ color: "#FFFFFF", fontWeight: 600, overflowWrap: "anywhere" }}>{p.sku || p.name}</span>
+            <span aria-current="page" style={{ color: "var(--fg)", fontWeight: 600, overflowWrap: "anywhere" }}>{p.sku || p.name}</span>
           </nav>
 
           <div style={{ marginTop: 28, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 520px), 1fr))", gap: 32, alignItems: "start" }}>
@@ -132,11 +132,11 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                   {p.inStock ? (
                     <span style={{ padding: "5px 12px", borderRadius: 999, background: "rgba(18,181,166,.25)", border: "1px solid rgba(18,181,166,.6)" }}>● В наличии</span>
                   ) : (
-                    <span style={{ padding: "5px 12px", borderRadius: 999, background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.3)" }}>Под заказ</span>
+                    <span style={{ padding: "5px 12px", borderRadius: 999, background: "rgb(var(--ink) / .08)", border: "1px solid rgb(var(--ink) / .3)" }}>Под заказ</span>
                   )}
                 </div>
                 <h1 className="gp-h1" style={{ margin: 0, fontFamily: unb, fontSize: 34, fontWeight: 600, lineHeight: 1.15, letterSpacing: -0.5, overflowWrap: "anywhere" }}>{p.name}</h1>
-                <span style={{ fontFamily: mono, fontSize: 13, color: "rgba(255,255,255,.72)", overflowWrap: "anywhere" }}>Артикул: {p.sku}{p.brand ? ` · Бренд: ${p.brand}` : ""}</span>
+                <span style={{ fontFamily: mono, fontSize: 13, color: "rgb(var(--ink) / .72)", overflowWrap: "anywhere" }}>Артикул: {p.sku}{p.brand ? ` · Бренд: ${p.brand}` : ""}</span>
               </div>
 
               {tiles.length > 0 && (
@@ -153,8 +153,8 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
               {p.price > 0 ? (
                 <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: 8 }}>
                   <span style={{ fontFamily: mono, fontSize: 42, fontWeight: 600, lineHeight: 1 }}>{formatPrice(p.price)}</span>
-                  <span style={{ fontSize: 18, color: "rgba(255,255,255,.75)" }}>{p.perMeter ? "сум / м" : "сум"}</span>
-                  {p.oldPrice && <span style={{ fontFamily: mono, fontSize: 18, color: "rgba(255,255,255,.55)", textDecoration: "line-through" }}>{formatPrice(p.oldPrice)}</span>}
+                  <span style={{ fontSize: 18, color: "rgb(var(--ink) / .75)" }}>{p.perMeter ? "сум / м" : "сум"}</span>
+                  {p.oldPrice && <span style={{ fontFamily: mono, fontSize: 18, color: "rgb(var(--ink) / .55)", textDecoration: "line-through" }}>{formatPrice(p.oldPrice)}</span>}
                 </div>
               ) : (
                 <div style={{ fontFamily: unb, fontSize: 26, fontWeight: 600 }}>Цена по запросу</div>
@@ -167,14 +167,14 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                   <button type="button" aria-label="Больше" onClick={() => setQty(qty + 1)} style={qtyBtn}>+</button>
                 </div>
                 <button type="button" onClick={addToCart} className="liquid" style={{ flex: "1 1 200px", height: 56, border: 0, borderRadius: 999, backgroundColor: accent, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 16, cursor: "pointer" }}>В корзину</button>
-                <button type="button" onClick={() => { addToCart(); router.push("/cart"); }} className="glass" style={{ flex: "1 1 170px", height: 56, borderRadius: 999, color: "#FFFFFF", font: "inherit", fontWeight: 700, cursor: "pointer" }}>Купить в 1 клик</button>
+                <button type="button" onClick={() => { addToCart(); router.push("/cart"); }} className="glass" style={{ flex: "1 1 170px", height: 56, borderRadius: 999, color: "var(--fg)", font: "inherit", fontWeight: 700, cursor: "pointer" }}>Купить в 1 клик</button>
               </div>
               {added !== null && (
                 <div role="status" className="glass-soft" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "12px 12px 12px 18px", borderRadius: 22, border: "1px solid rgba(124,242,201,.5)" }}>
                   <span style={{ fontWeight: 700 }}>
-                    <span style={{ color: "#7CF2C9" }}>✓</span> Добавлено: {added} {unit} · в корзине {inCart?.qty ?? added} {unit}
+                    <span style={{ color: "var(--ok)" }}>✓</span> Добавлено: {added} {unit} · в корзине {inCart?.qty ?? added} {unit}
                   </span>
-                  <Link href="/cart" className="liquid" style={{ height: 40, padding: "0 18px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: "rgba(255,255,255,.2)", fontSize: 14, fontWeight: 700 }}>Перейти в корзину →</Link>
+                  <Link href="/cart" className="liquid liq-n" style={{ height: 40, padding: "0 18px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: "rgb(var(--ink) / .2)", fontSize: 14, fontWeight: 700 }}>Перейти в корзину →</Link>
                 </div>
               )}
 
@@ -193,8 +193,8 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                         onClick={() => setDl(d.id)}
                         className={on ? "liquid" : ""}
                         style={{
-                          display: "flex", flexDirection: "column", alignItems: "stretch", padding: "12px 16px", borderRadius: 20, color: "#FFFFFF", font: "inherit", cursor: "pointer", textAlign: "left",
-                          ...(on ? { border: "1px solid rgba(255,255,255,.6)", backgroundColor: "rgba(255,255,255,.2)" } : { border: "1px solid rgba(255,255,255,.18)", backgroundColor: "rgba(255,255,255,.05)" }),
+                          display: "flex", flexDirection: "column", alignItems: "stretch", padding: "12px 16px", borderRadius: 20, color: "var(--fg)", font: "inherit", cursor: "pointer", textAlign: "left",
+                          ...(on ? { border: "1px solid rgb(var(--ink) / .6)", backgroundColor: "rgb(var(--ink) / .2)" } : { border: "1px solid rgb(var(--ink) / .18)", backgroundColor: "rgb(var(--ink) / .05)" }),
                         }}
                       >
                         <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, width: "100%" }}>
@@ -209,16 +209,16 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                           </span>
                           <span
                             aria-hidden="true"
-                            style={{ flex: "none", width: 16, height: 16, borderRadius: "50%", boxSizing: "border-box", ...(on ? { border: "5px solid #FFFFFF", background: accent } : { border: "2px solid rgba(255,255,255,.6)" }) }}
+                            style={{ flex: "none", width: 16, height: 16, borderRadius: "50%", boxSizing: "border-box", ...(on ? { border: "5px solid #FFFFFF", background: accent, color: "#FFFFFF" } : { border: "2px solid rgb(var(--ink) / .6)" }) }}
                           />
                         </span>
-                        <span style={{ display: "block", fontSize: 12, color: "rgba(255,255,255,.75)", textAlign: "left", marginTop: 2 }}>{d.sub}</span>
+                        <span style={{ display: "block", fontSize: 12, color: "rgb(var(--ink) / .75)", textAlign: "left", marginTop: 2 }}>{d.sub}</span>
                       </button>
                     );
                   })}
                 </div>
                 {dl === "fargo" && (
-                  <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 4, padding: "12px 16px", borderRadius: 18, fontSize: 13, color: "rgba(255,255,255,.85)" }}>
+                  <div className="glass-soft" style={{ display: "flex", flexDirection: "column", gap: 4, padding: "12px 16px", borderRadius: 18, fontSize: 13, color: "rgb(var(--ink) / .85)" }}>
                     <span>Отправим заказ курьерской службой Fargo в ваш город. Стоимость и срок рассчитываются при оформлении.</span>
                     <span>Трек-номер пришлём в Telegram или SMS.</span>
                   </div>
@@ -229,7 +229,7 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: 10 }}>
                   <span style={{ fontSize: 14, fontWeight: 700 }}>Купить на маркетплейсе</span>
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.7)" }}>цена и доставка — на площадке</span>
+                  <span style={{ fontSize: 12, color: "rgb(var(--ink) / .7)" }}>цена и доставка — на площадке</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {markets.map((m) => (
@@ -241,26 +241,26 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
                       </span>
                       <span style={{ flex: 1, minWidth: 0, lineHeight: 1.25 }}>
                         <span style={{ display: "block", fontWeight: 700 }}>{m.name}</span>
-                        <span style={{ display: "block", fontSize: 12, color: "rgba(255,255,255,.72)" }}>{m.note}</span>
+                        <span style={{ display: "block", fontSize: 12, color: "rgb(var(--ink) / .72)" }}>{m.note}</span>
                       </span>
-                      <span className="liquid" style={{ flex: "none", height: 40, padding: "0 16px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: "rgba(255,255,255,.18)", fontSize: 14, fontWeight: 700 }}>Купить ↗</span>
+                      <span className="liquid liq-n" style={{ flex: "none", height: 40, padding: "0 16px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: "rgb(var(--ink) / .18)", fontSize: 14, fontWeight: 700 }}>Купить ↗</span>
                     </a>
                   ))}
                 </div>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 15, color: "rgba(255,255,255,.8)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 15, color: "rgb(var(--ink) / .8)" }}>
                 <div>Бесплатная доставка при заказе от 3 000 000 сум</div>
                 <div>Любая форма оплаты · доступна рассрочка</div>
               </div>
 
               <a href="https://t.me/Remenuz_bot" className="glass-soft" style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px 14px 14px", borderRadius: 999 }}>
                 <span className="drop" style={{ flex: "none", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "rgba(47,107,255,.35)" }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.8" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
                 </span>
                 <span style={{ flex: 1, lineHeight: 1.3 }}>
                   <span style={{ display: "block", fontWeight: 700 }}>Сомневаетесь в размере?</span>
-                  <span style={{ display: "block", fontSize: 13, color: "rgba(255,255,255,.75)" }}>Пришлите фото старого ремня — проверим совместимость</span>
+                  <span style={{ display: "block", fontSize: 13, color: "rgb(var(--ink) / .75)" }}>Пришлите фото старого ремня — проверим совместимость</span>
                 </span>
                 <span aria-hidden="true">→</span>
               </a>
@@ -271,10 +271,10 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
           <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 520px), 1fr))", gap: 32 }}>
             <div className="glass gp-card" style={{ borderRadius: 36, padding: 32 }}>
               <h2 style={{ margin: "0 0 16px", fontFamily: unb, fontSize: 24, fontWeight: 600 }}>Характеристики</h2>
-              {specs.length === 0 && <p style={{ margin: 0, color: "rgba(255,255,255,.75)" }}>Характеристики уточняйте у менеджера.</p>}
+              {specs.length === 0 && <p style={{ margin: 0, color: "rgb(var(--ink) / .75)" }}>Характеристики уточняйте у менеджера.</p>}
               {specs.map((s) => (
-                <div key={s.k} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,.12)" }}>
-                  <span style={{ color: "rgba(255,255,255,.75)" }}>{s.k}</span>
+                <div key={s.k} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "12px 0", borderBottom: "1px solid rgb(var(--ink) / .12)" }}>
+                  <span style={{ color: "rgb(var(--ink) / .75)" }}>{s.k}</span>
                   <span style={{ fontFamily: mono, fontWeight: 500, textAlign: "right", overflowWrap: "anywhere" }}>{s.v}</span>
                 </div>
               ))}
@@ -282,9 +282,9 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
             <div className="glass gp-card" style={{ borderRadius: 36, padding: 32, display: "flex", flexDirection: "column", gap: 16 }}>
               <h2 style={{ margin: 0, fontFamily: unb, fontSize: 24, fontWeight: 600 }}>Описание</h2>
               {desc.length ? (
-                desc.map((t, i) => <p key={i} style={{ margin: 0, color: "rgba(255,255,255,.8)" }}>{t}</p>)
+                desc.map((t, i) => <p key={i} style={{ margin: 0, color: "rgb(var(--ink) / .8)" }}>{t}</p>)
               ) : (
-                <p style={{ margin: 0, color: "rgba(255,255,255,.8)" }}>Подробности о применении и совместимости уточните у менеджера — подберём ремень под ваше оборудование.</p>
+                <p style={{ margin: 0, color: "rgb(var(--ink) / .8)" }}>Подробности о применении и совместимости уточните у менеджера — подберём ремень под ваше оборудование.</p>
               )}
               <a href="https://t.me/Remenuz_bot" className="glass-soft" style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, padding: "14px 20px", borderRadius: 999, fontWeight: 600 }}>
                 <span>Задать вопрос по товару</span>
