@@ -77,6 +77,7 @@ export const CATALOG_T = {
     isNew: "Новинка",
     hit: "Хит",
     toCart: "В корзину",
+    qty: "Количество", qtyLess: "Меньше", qtyMore: "Больше", inCart: "В корзине — перейти",
     sku: "Артикул",
   },
   uz: {
@@ -107,6 +108,7 @@ export const CATALOG_T = {
     isNew: "Yangi",
     hit: "Xit",
     toCart: "Savatga",
+    qty: "Miqdor", qtyLess: "Kamaytirish", qtyMore: "Koʻpaytirish", inCart: "Savatda — oʻtish",
     sku: "Artikul",
   },
 };

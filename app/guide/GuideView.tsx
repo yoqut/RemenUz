@@ -22,7 +22,7 @@ const G = {
     lLen: "Uzunlik L, mm", lWidth: "Eni b, mm", lRibs: "Ariqchalar N", lLi: "Uzunlik Li, mm", lSec: "Kesim b, mm", lDia: "Diametr Ø, mm", lRLen: "Kerakli uzunlik L, mm",
     recTitle: "Katalogdan tavsiya", exact: "Aniq mos", close: "Eng yaqin oʻlcham", noMatch: "Bu profil uchun katalogda mahsulot yoʻq — parametrlarni yuboring, analogini tanlab beramiz.",
     toCartL: "Savatga", askBtn: "Telegramda muhandisdan aniqlash", perM: "soʻm / m", pcs: "soʻm", costFor: "uchun", mShort: "m", teeth: "tish",
-    nToothed: "Tishli tasma", nPoly: "Koʻp ponali tasma", nV: "Ponasimon tasma", nRound: "Termopayvandlanadigan dumaloq kesimli tasma",
+    nToothed: "Tishli tasma", nPoly: "V-tip chiziqli kamar", nV: "V-tip kamar", nRound: "Termopayvandlanadigan dumaloq kesimli tasma",
   },
 };
 

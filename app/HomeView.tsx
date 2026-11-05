@@ -37,7 +37,7 @@ const BANNER_T = {
   },
   uz: {
     megadyne: { title: "MEGADYNE tishli tasmalari", sub: "MEGASYNC Silver, Gold, Titanium · Italiya" },
-    pix: { title: "PIX koʻp ponali tasmalari", sub: "Profillar PH · PJ · PK · PL · PM" },
+    pix: { title: "PIX V-tip chiziqli kamarlari", sub: "Profillar PH · PJ · PK · PL · PM" },
     rezina: { title: "Belting Rezina yassi tasmalari", sub: "Oʻlchamingizga mos yassi uzatma tasmalari" },
     count: (n: number) => (n ? `${n} ta mahsulot →` : "Buyurtma asosida →"),
     featEyebrow: "HTD · STD · RPP · T · AT · XL · L · H",

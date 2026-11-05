@@ -101,7 +101,7 @@ export const IP: { ru: InfoDict; uz: InfoDict } = {
     pages: {
       about: { g: "company", label: "Biz haqimizda", title: "Kompaniya haqida", lead: "Remen.uz — Toshkentdagi uzatma tasmalari va konveyer lentalari internet-doʻkoni. Korxonalarga tasma oʻrnini tez topishga yordam beramiz — artikul, oʻlcham yoki namuna boʻyicha.",
         cards: [
-          { n: "01", h: "Assortiment", d: "Tishli, koʻp ponali, ponasimon va dumaloq tasmalar, konveyer lentalari, oʻrnatish asboblari." },
+          { n: "01", h: "Assortiment", d: "Tishli tasmalar, V-tip chiziqli va V-tip kamarlar, dumaloq tasmalar, konveyer lentalari, oʻrnatish asboblari." },
           { n: "02", h: "Brendlar", d: "Megadyne, Bando, PIX, Novobelt." },
           { n: "03", h: "Tanlash", d: "Tasmani markirovka, oʻlchamlar yoki eski namuna rasmi boʻyicha aniqlaymiz.", href: "/guide", cta: "Tasmani qanday oʻlchash" },
           { n: "04", h: "Qayerdan xarid qilish", d: "Saytda, Telegram-botda va marketpleyslardagi Remen.uz doʻkonlarida." },
@@ -123,8 +123,8 @@ export const IP: { ru: InfoDict; uz: InfoDict } = {
         ], note: "" },
       brands: { g: "company", label: "Brendlar", title: "Brendlar", lead: "Katalogimizdagi uzatma texnikasi ishlab chiqaruvchilari.",
         cards: [
-          { n: "MEGADYNE", h: "Megadyne", d: "MEGAPOWER2 va MEGASYNC SILVER3 tishli, PV BELT koʻp ponali tasmalar." },
-          { n: "BANDO", h: "Bando", d: "Klassik profilli ponasimon tasmalar." },
+          { n: "MEGADYNE", h: "Megadyne", d: "MEGAPOWER2 va MEGASYNC SILVER3 tishli, PV BELT V-tip chiziqli kamarlar." },
+          { n: "BANDO", h: "Bando", d: "Klassik profilli V-tip kamarlar." },
           { n: "PIX", h: "PIX", d: "[KATALOGDAGI PIX MAHSULOTLARI]" },
           { n: "NOVOBELT", h: "Novobelt", d: "AT5 va T10 tishli tasmalar, shu jumladan profilli." },
         ], note: "[BRENDLAR LOGOTIPLARI · ISHLAB CHIQARUVCHI DAVLAT]" },

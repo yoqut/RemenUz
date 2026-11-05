@@ -6,7 +6,7 @@ import { ACCENT } from "@/lib/i18n";
 import { CATALOG_T, formatPrice } from "@/lib/catalog";
 import { isInchBelt, lengthMm } from "@/lib/finder";
 import type { ProductCard } from "@/lib/products";
-import { AddToCartButton } from "./AddToCartButton";
+import { BuyControls } from "./AddToCartButton";
 import { FavButton } from "./FavButton";
 import { Photo } from "./Photo";
 
@@ -55,15 +55,15 @@ export function ProductTile({ p, tag, showLen }: { p: ProductCard; tag?: string;
       </div>
       {showLen && <span style={{ fontFamily: MONO, fontSize: 12, fontWeight: 600, color: "var(--promo)", padding: "0 4px" }}>{isInchBelt(p.name) ? "≈ " : "L = "}{lengthMm(p.name)} {ct.mm}</span>}
       <Link href={`/product/${p.slug}`} style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.4, minHeight: 63, padding: "0 4px" }}>{p.name}</Link>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginTop: "auto", padding: "0 0 0 4px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: "auto" }}>
         {p.price > 0 ? (
-          <span style={{ fontFamily: MONO, fontSize: 18, fontWeight: 600 }}>
+          <span style={{ fontFamily: MONO, fontSize: 18, fontWeight: 600, padding: "0 4px" }}>
             {formatPrice(p.price)} <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 13, fontWeight: 500, color: "rgb(var(--ink) / .72)" }}>{p.perMeter ? ct.perM : ct.sum}</span>
           </span>
         ) : (
-          <span style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--ink) / .8)" }}>{ct.onRequest}</span>
+          <span style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--ink) / .8)", padding: "0 4px" }}>{ct.onRequest}</span>
         )}
-        <AddToCartButton label={ct.toCart} product={{ id: p.id, slug: p.slug, name: p.name, sku: p.sku, brand: p.brand, price: p.price, perMeter: p.perMeter, img: p.imgSmall }} />
+        <BuyControls label={ct.toCart} product={{ id: p.id, slug: p.slug, name: p.name, sku: p.sku, brand: p.brand, price: p.price, perMeter: p.perMeter, img: p.imgSmall }} />
       </div>
     </div>
   );

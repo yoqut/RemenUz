@@ -419,7 +419,7 @@
   "parentId": 1,
   "order": 5,
   "name": "Клиновые ремни",
-  "nameUz": "V-kamarlar",
+  "nameUz": "V-tip kamarlar",
   "count": 721
  },
  {
@@ -473,7 +473,7 @@
   "parentId": 1,
   "order": 6,
   "name": "Поликлиновые ремни",
-  "nameUz": "V-chiziqli kamarlar",
+  "nameUz": "V-tip chiziqli kamarlar",
   "count": 37
  },
  {

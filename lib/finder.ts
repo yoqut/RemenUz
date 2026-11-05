@@ -15,13 +15,13 @@ export const FINDER: Record<BeltType, { ru: string; uz: string; cats: number[]; 
     second: { ru: "Ширина, мм", uz: "Eni, mm", ph: "25" },
   },
   poly: {
-    ru: "Поликлиновой", uz: "Koʻp ponali",
+    ru: "Поликлиновой", uz: "V-tip chiziqli kamar",
     cats: [31, 46, 47, 48, 49],
     len: { ru: "Длина, мм", uz: "Uzunligi, mm", ph: "1059" },
     second: { ru: "Ручьёв, шт", uz: "Ariqchalar, ta", ph: "8" },
   },
   v: {
-    ru: "Клиновой", uz: "Ponasimon",
+    ru: "Клиновой", uz: "V-tip kamar",
     cats: [45, 73, 10, 11, 74, 8, 39, 12, 13, 14, 41, 15, 43, 44],
     len: { ru: "Длина Lp / Li, мм", uz: "Uzunligi Lp / Li, mm", ph: "1250" },
     second: null,
