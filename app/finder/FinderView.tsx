@@ -13,11 +13,6 @@ import type { ProductCard } from "@/lib/products";
 
 const DISPLAY = "'Oswald', sans-serif";
 
-const BLOBS: CSSProperties[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, opacity: 0.5 },
-  { top: 300, right: -200, width: 620, height: 620, background: "#6A4CFF", opacity: 0.4 },
-];
-
 const FT = {
   ru: {
     home: "Главная",
@@ -71,7 +66,7 @@ export function FinderView() {
 
   const typed = !!query?.q;
   return (
-    <PageShell blobs={BLOBS}>
+    <PageShell>
       <Header />
       <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "16px 20px 72px", display: "flex", flexDirection: "column", gap: 16 }}>
         <nav aria-label="Навигация" className="glass-soft" style={{ alignSelf: "start", display: "flex", gap: 8, padding: "6px 14px", borderRadius: 999, fontSize: 13, color: "rgb(var(--ink) / .75)" }}>

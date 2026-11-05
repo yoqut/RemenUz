@@ -1,0 +1,4 @@
+{
+  "_readme": "Marketplace links and prices per product. Key: the product slug from its page URL (remen.uz/product/<slug>). Per marketplace (uzum, ozon, yandex, wb, optom): url = the product card on that marketplace, price = its price there in UZS (optional: without it the site price plus the markup in lib/marketplaces.ts is shown). A marketplace left out links to its search for the product name instead. Example: \"252-zubcatyi-remen-tip-75-t5-1400\": { \"uzum\": { \"url\": \"https://uzum.uz/...\", \"price\": 2250000 } }",
+  "products": {}
+}

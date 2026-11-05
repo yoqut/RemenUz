@@ -6,15 +6,7 @@ import { useT } from "@/lib/lang";
 import { ACCENT, L, T, withLogos } from "@/lib/i18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { PageShell, type Blob } from "@/components/PageShell";
-
-const blobs: Blob[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, color: "#FFFFFF", opacity: 0.55 },
-  { top: 260, right: -200, width: 620, height: 620, background: "#2F6BFF", opacity: 0.5 },
-  { top: 1500, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.32 },
-  { top: 2500, left: -160, width: 620, height: 620, background: ACCENT, color: "#FFFFFF", opacity: 0.4 },
-  { top: 3300, right: -120, width: 600, height: 600, background: "#6A4CFF", opacity: 0.38 },
-];
+import { PageShell } from "@/components/PageShell";
 
 const mono: CSSProperties = { fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: 1, color: "rgb(var(--ink) / .72)" };
 
@@ -54,7 +46,7 @@ export function BusinessView() {
   const markets = withLogos(useT(L).markets);
 
   return (
-    <PageShell blobs={blobs}>
+    <PageShell>
       <Header />
 
       {/* Page title */}

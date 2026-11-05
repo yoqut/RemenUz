@@ -9,14 +9,6 @@ import { Footer } from "@/components/Footer";
 import { PageShell } from "@/components/PageShell";
 import { BUYERS, COMPANY, IP, type Slug } from "./content";
 
-const blobs: CSSProperties[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, color: "#FFFFFF", opacity: 0.55 },
-  { top: 260, right: -200, width: 620, height: 620, background: "#2F6BFF", opacity: 0.5 },
-  { top: 1500, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.32 },
-  { top: 2500, left: -160, width: 620, height: 620, background: ACCENT, color: "#FFFFFF", opacity: 0.4 },
-  { top: 3300, right: -120, width: 600, height: 600, background: "#6A4CFF", opacity: 0.38 },
-];
-
 const navStyle = (on: boolean): CSSProperties => ({
   display: "block",
   padding: "10px 14px",
@@ -62,7 +54,7 @@ export function InfoView({ slug }: { slug: Slug }) {
   ];
 
   return (
-    <PageShell blobs={blobs}>
+    <PageShell>
       <Header />
 
       {/* Info pages */}

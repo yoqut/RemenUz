@@ -48,14 +48,6 @@ const BANNER_T = {
   },
 };
 
-const BLOBS: CSSProperties[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, opacity: 0.55 },
-  { top: 260, right: -200, width: 620, height: 620, background: "#2F6BFF", opacity: 0.5 },
-  { top: 1500, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.32 },
-  { top: 2500, left: -160, width: 620, height: 620, background: ACCENT, opacity: 0.4 },
-  { top: 3300, right: -120, width: 600, height: 600, background: "#6A4CFF", opacity: 0.38 },
-];
-
 /** Section heading with the accent bar every home section shares. */
 function H2({ children, style }: { children: ReactNode; style?: CSSProperties }) {
   return (
@@ -119,7 +111,7 @@ function Shelf({ title, href, all, children }: { title: string; href: string; al
         <H2>{title}</H2>
         <Link href={href} className="glass-soft" style={{ padding: "10px 18px", borderRadius: 999, fontWeight: 700 }}>{all}</Link>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>{children}</div>
+      <div className="shelf-row" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>{children}</div>
     </section>
   );
 }
@@ -143,7 +135,7 @@ export function HomeView({ shelves, catImgs, banners }: { shelves: Shelves; catI
   ];
 
   return (
-    <PageShell blobs={BLOBS}>
+    <PageShell>
       <Header />
       <h1 className="sr-only">{t.h1}</h1>
 
@@ -155,7 +147,7 @@ export function HomeView({ shelves, catImgs, banners }: { shelves: Shelves; catI
           // Hits keep their own "Хит" badge; only the hand-picked offers are labelled as a special price.
           <ProductTile key={o.id} p={o} tag={o.isHit ? undefined : t.special} />
         ))}
-          <div className="liquid" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24, padding: 30, borderRadius: 28, backgroundColor: ACCENT, color: "#FFFFFF" }}>
+          <div className="liquid deliv-tile" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24, padding: 30, borderRadius: 28, backgroundColor: ACCENT, color: "#FFFFFF" }}>
             <span className="drop" aria-hidden="true" style={{ position: "absolute", right: -40, bottom: -40, width: 200, height: 200 }} />
             <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, letterSpacing: 1 }}>{t.delivery}</span>
             <div style={{ position: "relative" }}>

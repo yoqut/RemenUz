@@ -1,7 +1,7 @@
 *,*::before,*::after{box-sizing:border-box}
 /* Theme: --ink is the text colour as an RGB triplet, so inline styles can tint with rgb(var(--ink) / .5). */
-:root{--bg:#0B0E14;--fg:#FFFFFF;--ink:255 255 255;--ok:#7CF2C9;--ok-tag:#CFFFEF;--promo:#FFB088;--hover:#FFC4A3;--well:1;color-scheme:dark}
-:root[data-theme=light]{--bg:#EEF1F6;--fg:#15171A;--ink:21 23 26;--ok:#0E8A6E;--ok-tag:#0B5E4E;--promo:#C2410C;--hover:#C2410C;--well:.2;color-scheme:light}
+:root{--bg:#0B0E14;--fg:#FFFFFF;--ink:255 255 255;--ok:#7CF2C9;--ok-tag:#CFFFEF;--promo:#FFB088;--hover:#FFC4A3;--well:1;color-scheme:dark;--accent:#E2531A;--accent-hi:#F0642B;--surface:#151920;--ground:#0E1116;--line:#2A303A;--muted:#9AA3AE;--row:#1B2028;--stock:#4ADE80}
+:root[data-theme=light]{--bg:#EEF1F6;--fg:#15171A;--ink:21 23 26;--ok:#0E8A6E;--ok-tag:#0B5E4E;--promo:#C2410C;--hover:#C2410C;--well:.2;color-scheme:light;--accent-hi:#C9471A;--surface:#FFFFFF;--ground:#F3F4F6;--line:#E1E4E8;--muted:#5B6470;--row:#F7F8FA;--stock:#15803D}
 html,body{margin:0;background:var(--bg)}
 body{font-family:'Manrope',system-ui,sans-serif;color:var(--fg)}
 a{color:var(--fg);text-decoration:none}a:hover{color:var(--hover)}
@@ -32,7 +32,49 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 [data-theme=light] .liquid.liq-n{color:var(--fg) !important}
 /* The logo PNGs are white + orange: invert then rotate hue back, so white turns ink and orange stays orange. */
 [data-theme=light] img[alt^="Remen.uz"]{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+[data-theme=light] .ind-foot img[alt^="Remen.uz"]{filter:none}
 [data-theme=light] .drop{border-color:rgba(21,23,26,.18);box-shadow:inset -10px -14px 26px rgba(255,255,255,.5),inset 8px 10px 18px rgba(21,23,26,.12),0 12px 28px rgba(30,40,70,.15)}
+
+/* Flat industrial look for every remaining glass component (home, cart, promo, guide, info…): solid
+   surfaces, hairline borders, no blur or glow, small radii. Overrides the glass rules above in both themes. */
+.glass,[data-theme=light] .glass{background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);box-shadow:0 1px 2px rgba(16,24,40,.05);border-radius:14px !important}
+.glass-soft,[data-theme=light] .glass-soft{background:var(--row);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);box-shadow:none;border-radius:10px !important}
+.liquid,[data-theme=light] .liquid{background-image:none;box-shadow:none;border-radius:8px !important}
+.liquid:hover{filter:brightness(1.07)}
+.drop,[data-theme=light] .drop{background:var(--row);border:1px solid var(--line);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.drop[aria-hidden="true"]{display:none}
+.field,[data-theme=light] .field{background:var(--surface);border-color:var(--line);box-shadow:none;border-radius:8px !important}
+.field:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.lift:hover{transform:none;border-color:rgb(var(--ink) / .3)}
+.select-pop{border-radius:10px !important}
+
+/* Industrial catalog style (catalog, product, search, header, footer): flat white surfaces, hairline
+   borders, small radii, one orange accent; sizes and article codes in JetBrains Mono. */
+.ind{font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;background:var(--ground);color:var(--fg)}
+/* The page ground is a flex column; its blocks keep full width (centred by their own max-width) instead of
+   shrinking to their content. */
+.ind > *{width:100%}
+.ind-card{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.ind-btn{height:40px;padding:0 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:border-color .15s,background-color .15s}
+.ind-btn:hover{border-color:rgb(var(--ink) / .4);color:var(--fg)}
+.ind-primary{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.ind-primary:hover{background:var(--accent-hi);border-color:var(--accent-hi);color:#FFFFFF}
+.ind-input{height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:14px;min-width:0}
+.ind-input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.ind-link{color:var(--fg)}.ind-link:hover{color:var(--accent)}
+.ind-mono{font-family:'JetBrains Mono',monospace}
+.ind a:focus-visible,.ind button:focus-visible,.ind summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ind-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+
+/* Size table (ProductTable): grid rows; the spec cells join the row grid on wide screens. */
+.pt-row{display:grid;align-items:center;gap:0 16px;padding:10px 16px;border-top:1px solid var(--line)}
+.pt-head{border-top:0}
+.pt-row:not(.pt-head):hover{background:var(--row)}
+.pt-specs{display:contents}
+
+/* GlassSelect dropdown: smoked glass in dark mode, frosted white in light mode. */
+.select-pop{background:rgb(16,20,30);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 24px 50px rgba(0,0,0,.55)}
+[data-theme=light] .select-pop{background:#FFFFFF;box-shadow:0 20px 44px rgba(30,40,70,.2)}
 
 /* Visible to screen readers and search engines only. */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -44,6 +86,67 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 /* Phone-width tightening (the design's sections use 40px side padding and 56px h1) */
 @media (max-width: 640px){
   .sec{padding-left:16px !important;padding-right:16px !important}
+  /* Industrial header on a phone: logo + icons, then a full-width search; belt links scroll sideways.
+     Not pinned: two rows plus links would cover too much of a small screen. */
+  .ind-sticky{position:relative !important}
+  .ind-util > div{padding:0 16px !important;gap:12px !important}
+  .ind-main{flex-wrap:wrap;gap:10px !important;padding:10px 16px !important}
+  .ind-icons{margin-left:auto}
+  .ind-search{order:9;flex:1 1 100% !important}
+  .ind-nav{overflow-x:auto;scrollbar-width:none}
+  .ind-nav::-webkit-scrollbar{display:none}
+  .ind-nav > *{flex:none}
+  /* Size table on a phone: photo beside article + name, sizes as labelled chips, then price | buy. */
+  .pt-head{display:none !important}
+  .pt-row{grid-template-columns:56px minmax(0,1fr) auto !important;grid-template-areas:"img name name" "img specs specs" "price price buy";gap:8px 12px !important;padding:12px !important}
+  .pt-img{grid-area:img;align-self:start}
+  .pt-name{grid-area:name}
+  .pt-specs{grid-area:specs;display:flex !important;flex-wrap:wrap;gap:2px 14px}
+  .pt-spec::before{content:attr(data-label) " ";font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--muted)}
+  .pt-price{grid-area:price;text-align:left !important}
+  .pt-buy{grid-area:buy}
+  /* Catalog: filters fold above the table; less side padding. */
+  .ind-pad{padding:14px 16px 40px !important}
+  .cat-grid{grid-template-columns:minmax(0,1fr) !important;gap:12px !important}
+  .cat-filters{position:static !important}
+  .cat-filters:not([open]) summary{margin-bottom:0 !important}
+  /* Product page: photo above the buy box; key sizes two per row. */
+  .pp-top,.pp-info{grid-template-columns:minmax(0,1fr) !important;gap:14px !important}
+  .pp-top{grid-template-areas:"photo" "buy" "mk" !important;grid-template-rows:auto !important}
+  .pp-buy{position:static !important}
+  /* Home shelves: one swipeable row each instead of four full-width cards stacked (the page was ~14 000px tall). */
+  .shelf-row{display:flex !important;gap:12px !important;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}
+  .shelf-row::-webkit-scrollbar{display:none}
+  .shelf-row > *{flex:0 0 calc(50% - 6px);scroll-snap-align:start}
+  /* The delivery offer is the first promo slide already; in a narrow shelf it towered over the cards. */
+  .deliv-tile{display:none !important}
+  /* Product cards two per row: every grid of tiles gets two columns, and the tile itself compacts. */
+  div:has(> .tile){grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important}
+  .tile{padding:8px !important;gap:6px !important;border-radius:12px !important}
+  .tile-img{border-radius:8px !important}
+  .tile-tags{top:6px !important;left:6px !important;gap:4px !important}
+  .tile-tags > span{padding:2px 6px !important;font-size:10px !important}
+  .tile-img > button{top:4px !important;right:4px !important;transform:scale(.8);transform-origin:top right}
+  .tile-brand{padding:0 2px !important}
+  .tile-brand > span:first-child{font-size:13px !important}
+  .tile-sku{display:none}
+  .tile-name{font-size:13px !important;line-height:1.3 !important;min-height:0 !important;padding:0 2px !important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .tile-price{font-size:15px !important;padding:0 2px !important}
+  .tile-price > span{font-size:11px !important}
+  .buy{gap:6px !important}
+  .buy-qty{height:36px !important;padding:0 2px !important}
+  .buy-qty > button{width:26px !important;height:30px !important;font-size:17px !important}
+  .buy-qty > input{min-width:18px !important;height:30px !important;font-size:14px !important}
+  .buy > button{width:36px !important;height:36px !important}
+  .buy > button svg{width:17px;height:17px}
+  .pp-key{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .pp-key > div:nth-child(odd){border-left:0 !important}
+  .pp-key > div:nth-child(n+3){border-top:1px solid var(--line)}
+  /* Marketplace rows: logo + name, then price | button on the next line. */
+  .mk-row{grid-template-columns:84px minmax(0,1fr) auto !important;gap:8px 10px !important}
+  .mk-name{grid-column:2 / -1}
+  .mk-price{grid-column:1 / 3;text-align:left !important}
+  .mk-btn{grid-column:3}
   .h1{font-size:36px !important;letter-spacing:-1px !important}
   /* Promo slides: picture on top, text below. */
   .slide{grid-template-columns:minmax(0,1fr) !important;gap:16px !important;min-height:0 !important;padding:16px 18px 44px !important;align-items:start !important}
@@ -92,4 +195,16 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 /* Narrowest phones: the cart total gets too little width beside the stepper, so it takes its own line. */
 @media (max-width: 370px){.cart-sum{grid-column:1 / -1;grid-row:3;text-align:left !important}}
 .show-sm{display:none}
+/* Phone bottom tab bar (MobileTabBar): fixed above the home indicator; the page gets room for it. */
+.tabbar{display:none}
+@media (max-width: 640px){
+  body{padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+  .tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--surface);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom));box-shadow:0 -6px 18px rgba(15,20,30,.08);font-family:'Inter',system-ui,sans-serif}
+  .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
+  .tab:hover{color:var(--fg)}
+  .tab-on,.tab-on:hover{color:var(--accent)}
+  .tab-badge{position:absolute;top:-6px;right:-11px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--accent);color:#FFFFFF;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+}
+.only-sm{display:none !important}
+@media (max-width: 640px){.only-sm{display:flex !important}}
 @media (max-width: 640px){.show-sm{display:inline}}

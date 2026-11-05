@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Logo } from "@/components/Logo";
+import { Header } from "@/components/Header";
 import { useState, type ChangeEvent, type CSSProperties } from "react";
 import { ACCENT } from "@/lib/i18n";
 import { PageShell } from "@/components/PageShell";
-import { goodsRu, useCart, type CartItem } from "@/lib/cart";
+import { useCart, type CartItem } from "@/lib/cart";
 import { fullImg } from "@/lib/images";
 
 type Dl = "yandex" | "fargo" | "pickup";
@@ -82,12 +82,6 @@ const row: CSSProperties = { display: "flex", justifyContent: "space-between", g
 const optHead: CSSProperties = { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, width: "100%" };
 const optTitle: CSSProperties = { fontWeight: 800, fontSize: 15 };
 const optSub: CSSProperties = { display: "block", fontSize: 13, color: "rgb(var(--ink) / .75)", marginTop: 4 };
-
-const blobs: CSSProperties[] = [
-  { top: -140, left: -160, width: 640, height: 640, background: ACCENT, color: "#FFFFFF", opacity: 0.5 },
-  { top: 300, right: -180, width: 600, height: 600, background: "#2F6BFF", opacity: 0.42 },
-  { top: 1200, left: "30%", width: 560, height: 560, background: "#12B5A6", opacity: 0.28 },
-];
 
 const CartIcon = ({ size, stroke, sw }: { size: number; stroke: string; sw: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={sw} aria-hidden="true">
@@ -234,28 +228,8 @@ export function CartView() {
   ];
 
   return (
-    <PageShell blobs={blobs}>
-      {/* Header */}
-      <div className="sec" style={{ position: "sticky", top: 0, zIndex: 50, maxWidth: 1320, margin: "0 auto", padding: "12px 20px 0" }}>
-        <header className="glass pill-head" style={{ borderRadius: 999, padding: "10px 12px 10px 18px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 18px" }}>
-          <Logo height={32} />
-          <Link href="/" className="glass-soft" style={{ height: 44, padding: "0 18px", display: "flex", alignItems: "center", gap: 8, fontWeight: 700, borderRadius: 999 }}>
-            ← <span className="hide-sm">Продолжить покупки</span><span className="show-sm">Назад</span>
-          </Link>
-          <span style={{ flex: 1 }} />
-          <a href="tel:+998787771188" className="hide-sm" style={{ fontWeight: 700 }}>+998 78 777 11 88</a>
-          <span
-            aria-label={`Корзина, ${goodsRu(cart.count)}`}
-            className="liquid"
-            style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: accent, color: "#FFFFFF" }}
-          >
-            <CartIcon size={20} stroke="currentColor" sw="1.8" />
-            <span style={{ position: "absolute", top: -4, right: -4, minWidth: 20, height: 20, borderRadius: 10, background: "#FFFFFF", color: "#15171A", fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {cart.count}
-            </span>
-          </span>
-        </header>
-      </div>
+    <PageShell>
+      <Header />
 
       <main className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "32px 20px 96px" }}>
         {/* Steps */}

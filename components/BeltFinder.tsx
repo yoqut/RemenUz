@@ -65,7 +65,7 @@ export function BeltFinder({ page, onQuery }: { page?: boolean; onQuery?: (q: Fi
   );
 
   return (
-    <form id="finder" className="glass" onSubmit={submit} style={{ position: "relative", borderRadius: 36, padding: page ? "clamp(18px, 4vw, 26px)" : "clamp(20px, 5vw, 34px)", display: "flex", flexDirection: "column", gap: page ? 16 : 20, minWidth: 0 }}>
+    <form id="finder" className="glass" onSubmit={submit} style={{ position: "relative", zIndex: 2, borderRadius: 36, padding: page ? "clamp(18px, 4vw, 26px)" : "clamp(20px, 5vw, 34px)", display: "flex", flexDirection: "column", gap: page ? 16 : 20, minWidth: 0 }}>
       <div>
         <Heading style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 26, fontWeight: 600 }}>{t.fTitle}</Heading>
         <p style={{ margin: "4px 0 0", fontSize: 14, color: "rgb(var(--ink) / .72)" }}>{t.fSub}</p>

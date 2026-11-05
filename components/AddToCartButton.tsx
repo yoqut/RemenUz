@@ -71,8 +71,8 @@ export function BuyControls({ product, label }: { product: CartProduct; label: s
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-      <div role="group" aria-label={ct.qty} className="glass-soft" style={{ flex: 1, minWidth: 0, height: 46, padding: "0 5px", borderRadius: 999, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+    <div className="buy" style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+      <div role="group" aria-label={ct.qty} className="glass-soft buy-qty" style={{ flex: 1, minWidth: 0, height: 46, padding: "0 5px", borderRadius: 999, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <button type="button" aria-label={ct.qtyLess} onClick={() => set(qty - 1)} disabled={qty <= 1} style={{ ...step, opacity: qty <= 1 ? 0.35 : 1 }}>−</button>
         <input
           aria-label={ct.qty}

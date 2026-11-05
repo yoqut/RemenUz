@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageShell } from "@/components/PageShell";
@@ -9,11 +8,6 @@ import { ProductTile } from "@/components/ProductTile";
 import { useFav } from "@/lib/favorites";
 import { useT } from "@/lib/lang";
 import { ACCENT } from "@/lib/i18n";
-
-const BLOBS: CSSProperties[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, opacity: 0.5 },
-  { top: 400, right: -200, width: 620, height: 620, background: "#2F6BFF", opacity: 0.4 },
-];
 
 const FT = {
   ru: { title: "Избранное", empty: "Здесь пока пусто. Нажмите ♡ на карточке товара, чтобы сохранить его.", cat: "Перейти в каталог" },
@@ -25,7 +19,7 @@ export default function FavoritesPage() {
   const { items } = useFav();
   const f = useT(FT);
   return (
-    <PageShell blobs={BLOBS}>
+    <PageShell>
       <Header />
       <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexDirection: "column", gap: 24 }}>
         <h1 className="h1" style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 56, fontWeight: 700, lineHeight: 1.05 }}>{f.title}</h1>

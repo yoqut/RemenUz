@@ -2,6 +2,9 @@
 // file is large, so pages pass slim `ProductCard` lists to client components.
 import "server-only";
 import productsJson from "@/data/products.json";
+import galleriesJson from "@/data/galleries.json";
+import { lengthMm } from "./finder";
+import { fullImg } from "./images";
 
 export type Product = {
   id: number;
@@ -34,6 +37,51 @@ export const toCard = ({ id, slug, name, sku, brand, price, perMeter, isNew, isH
 });
 
 export const productsIn = (catId: number) => PRODUCTS.filter((p) => p.cats.includes(catId));
+
+/**
+ * A catalog table row: the card plus the sizes buyers compare. `len` is the pitch length (Lp) for
+ * V-belts, the belt length otherwise, read from the name when the attribute is missing; per-metre
+ * belts have none. `width` is the belt width, a V-belt's top width or a round belt's diameter.
+ */
+export type CatalogRow = ProductCard & {
+  profile: string | null;
+  len: number | null;
+  lenKind: "Lp" | null;
+  width: string | null;
+  teeth: string | null;
+  ribs: string | null;
+  pitch: string | null;
+};
+
+const attr = (p: Product, key: string) => p.attrs.find(([k]) => k === key)?.[1].trim() || null;
+const num = (v: string | null) => {
+  const n = v ? parseFloat(v.replace(",", ".")) : NaN;
+  return Number.isFinite(n) ? n : null;
+};
+
+export function toRow(p: Product): CatalogRow {
+  const lp = num(attr(p, "Расчётная длина, Lp/Ld/Lw (в мм)"));
+  return {
+    ...toCard(p),
+    profile: attr(p, "Профиль ремня")?.replace(/^(Тип|Профиль)\s*/i, "") ?? null,
+    len: p.perMeter ? null : (lp ?? num(attr(p, "Длина ремня (в мм)")) ?? lengthMm(p.name)),
+    lenKind: lp !== null ? "Lp" : null,
+    width: (attr(p, "Ширина ремня (в мм)") ?? attr(p, "Ширина большого основания (в мм)") ?? attr(p, "Диаметр ремня"))?.replace(/\s*мм$/, "") ?? null,
+    teeth: attr(p, "Количество зубьев"),
+    ribs: attr(p, "Количество рёбер"),
+    pitch: attr(p, "Шаг ремня (в мм)")?.replace(",", ".") ?? null,
+  };
+}
+
+const GALLERIES = galleriesJson as Record<string, string[]>;
+
+/** Full-size photos for the product page: the remen.uz gallery (scripts/fetch-galleries.mjs), else the one photo. */
+export function galleryOf(p: Product): string[] {
+  const g = GALLERIES[p.id];
+  if (g?.length) return g;
+  const one = fullImg(p.img);
+  return one && !one.includes("no-image") ? [one] : [];
+}
 
 /** api.remen.uz serves a grey "no image" placeholder for some products; those don't count as photos. */
 export const hasPhoto = (p: Product) => !!p.imgSmall && !p.imgSmall.includes("no-image");

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CatalogView } from "../CatalogView";
 import { CATALOG_ROOT, CATEGORIES, SPHERES_ROOT, getCategoryBySlug } from "@/lib/catalog";
-import { productsIn, toCard } from "@/lib/products";
+import { productsIn, toRow } from "@/lib/products";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,5 +20,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params }: Props) {
   const c = getCategoryBySlug((await params).slug);
   if (!c || !isListed(c.id)) notFound();
-  return <CatalogView catId={c.id} products={productsIn(c.id).map(toCard)} />;
+  return <CatalogView catId={c.id} products={productsIn(c.id).map(toRow)} />;
 }

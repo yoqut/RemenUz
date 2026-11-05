@@ -90,11 +90,11 @@ export function GlassSelect({ id, value, options, onChange, labelledBy }: {
           id={listId}
           role="listbox"
           aria-labelledby={labelledBy}
+          className="select-pop"
           style={{
             position: "absolute", zIndex: 30, top: "calc(100% + 8px)", left: 0, minWidth: "100%", width: "max-content", maxWidth: 280, margin: 0, padding: 6, listStyle: "none",
             maxHeight: 280, overflowY: "auto", borderRadius: 20,
-            background: "rgba(16,20,30,.92)", backdropFilter: "blur(24px) saturate(160%)", WebkitBackdropFilter: "blur(24px) saturate(160%)",
-            border: "1px solid rgb(var(--ink) / .18)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.18), 0 24px 50px rgba(0,0,0,.55)",
+            backdropFilter: "blur(24px) saturate(160%)", WebkitBackdropFilter: "blur(24px) saturate(160%)", border: "1px solid rgb(var(--ink) / .18)",
           }}
         >
           {options.map((o, i) => {
@@ -112,7 +112,7 @@ export function GlassSelect({ id, value, options, onChange, labelledBy }: {
                 style={{
                   display: "flex", alignItems: "center", gap: 10, minHeight: 44, padding: "0 12px", borderRadius: 14, cursor: "pointer",
                   background: hot ? "rgb(var(--ink) / .12)" : "transparent",
-                  color: o.muted ? "rgb(var(--ink) / .55)" : "#FFFFFF", fontWeight: selected ? 700 : 500, fontSize: 15,
+                  color: o.muted ? "rgb(var(--ink) / .55)" : "var(--fg)", fontWeight: selected ? 700 : 500, fontSize: 15,
                 }}
               >
                 <span style={{ flex: "none", width: 18, color: "var(--promo)" }} aria-hidden="true">

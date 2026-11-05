@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageShell } from "@/components/PageShell";
@@ -11,11 +10,6 @@ import { ACCENT, T } from "@/lib/i18n";
 import type { ProductCard } from "@/lib/products";
 
 const DISPLAY = "'Oswald', sans-serif";
-
-const BLOBS: CSSProperties[] = [
-  { top: -160, left: -180, width: 680, height: 680, background: ACCENT, opacity: 0.5 },
-  { top: 400, right: -200, width: 620, height: 620, background: "#6A4CFF", opacity: 0.4 },
-];
 
 const PT = {
   ru: { title: "Акции", lead: "Спеццены на ремни и бесплатная доставка крупных заказов. Список обновляется вместе с каталогом.", home: "Главная", offers: "Спеццены и хиты продаж", none: "Сейчас акций нет — загляните позже или спросите менеджера." },
@@ -27,7 +21,7 @@ export function PromoView({ offers }: { offers: ProductCard[] }) {
   const t = useT(T);
   const p = useT(PT);
   return (
-    <PageShell blobs={BLOBS}>
+    <PageShell>
       <Header />
       <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexDirection: "column", gap: 28 }}>
         <nav aria-label="Навигация" className="glass-soft" style={{ alignSelf: "start", display: "flex", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>

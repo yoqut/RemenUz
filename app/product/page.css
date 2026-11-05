@@ -1,9 +1,0 @@
-/* Product page: phone-width tightening (scoped under .gp) */
-@media (max-width: 640px) {
-  .gp .gp-panel { padding: 22px !important; border-radius: 32px !important; }
-  .gp .gp-card { padding: 22px !important; }
-  .gp .gp-h1 { font-size: 26px !important; }
-  .gp .gp-spec { font-size: 17px !important; }
-  .gp .gp-market { flex-wrap: wrap; border-radius: 26px !important; }
-  .gp .gp-market-price { margin-left: auto; }
-}

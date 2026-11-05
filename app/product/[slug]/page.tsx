@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductView } from "../ProductView";
-import { pathOf } from "@/lib/catalog";
-import { PRODUCTS, getProduct, productsIn, toCard, type Product } from "@/lib/products";
-import "../page.css";
+import { CATALOG_ROOT, pathOf } from "@/lib/catalog";
+import { PRODUCTS, galleryOf, getProduct, productsIn, toRow, type Product } from "@/lib/products";
+import { marketOffers } from "@/lib/marketplaces";
 
 type Props = { params: Promise<{ slug: string }> };
+
+// Rows in the "other sizes of this profile" table.
+const SIZES = 12;
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
 }
 
-/** The product's most specific category (longest path), used for the breadcrumb and related items. */
+/**
+ * The product's most specific catalog category (longest path under "Каталог"), used for the breadcrumb
+ * and the size table; the industries tree ("Сферы деятельности") only when it has nothing else.
+ */
 function mainCategory(p: Product) {
-  return p.cats.map(pathOf).sort((a, b) => b.length - a.length)[0] ?? [];
+  const inCatalog = (path: ReturnType<typeof pathOf>) => Number(path[0]?.parentId === CATALOG_ROOT);
+  return p.cats.map(pathOf).sort((a, b) => inCatalog(b) - inCatalog(a) || b.length - a.length)[0] ?? [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -26,19 +33,15 @@ export default async function ProductPage({ params }: Props) {
   if (!p) notFound();
   const trail = mainCategory(p);
   const leaf = trail[trail.length - 1];
-  const related = leaf
-    ? productsIn(leaf.id)
-        .filter((r) => r.id !== p.id)
-        .sort((a, b) => Number(b.brand === p.brand) - Number(a.brand === p.brand) || Math.abs(a.price - p.price) - Math.abs(b.price - p.price))
-        .slice(0, 4)
-        .map(toCard)
-    : [];
-  return (
-    <ProductView
-      p={p}
-      trail={trail.map((c) => ({ name: c.name.trim(), slug: c.slug }))}
-      related={related}
-      relatedTitle={leaf ? `Ещё в разделе «${leaf.name.trim()}»` : "Похожие товары"}
-    />
-  );
+  const self = toRow(p);
+
+  // The same profile's belts nearest in length (this one included), shown shortest first; without a
+  // length, the same brand first.
+  const rows = leaf ? productsIn(leaf.id).map(toRow) : [self];
+  const near = self.len !== null
+    ? [...rows].sort((a, b) => Math.abs((a.len ?? Infinity) - self.len!) - Math.abs((b.len ?? Infinity) - self.len!))
+    : [...rows].sort((a, b) => Number(b.brand === p.brand) - Number(a.brand === p.brand));
+  const sizes = near.slice(0, SIZES).sort((a, b) => (a.len ?? Infinity) - (b.len ?? Infinity));
+
+  return <ProductView p={p} self={self} trail={trail.map((c) => ({ name: c.name.trim(), nameUz: c.nameUz, slug: c.slug }))} sizes={sizes} markets={marketOffers(p.slug, p.name, p.price)} images={galleryOf(p)} />;
 }
