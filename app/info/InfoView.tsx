@@ -66,7 +66,7 @@ export function InfoView({ slug }: { slug: Slug }) {
       <Header />
 
       {/* Info pages */}
-      <section id="top" className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px", display: "flex", flexWrap: "wrap", gap: 28, alignItems: "flex-start" }}>
+      <section id="top" className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexWrap: "wrap", gap: 28, alignItems: "flex-start" }}>
         {/* Sidebar */}
         <nav aria-label={ipl.navLabel} className="glass hide-sm" style={{ flex: "1 1 260px", borderRadius: 32, padding: 18, display: "flex", flexDirection: "column", gap: 14 }}>
           {groups.map((g) => (

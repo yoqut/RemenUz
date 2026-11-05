@@ -29,7 +29,7 @@ export function PromoView({ offers }: { offers: ProductCard[] }) {
   return (
     <PageShell blobs={BLOBS}>
       <Header />
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px", display: "flex", flexDirection: "column", gap: 28 }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexDirection: "column", gap: 28 }}>
         <nav aria-label="Навигация" className="glass-soft" style={{ alignSelf: "start", display: "flex", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
           <Link href="/">{p.home}</Link><span aria-hidden="true">›</span><span style={{ color: "var(--fg)", fontWeight: 600 }}>{p.title}</span>
         </nav>

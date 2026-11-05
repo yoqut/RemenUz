@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, type CSSProperties, type FormEvent } from "react";
+import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { ACCENT, T } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/lang";
-import { BELT_TYPES, FINDER, finderHref, profilesOf, type BeltType } from "@/lib/finder";
+import { BELT_TYPES, FINDER, finderHref, finderWords, profilesOf, type BeltType } from "@/lib/finder";
 import { GlassSelect } from "./GlassSelect";
 
 const MONO = "'JetBrains Mono', monospace";
@@ -19,7 +19,15 @@ const ICONS: Record<BeltType, React.ReactNode> = {
   round: <circle cx="12" cy="12" r="6" />,
 };
 
-export function BeltFinder() {
+/** What the finder is currently set to: profile category, size search words and the length in mm. */
+export type FinderQuery = { cat: number; href: string; q: string; len: string };
+
+/**
+ * Belt finder form. `page` is the /finder page itself: an h1 and a compact layout (type chips in one
+ * row, fields and button in one row); `onQuery` then receives every change for the live results.
+ */
+export function BeltFinder({ page, onQuery }: { page?: boolean; onQuery?: (q: FinderQuery) => void }) {
+  const Heading = page ? "h1" : "h2";
   const { lang } = useLang();
   const t = useT(T);
   const router = useRouter();
@@ -43,17 +51,29 @@ export function BeltFinder() {
     router.push(finderHref(prof, len, second, type));
   };
   const digits = (v: string) => v.replace(/[^\d.,]/g, "");
+  const catId = profiles.find((p) => p.slug === prof)?.id ?? 0;
+
+  useEffect(() => {
+    onQuery?.({ cat: catId, href: finderHref(prof, len, second, type), q: finderWords(len, second, type), len: len.trim() });
+  }, [onQuery, catId, prof, len, second, type]);
+
+  const submitBtn = (
+    <button type="submit" className="liquid" style={{ height: page ? 50 : 56, width: "100%", border: 0, borderRadius: 999, backgroundColor: ACCENT, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
+      {t.fBtn}
+    </button>
+  );
 
   return (
-    <form id="finder" className="glass" onSubmit={submit} style={{ position: "relative", borderRadius: 36, padding: "clamp(20px, 5vw, 34px)", display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
+    <form id="finder" className="glass" onSubmit={submit} style={{ position: "relative", borderRadius: 36, padding: page ? "clamp(18px, 4vw, 26px)" : "clamp(20px, 5vw, 34px)", display: "flex", flexDirection: "column", gap: page ? 16 : 20, minWidth: 0 }}>
       <div>
-        <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 26, fontWeight: 600 }}>{t.fTitle}</h2>
+        <Heading style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 26, fontWeight: 600 }}>{t.fTitle}</Heading>
         <p style={{ margin: "4px 0 0", fontSize: 14, color: "rgb(var(--ink) / .72)" }}>{t.fSub}</p>
       </div>
 
       <fieldset style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
         <legend style={{ ...label, padding: 0, marginBottom: 8 }}>{t.fType}</legend>
-        <div role="radiogroup" aria-label={t.fType} style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+        <div role="radiogroup" aria-label={t.fType} className={page ? "type-row" : undefined} style={{ display: "grid", gridTemplateColumns: `repeat(${page ? 4 : 2}, minmax(0, 1fr))`, gap: 8 }}>
           {BELT_TYPES.map((k) => {
             const on = k === type;
             return (
@@ -65,7 +85,7 @@ export function BeltFinder() {
                 onClick={() => pickType(k)}
                 className={on ? "liquid" : ""}
                 style={{
-                  display: "flex", alignItems: "center", gap: 8, minHeight: 50, padding: "0 12px", borderRadius: 16, cursor: "pointer",
+                  display: "flex", alignItems: "center", gap: 8, minHeight: page ? 44 : 50, padding: "0 12px", borderRadius: 16, cursor: "pointer",
                   font: "inherit", fontSize: 14, fontWeight: 700, color: "var(--fg)", textAlign: "left",
                   border: on ? "1px solid rgb(var(--ink) / .55)" : "1px solid rgb(var(--ink) / .16)",
                   backgroundColor: on ? ACCENT : "rgb(0 0 0 / calc(.22 * var(--well)))", transition: "background-color .2s, border-color .2s",
@@ -107,12 +127,10 @@ export function BeltFinder() {
             <input id="g-w" className="field" inputMode="numeric" placeholder={def.second.ph} value={second} onChange={(e) => setSecond(digits(e.target.value))} style={{ fontFamily: MONO, minWidth: 0, width: "100%" }} />
           </div>
         )}
+        {page && <div className="finder-btn" style={{ ...wrap, justifyContent: "end" }}>{submitBtn}</div>}
       </div>
 
-      <button type="submit" className="liquid" style={{ height: 56, border: 0, borderRadius: 999, backgroundColor: ACCENT, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
-        {t.fBtn}
-      </button>
+      {!page && submitBtn}
       <p style={{ margin: 0, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
         {t.fHelp} <a href="https://t.me/Remenuz_bot" style={{ color: "var(--promo)", fontWeight: 700 }}>{t.fHelpLink}</a>
       </p>

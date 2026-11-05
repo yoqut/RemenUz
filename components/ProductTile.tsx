@@ -34,7 +34,7 @@ export function ProductTile({ p, tag, showLen }: { p: ProductCard; tag?: string;
   const tags = tag ? [{ text: tag, filled: true }] : [p.isHit && { text: ct.hit, filled: true }, p.isNew && { text: ct.isNew, filled: false }].filter((x): x is { text: string; filled: boolean } => !!x);
   return (
     <div className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 10, padding: 14, borderRadius: 28, transition: "transform .2s", minWidth: 0 }}>
-      <div style={{ position: "relative", height: 190, borderRadius: 20, overflow: "hidden", background: "#FFFFFF" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1 / 1", borderRadius: 20, overflow: "hidden", background: "#FFFFFF" }}>
         <Link href={`/product/${p.slug}`} aria-hidden="true" tabIndex={-1} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
           {p.imgSmall ? (
             <Photo src={p.imgSmall} />

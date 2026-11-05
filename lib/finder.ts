@@ -49,10 +49,15 @@ export function profilesOf(type: BeltType) {
     }));
 }
 
-/** Catalog URL for a finder query; sizes become search words matched against name and SKU. */
+/** Finder sizes as search words matched against name and SKU ("8" ribs becomes "8 PJ"). */
+export function finderWords(len: string, second: string, type: BeltType) {
+  return [len.trim(), type === "poly" && second.trim() ? `${second.trim()} PJ` : second.trim()].filter(Boolean).join(" ");
+}
+
+/** Catalog URL for a finder query. */
 export function finderHref(slug: string, len: string, second: string, type: BeltType) {
-  const words = [len.trim(), type === "poly" && second.trim() ? `${second.trim()} PJ` : second.trim()].filter(Boolean);
-  return words.length ? `/catalog/${slug}?q=${encodeURIComponent(words.join(" "))}` : `/catalog/${slug}`;
+  const q = finderWords(len, second, type);
+  return q ? `/catalog/${slug}?q=${encodeURIComponent(q)}` : `/catalog/${slug}`;
 }
 
 // Inch-pitch profiles carry the length in tenths of an inch: "150 XL" = 15.0″ ≈ 381 mm, "1100 H" ≈ 2794 mm.

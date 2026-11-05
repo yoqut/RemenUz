@@ -257,7 +257,7 @@ export function CartView() {
         </header>
       </div>
 
-      <main className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "32px 40px 96px" }}>
+      <main className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "32px 20px 96px" }}>
         {/* Steps */}
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 16, marginBottom: 24 }}>
           <div>

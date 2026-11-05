@@ -9,16 +9,15 @@ import { useLang, useT, type Lang } from "@/lib/lang";
 import { CATALOG_ROOT, catName, childrenOf, getCategory, type Category } from "@/lib/catalog";
 import { ACCENT, L, T, withLogos } from "@/lib/i18n";
 import type { ProductCard } from "@/lib/products";
-import { BeltFinder } from "@/components/BeltFinder";
 import { Photo } from "@/components/Photo";
 import { ProductTile } from "@/components/ProductTile";
+import { PromoSlider, type Slide } from "./PromoSlider";
 
 const MONO = "'JetBrains Mono', monospace";
 const DISPLAY = "'Oswald', sans-serif";
 
-const section: CSSProperties = { maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px" };
+const section: CSSProperties = { maxWidth: 1320, margin: "0 auto", padding: "0 20px 96px" };
 const h2: CSSProperties = { margin: 0, display: "flex", alignItems: "center", gap: 14, fontFamily: DISPLAY, fontSize: 42, fontWeight: 700, lineHeight: 1.1 };
-const filterPill: CSSProperties = { padding: "8px 16px", borderRadius: 999 };
 const teaser: CSSProperties = { position: "relative", overflow: "hidden", minHeight: 240, padding: 34, borderRadius: 36, display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 22, transition: "transform .2s" };
 
 /** Brand banner carried over from remen.uz: image, filtered catalog link and how many products it leads to. */
@@ -33,6 +32,8 @@ const BANNER_T = {
     featEyebrow: "HTD · STD · RPP · T · AT · XL · L · H",
     featText: "Гибкий ремень с зубьями на внутренней стороне: они входят в пазы зубчатых шкивов и передают движение без проскальзывания.",
     featBtn: "Подробнее",
+    slider: "Акции", prev: "Назад", next: "Вперёд",
+    fargo: { eyebrow: "Fargo — в регионы", title: "2 ремня и больше — дешевле", sub: "Доставка Fargo уже в цене: каждый следующий ремень в заказе обходится дешевле." },
   },
   uz: {
     megadyne: { title: "MEGADYNE tishli tasmalari", sub: "MEGASYNC Silver, Gold, Titanium · Italiya" },
@@ -42,6 +43,8 @@ const BANNER_T = {
     featEyebrow: "HTD · STD · RPP · T · AT · XL · L · H",
     featText: "Ichki tomonida tishlari bor egiluvchan tasma: tishlar shkiv ariqchalariga kirib, harakatni sirpanishsiz uzatadi.",
     featBtn: "Batafsil",
+    slider: "Aksiyalar", prev: "Oldingi", next: "Keyingi",
+    fargo: { eyebrow: "Fargo — viloyatlarga", title: "2 ta va undan koʻp — arzonroq", sub: "Fargo yetkazishi narxga kiritilgan: buyurtmadagi har keyingi tasma arzonroq tushadi." },
   },
 };
 
@@ -103,66 +106,84 @@ function catNote(c: Category, lang: Lang) {
     .join(" · ");
 }
 
-// New-products filter pills open the matching catalog sections.
-const FRESH_LINKS: ["flT5" | "flPJ" | "flRound" | "flClassic", number][] = [["flT5", 24], ["flPJ", 31], ["flRound", 38], ["flClassic", 75]];
+const SHELF_T = {
+  ru: { promo: "Акции", best: "Хиты продаж", fresh: "Новинки", popular: "Популярное", all: "Все →" },
+  uz: { promo: "Aksiyalar", best: "Eng koʻp sotilgan", fresh: "Yangi mahsulotlar", popular: "Ommabop", all: "Hammasi →" },
+};
 
-export function HomeView({ offers, fresh, catImgs, banners }: { offers: ProductCard[]; fresh: ProductCard[]; catImgs: Record<number, string>; banners: Banner[] }) {
+/** Product shelf: heading with a "see all" link, then one row of cards. */
+function Shelf({ title, href, all, children }: { title: string; href: string; all: string; children: ReactNode }) {
+  return (
+    <section className="sec" style={{ ...section, paddingBottom: 64 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 12, marginBottom: 24 }}>
+        <H2>{title}</H2>
+        <Link href={href} className="glass-soft" style={{ padding: "10px 18px", borderRadius: 999, fontWeight: 700 }}>{all}</Link>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>{children}</div>
+    </section>
+  );
+}
+
+export type Shelves = { promo: ProductCard[]; best: ProductCard[]; fresh: ProductCard[]; popular: ProductCard[] };
+
+export function HomeView({ shelves, catImgs, banners }: { shelves: Shelves; catImgs: Record<number, string>; banners: Banner[] }) {
   const { lang } = useLang();
   const t = useT(T);
   const d = useT(L);
   const bt = BANNER_T[lang] ?? BANNER_T.ru;
+  const sh = SHELF_T[lang] ?? SHELF_T.ru;
   const toothed = getCategory(16);
   const markets = withLogos(d.markets);
+  const brandBg: Record<Banner["key"], string> = { megadyne: "#1B2340", pix: "#0E5A52", rezina: "#2A2F3A" };
+  const slides: Slide[] = [
+    { key: "delivery", eyebrow: t.delivery, title: t.delTitle, sub: t.delText, img: "/img/banners/belt-pulley.webp", href: "/info/delivery", bg: ACCENT },
+    { key: "fargo", ...bt.fargo, img: "/img/fargo.png", href: "/promo", bg: "#7A2E0E" },
+    ...banners.map((b) => ({ key: b.key, eyebrow: bt.count(b.count).replace(" →", ""), title: bt[b.key].title, sub: bt[b.key].sub, img: b.img, href: b.href, bg: brandBg[b.key] })),
+    ...(toothed ? [{ key: "toothed", eyebrow: bt.featEyebrow, title: catName(toothed, lang), sub: bt.featText, img: "/img/banners/timing-belts.webp", href: `/catalog/${toothed.slug}`, bg: "#3B1F5E" }] : []),
+  ];
 
   return (
     <PageShell blobs={BLOBS}>
       <Header />
+      <h1 className="sr-only">{t.h1}</h1>
 
-      {/* Hero */}
-      <section className="sec" style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "72px 40px 56px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 500px), 1fr))", gap: 48, alignItems: "center" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 26, minWidth: 0 }}>
-          <h1 className="h1" style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 66, lineHeight: 1.04, letterSpacing: 0 }}>{t.h1}</h1>
-          <p style={{ margin: 0, fontSize: 19, color: "rgb(var(--ink) / .8)", maxWidth: 540 }}>{t.lead}</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            <Link href="/catalog" className="liquid" style={{ height: 56, padding: "0 30px", display: "flex", alignItems: "center", backgroundColor: ACCENT, color: "#FFFFFF", fontWeight: 700, borderRadius: 999 }}>{t.openCat}</Link>
-            <a href="https://t.me/Remenuz_bot" className="glass" style={{ height: 56, padding: "0 26px", display: "flex", alignItems: "center", gap: 10, fontWeight: 700, borderRadius: 999 }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z" /></svg>
-              {t.sendPhoto}
-            </a>
-          </div>
-        </div>
+      <PromoSlider slides={slides} label={bt.slider} cta={bt.featBtn} prev={bt.prev} next={bt.next} />
 
-        {/* Glass belt finder */}
-        <BeltFinder />
-      </section>
-
-      {/* Brand banners from remen.uz: three across on desktop, a swipeable row on phones. */}
-      <section className="sec banner-row" aria-label={lang === "uz" ? "Brendlar" : "Бренды"} style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 56px", display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 18 }}>
-        {banners.map((b) => (
-          <Link key={b.key} href={b.href} className="glass lift" style={{ display: "flex", flexDirection: "column", gap: 14, padding: 12, borderRadius: 28, transition: "transform .2s", minWidth: 0 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={b.img} alt={bt[b.key].title} loading="lazy" width={752} height={660} style={{ width: "100%", height: "auto", aspectRatio: "752 / 660", objectFit: "cover", borderRadius: 20, display: "block", background: "#FFFFFF" }} />
-            <span style={{ display: "flex", flexDirection: "column", gap: 4, padding: "0 8px 6px" }}>
-              <span style={{ fontFamily: DISPLAY, fontSize: 22, fontWeight: 700, lineHeight: 1.15 }}>{bt[b.key].title}</span>
-              <span style={{ fontSize: 14, color: "rgb(var(--ink) / .75)" }}>{bt[b.key].sub}</span>
-              <span style={{ marginTop: 4, fontSize: 14, fontWeight: 800, color: "var(--promo)" }}>{bt.count(b.count)}</span>
-            </span>
-          </Link>
+      {/* Shelves: promo, best sellers, new, popular. Each product appears on one shelf only. */}
+      <Shelf title={sh.promo} href="/promo" all={sh.all}>
+        {shelves.promo.map((o) => (
+          // Hits keep their own "Хит" badge; only the hand-picked offers are labelled as a special price.
+          <ProductTile key={o.id} p={o} tag={o.isHit ? undefined : t.special} />
         ))}
-      </section>
-
-      {/* Trust capsules: concrete B2B terms, each backed by the delivery / payment pages. */}
-      <div className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 80px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
-        {d.trust.map((tr) => (
-          <div key={tr.title} className="glass-soft" style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px 14px 14px", borderRadius: 24 }}>
-            <span style={{ flex: "none", width: 46, height: 46, borderRadius: 14, background: ACCENT, color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}><TrustIcon k={tr.icon} /></span>
-            <div style={{ lineHeight: 1.3 }}>
-              <div style={{ fontWeight: 800 }}>{tr.title}</div>
-              <div style={{ fontSize: 13, color: "rgb(var(--ink) / .72)" }}>{tr.sub}</div>
+          <div className="liquid" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24, padding: 30, borderRadius: 28, backgroundColor: ACCENT, color: "#FFFFFF" }}>
+            <span className="drop" aria-hidden="true" style={{ position: "absolute", right: -40, bottom: -40, width: 200, height: 200 }} />
+            <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, letterSpacing: 1 }}>{t.delivery}</span>
+            <div style={{ position: "relative" }}>
+              <div style={{ fontFamily: DISPLAY, fontSize: 36, fontWeight: 700, lineHeight: 1.08 }}>{t.delTitle}</div>
+              <p style={{ margin: "12px 0 0", fontSize: 16 }}>{t.delText}</p>
+              <p style={{ margin: "8px 0 0", fontSize: 15, display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ flex: "none", height: 28, padding: "4px 10px", borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/img/fargo.png" alt="Fargo" style={{ height: "100%", display: "block" }} />
+                </span>
+                {t.delFargo}
+              </p>
             </div>
+            <Link href="/info/delivery" style={{ position: "relative", alignSelf: "start", height: 50, padding: "0 22px", display: "flex", alignItems: "center", fontWeight: 700, borderRadius: 999, background: "rgba(255,255,255,.22)", border: "1px solid rgba(255,255,255,.45)", color: "#FFFFFF" }}>{t.delBtn}</Link>
           </div>
-        ))}
-      </div>
+      </Shelf>
+
+      <Shelf title={sh.best} href="/promo" all={sh.all}>
+        {shelves.best.map((p) => <ProductTile key={p.id} p={p} />)}
+      </Shelf>
+
+      <Shelf title={sh.fresh} href="/catalog" all={sh.all}>
+        {shelves.fresh.map((p) => <ProductTile key={p.id} p={p} />)}
+      </Shelf>
+
+      <Shelf title={sh.popular} href="/catalog" all={sh.all}>
+        {shelves.popular.map((p) => <ProductTile key={p.id} p={p} />)}
+      </Shelf>
 
       {/* Categories */}
       <section className="sec" style={section}>
@@ -193,78 +214,21 @@ export function HomeView({ offers, fresh, catImgs, banners }: { offers: ProductC
         </div>
       </section>
 
-      {/* Special offers */}
-      <section className="sec" style={section}>
-        <H2 style={{ margin: "0 0 28px" }}>{t.offTitle}</H2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: 18 }}>
-          {offers.map((o) => (
-            // Hits keep their own "Хит" badge; only the hand-picked offers are labelled as a special price.
-            <ProductTile key={o.id} p={o} tag={o.isHit ? undefined : t.special} />
-          ))}
-          <div className="liquid" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24, padding: 30, borderRadius: 28, backgroundColor: ACCENT, color: "#FFFFFF" }}>
-            <span className="drop" aria-hidden="true" style={{ position: "absolute", right: -40, bottom: -40, width: 200, height: 200 }} />
-            <span style={{ position: "relative", fontFamily: MONO, fontSize: 13, letterSpacing: 1 }}>{t.delivery}</span>
-            <div style={{ position: "relative" }}>
-              <div style={{ fontFamily: DISPLAY, fontSize: 36, fontWeight: 700, lineHeight: 1.08 }}>{t.delTitle}</div>
-              <p style={{ margin: "12px 0 0", fontSize: 16 }}>{t.delText}</p>
-              <p style={{ margin: "8px 0 0", fontSize: 15, display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ flex: "none", height: 28, padding: "4px 10px", borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/fargo.png" alt="Fargo" style={{ height: "100%", display: "block" }} />
-                </span>
-                {t.delFargo}
-              </p>
-            </div>
-            <Link href="/info/delivery" style={{ position: "relative", alignSelf: "start", height: 50, padding: "0 22px", display: "flex", alignItems: "center", fontWeight: 700, borderRadius: 999, background: "rgba(255,255,255,.22)", border: "1px solid rgba(255,255,255,.45)", color: "#FFFFFF" }}>{t.delBtn}</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Toothed belts feature (remen.uz banner): the largest section of the catalog. */}
-      {toothed && (
-        <section className="sec" style={section}>
-          <div className="glass" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))", gap: 28, alignItems: "center", padding: 22, borderRadius: 36 }}>
-            <div style={{ borderRadius: 26, background: "#FFFFFF", padding: "12px 20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/banners/timing-belts.webp" alt="" loading="lazy" width={604} height={413} style={{ width: "100%", maxWidth: 520, height: "auto", display: "block" }} />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "start", gap: 14, padding: "6px 12px" }}>
-              <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: 1, color: "rgb(var(--ink) / .7)" }}>{bt.featEyebrow}</span>
-              <H2>{catName(toothed, lang)}</H2>
-              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.55, color: "rgb(var(--ink) / .8)", maxWidth: 520 }}>{bt.featText}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, marginTop: 6 }}>
-                <Link href={`/catalog/${toothed.slug}`} className="liquid" style={{ height: 52, padding: "0 26px", display: "flex", alignItems: "center", borderRadius: 999, backgroundColor: ACCENT, color: "#FFFFFF", fontWeight: 700 }}>{bt.featBtn} →</Link>
-                <span style={{ fontFamily: MONO, fontSize: 14, fontWeight: 600, color: "rgb(var(--ink) / .75)" }}>{lang === "uz" ? `${toothed.count} ta` : `${toothed.count} шт`}</span>
-              </div>
+      {/* Trust capsules: concrete B2B terms, each backed by the delivery / payment pages. */}
+      <div className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 80px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14 }}>
+        {d.trust.map((tr) => (
+          <div key={tr.title} className="glass-soft" style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px 14px 14px", borderRadius: 24 }}>
+            <span style={{ flex: "none", width: 46, height: 46, borderRadius: 14, background: ACCENT, color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}><TrustIcon k={tr.icon} /></span>
+            <div style={{ lineHeight: 1.3 }}>
+              <div style={{ fontWeight: 800 }}>{tr.title}</div>
+              <div style={{ fontSize: 13, color: "rgb(var(--ink) / .72)" }}>{tr.sub}</div>
             </div>
           </div>
-        </section>
-      )}
-
-      {/* New products */}
-      <section className="sec" style={section}>
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 14, marginBottom: 28 }}>
-          <H2>{t.newTitle}</H2>
-          <nav aria-label={t.newTitle} className="glass-soft" style={{ display: "flex", flexWrap: "wrap", gap: 4, padding: 5, borderRadius: 999, fontSize: 14, fontWeight: 700 }}>
-            <span className="liquid" style={{ ...filterPill, backgroundColor: ACCENT, color: "#FFFFFF" }}>{t.flAll}</span>
-            {FRESH_LINKS.map(([k, id]) => {
-              const c = getCategory(id);
-              return c ? <Link key={k} href={`/catalog/${c.slug}`} style={filterPill}>{t[k]}</Link> : null;
-            })}
-          </nav>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>
-          {fresh.map((p) => (
-            <ProductTile key={p.id} p={p} />
-          ))}
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-          <Link href="/catalog" className="glass" style={{ height: 54, padding: "0 34px", display: "flex", alignItems: "center", borderRadius: 999, fontWeight: 700 }}>{t.more}</Link>
-        </div>
-      </section>
+        ))}
+      </div>
 
       {/* Marketplaces strip: a logo only links once the shop URL is known. */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 56px" }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 56px" }}>
         <div className="glass" style={{ borderRadius: 34, padding: "22px 26px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "18px 28px" }}>
           <div style={{ flex: "1 1 240px" }}>
             <div style={{ fontFamily: DISPLAY, fontSize: 22, fontWeight: 700 }}>{t.mkShort}</div>

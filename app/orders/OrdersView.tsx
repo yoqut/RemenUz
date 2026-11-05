@@ -71,7 +71,7 @@ export function OrdersView() {
       <Header />
 
       {/* My orders */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px", display: "flex", flexDirection: "column", gap: 22 }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexDirection: "column", gap: 22 }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 14 }}>
           <div>
             <span style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, color: "rgb(var(--ink) / .72)" }}>{o.eyebrow}</span>

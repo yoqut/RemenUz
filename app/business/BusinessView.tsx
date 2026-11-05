@@ -58,7 +58,7 @@ export function BusinessView() {
       <Header />
 
       {/* Page title */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "48px 40px 40px" }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "48px 20px 40px" }}>
         <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)", marginBottom: 22 }}>
           <Link href="/" style={{ color: "rgb(var(--ink) / .75)" }}>{t.home}</Link>
           <span>›</span>
@@ -70,7 +70,7 @@ export function BusinessView() {
       </section>
 
       {/* Industries */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px" }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 96px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 12, marginBottom: 28 }}>
           <div>
             <span style={mono}>{t.iEyebrow}</span>
@@ -103,7 +103,7 @@ export function BusinessView() {
       </section>
 
       {/* Marketplaces */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px" }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 96px" }}>
         <div className="glass" style={{ borderRadius: 40, padding: 40, display: "flex", flexDirection: "column", gap: 28 }}>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 16 }}>
             <div>
@@ -141,7 +141,7 @@ export function BusinessView() {
       </section>
 
       {/* B2B, brands, news */}
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px", display: "flex", flexDirection: "column", gap: 40 }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 96px", display: "flex", flexDirection: "column", gap: 40 }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: 18 }}>
           <div className="glass" style={b2bCard}>
             <span style={mono}>B2B</span>

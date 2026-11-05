@@ -1,28 +1,43 @@
-import { HomeView, type Banner } from "./HomeView";
+import { HomeView, type Banner, type Shelves } from "./HomeView";
 import { PRODUCTS, hasPhoto, specialOffers, toCard, type Product } from "@/lib/products";
 import { CATALOG_ROOT, childrenOf, getCategory } from "@/lib/catalog";
 
-// Five offers plus the delivery tile fill two rows of three.
-const OFFERS = 5;
+// One row of four per shelf; the promo shelf keeps a slot for the delivery tile.
+const ROW = 4;
 
 /** First priced product with a real photo in a category (or of a brand), for card and tile images. */
 const photoOf = (pick: (p: Product) => boolean) => PRODUCTS.find((p) => pick(p) && p.price > 0 && hasPhoto(p))?.imgSmall ?? null;
 
 export default function Home() {
-  const offers = specialOffers(OFFERS).map(toCard);
-
-  // Newest priced items with a photo, one per brand+price so the row isn't four near-identical belts.
-  const seen = new Set<string>();
-  const fresh = PRODUCTS.filter((p) => p.isNew && p.price > 0 && hasPhoto(p))
-    .sort((a, b) => b.id - a.id)
-    .filter((p) => {
-      const k = `${p.brand}|${p.cats[p.cats.length - 1]}`;
-      if (seen.has(k)) return false;
-      seen.add(k);
+  // Fill the shelves in order; a product taken by one shelf is skipped by the next.
+  const used = new Set<number>();
+  const ok = (p: Product) => p.price > 0 && hasPhoto(p) && !used.has(p.id);
+  const take = (list: Product[], n: number, key?: (p: Product) => string) => {
+    const seen = new Set<string>();
+    const out = list.filter((p) => {
+      if (!ok(p)) return false;
+      if (key) {
+        if (seen.has(key(p))) return false;
+        seen.add(key(p));
+      }
       return true;
-    })
-    .slice(0, 4)
-    .map(toCard);
+    }).slice(0, n);
+    // Too few distinct ones: top up with the rest rather than leave the row short.
+    if (key && out.length < n) out.push(...list.filter((p) => ok(p) && !out.includes(p)).slice(0, n - out.length));
+    out.forEach((p) => used.add(p.id));
+    return out;
+  };
+  const leaf = (p: Product) => p.cats[p.cats.length - 1];
+
+  const promo = take(specialOffers(), ROW - 1);
+  const best = take(PRODUCTS.filter((p) => p.isHit), ROW, (p) => `${p.brand}|${leaf(p)}`);
+  // Newest first; like the hits, one per brand + section so the row isn't four near-identical belts.
+  const fresh = take(PRODUCTS.filter((p) => p.isNew).sort((a, b) => b.id - a.id), ROW, (p) => `${p.brand}|${leaf(p)}`);
+  // No sales data yet: "popular" means one item from each of the sections with the widest range.
+  const size = new Map<number, number>();
+  for (const p of PRODUCTS) size.set(leaf(p), (size.get(leaf(p)) ?? 0) + 1);
+  const popular = take([...PRODUCTS].sort((a, b) => (size.get(leaf(b)) ?? 0) - (size.get(leaf(a)) ?? 0)), ROW, (p) => String(leaf(p)));
+  const shelves: Shelves = { promo: promo.map(toCard), best: best.map(toCard), fresh: fresh.map(toCard), popular: popular.map(toCard) };
 
   const catImgs: Record<number, string> = {};
   for (const c of childrenOf(CATALOG_ROOT)) {
@@ -46,5 +61,5 @@ export default function Home() {
     banner("rezina", "/img/banners/belting-rezina.png", 37),
   ];
 
-  return <HomeView offers={offers} fresh={fresh} catImgs={catImgs} banners={banners} />;
+  return <HomeView shelves={shelves} catImgs={catImgs} banners={banners} />;
 }

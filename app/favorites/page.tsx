@@ -27,7 +27,7 @@ export default function FavoritesPage() {
   return (
     <PageShell blobs={BLOBS}>
       <Header />
-      <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px", display: "flex", flexDirection: "column", gap: 24 }}>
+      <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px", display: "flex", flexDirection: "column", gap: 24 }}>
         <h1 className="h1" style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: 56, fontWeight: 700, lineHeight: 1.05 }}>{f.title}</h1>
         {items.length ? (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 270px), 1fr))", gap: 18 }}>

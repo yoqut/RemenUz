@@ -94,7 +94,7 @@ export function CatalogView({ catId, products }: { catId: number | null; product
   return (
     <PageShell blobs={BLOBS}>
       <Header />
-      <main className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 40px 96px" }}>
+      <main className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "40px 20px 96px" }}>
         <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
           <Link href="/" style={{ color: "rgb(var(--ink) / .75)" }}>{t.home}</Link>
           <span aria-hidden="true">›</span>

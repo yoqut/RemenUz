@@ -167,7 +167,7 @@ export function GuideView() {
         <Header />
 
         {/* Page title */}
-        <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "48px 40px 40px" }}>
+        <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "48px 20px 40px" }}>
           <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)", marginBottom: 22 }}>
             <Link href="/" style={{ color: "rgb(var(--ink) / .75)" }}>{t.home}</Link>
             <span>›</span>
@@ -179,7 +179,7 @@ export function GuideView() {
         </section>
 
         {/* Interactive belt selector by drawing */}
-        <section id="selector" className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 28px" }}>
+        <section id="selector" className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 28px" }}>
           <div className="glass g-panel" style={{ borderRadius: 38, padding: 28, display: "flex", flexDirection: "column", gap: 22 }}>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 14 }}>
               <div>
@@ -318,7 +318,7 @@ export function GuideView() {
         </section>
 
         {/* How to measure a belt */}
-        <section id="measure" className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "56px 40px 96px" }}>
+        <section id="measure" className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "56px 20px 96px" }}>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 16, marginBottom: 28 }}>
             <div>
               <span style={eyebrow}>{t.mEyebrow}</span>
@@ -450,7 +450,7 @@ export function GuideView() {
         </section>
 
         {/* How to choose */}
-        <section className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 96px" }}>
+        <section className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px 96px" }}>
           <div className="glass g-choose" style={{ borderRadius: 40, padding: 48, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: 48 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
               <div>

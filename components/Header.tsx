@@ -124,6 +124,7 @@ export function Header() {
           <Link href="/guide" style={{ ...pill, border: "1px solid rgb(var(--ink) / .3)" }}>{t.n7}</Link>
           <Link href="/business" style={pill}>{t.n9}</Link>
           <Link href="/promo" className="head-promo" style={{ ...pill, color: "var(--promo)" }}>{t.n8}</Link>
+          <Link href="/finder" style={pill}>{t.nFind}</Link>
         </nav>
         {catOpen && (
           <div id="catmenu" style={{ marginTop: 4, padding: 12, borderRadius: 20, background: "rgb(0 0 0 / calc(.28 * var(--well)))", boxShadow: "inset 0 2px 12px rgba(0,0,0,.35)", display: "flex", flexDirection: "column", gap: 8, maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>

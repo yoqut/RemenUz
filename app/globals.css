@@ -34,14 +34,21 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 [data-theme=light] img[alt^="Remen.uz"]{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
 [data-theme=light] .drop{border-color:rgba(21,23,26,.18);box-shadow:inset -10px -14px 26px rgba(255,255,255,.5),inset 8px 10px 18px rgba(21,23,26,.12),0 12px 28px rgba(30,40,70,.15)}
 
+/* Visible to screen readers and search engines only. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Home promo carousel: a scroll-snap row with its scrollbar hidden. */
+.slider-track{scrollbar-width:none}
+.slider-track::-webkit-scrollbar{display:none}
+
 /* Phone-width tightening (the design's sections use 40px side padding and 56px h1) */
 @media (max-width: 640px){
   .sec{padding-left:16px !important;padding-right:16px !important}
   .h1{font-size:36px !important;letter-spacing:-1px !important}
-  /* Brand banners: a swipeable row instead of three squeezed columns. */
-  .banner-row{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;scrollbar-width:none;padding-bottom:40px !important}
-  .banner-row::-webkit-scrollbar{display:none}
-  .banner-row > *{flex:0 0 82%;scroll-snap-align:start}
+  /* Promo slides: picture on top, text below. */
+  .slide{grid-template-columns:minmax(0,1fr) !important;gap:16px !important;min-height:0 !important;padding:16px 18px 44px !important;align-items:start !important}
+  .slide-img{order:-1;height:190px !important}
+  .slide-title{font-size:30px !important}
   .h2{font-size:28px !important}
   /* The full header wraps to several rows on a phone; pinned, it would cover a third of the screen. */
   .sticky-head{position:relative !important;padding:8px 12px 0 !important}
@@ -68,6 +75,9 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
   .head-promo{order:-1}
   /* Belt-type switch (guide): four tabs wrap 3+1 into a lopsided oval, so lay them out as an even 2x2 grid. */
   .type-tabs{display:grid !important;grid-template-columns:1fr 1fr;border-radius:22px !important}
+  /* Finder page: the four belt-type chips go back to two per row. */
+  .type-row{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .finder-btn{grid-column:1 / -1}
   .type-tabs > button{height:auto !important;min-height:40px;padding:4px 6px !important;border-radius:17px !important;font-size:13px !important;line-height:1.15}
   /* Cart item: stepper + 150px total + delete don't fit one row, so delete fell onto a row of its own.
      Picture beside the name, then stepper | total | delete as one row. */

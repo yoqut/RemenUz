@@ -100,7 +100,7 @@ export function ProductView({ p, trail, related, relatedTitle }: { p: Product; t
           </header>
         </div>
 
-        <main className="sec" style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 40px 96px" }}>
+        <main className="sec" style={{ maxWidth: 1320, margin: "0 auto", padding: "28px 20px 96px" }}>
           <nav aria-label="Навигация" className="glass-soft" style={{ display: "inline-flex", flexWrap: "wrap", gap: 8, padding: "8px 16px", borderRadius: 999, fontSize: 14, color: "rgb(var(--ink) / .75)" }}>
             <Link href="/" style={crumb}>Главная</Link><span aria-hidden="true">›</span>
             <Link href="/catalog" style={crumb}>Каталог</Link><span aria-hidden="true">›</span>
