@@ -67,7 +67,7 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
 .ind-tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
 
 /* Size table (ProductTable): grid rows; the spec cells join the row grid on wide screens. */
-.pt-row{display:grid;align-items:center;gap:0 16px;padding:10px 16px;border-top:1px solid var(--line)}
+.pt-row{display:grid;align-items:center;gap:0 12px;padding:10px 16px;border-top:1px solid var(--line)}
 .pt-head{border-top:0}
 .pt-row:not(.pt-head):hover{background:var(--row)}
 .pt-specs{display:contents}
@@ -98,7 +98,7 @@ input::placeholder,textarea::placeholder{color:rgb(var(--ink) / .55)}
   .ind-nav > *{flex:none}
   /* Size table on a phone: photo beside article + name, sizes as labelled chips, then price | buy. */
   .pt-head{display:none !important}
-  .pt-row{grid-template-columns:56px minmax(0,1fr) auto !important;grid-template-areas:"img name name" "img specs specs" "price price buy";gap:8px 12px !important;padding:12px !important}
+  .pt-row{min-width:0 !important;grid-template-columns:56px minmax(0,1fr) auto !important;grid-template-areas:"img name name" "img specs specs" "price price buy";gap:8px 12px !important;padding:12px !important}
   .pt-img{grid-area:img;align-self:start}
   .pt-name{grid-area:name}
   .pt-specs{grid-area:specs;display:flex !important;flex-wrap:wrap;gap:2px 14px}

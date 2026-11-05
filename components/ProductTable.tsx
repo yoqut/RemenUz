@@ -19,8 +19,8 @@ function RowBuy({ r }: { r: CatalogRow }) {
   const line = items.find((x) => x.id === r.id);
   if (line) {
     return (
-      <Link href="/cart" className="ind-btn" style={{ height: 36, padding: "0 10px", color: "var(--stock)", borderColor: "var(--stock)", fontSize: 13 }}>
-        ✓ {ct.inCartShort} · {line.qty}
+      <Link href="/cart" title={`${ct.inCartShort}: ${line.qty}`} aria-label={`${ct.inCartShort}: ${line.qty}`} className="ind-btn" style={{ height: 36, padding: "0 10px", color: "var(--stock)", borderColor: "var(--stock)", fontSize: 13 }}>
+        ✓ {ct.inCartShort}
       </Link>
     );
   }
@@ -87,7 +87,10 @@ export function ProductTable({ rows, highlight }: { rows: CatalogRow[]; highligh
 
   const toggle = (key: SortKey) => setSort((s) => ({ key, dir: s.key === key ? (s.dir === 1 ? -1 : 1) : 1 }));
   const arrow = (key: SortKey) => (sort.key === key ? (sort.dir === 1 ? " ↑" : " ↓") : "");
-  const grid = `56px minmax(220px, 2.4fr) ${cols.map((c) => (c.key === "brand" ? "minmax(96px, 1fr)" : "minmax(76px, .7fr)")).join(" ")} minmax(120px, 1fr) 140px`;
+  // Fixed photo and buy columns, flexible text; below the sum of the minimums the table scrolls sideways
+  // instead of clipping the price and buy columns.
+  const grid = `48px minmax(170px, 2.4fr) ${cols.map((c) => (c.key === "brand" ? "minmax(84px, .9fr)" : "minmax(52px, .6fr)")).join(" ")} minmax(100px, 1fr) 124px`;
+  const minW = 48 + 170 + cols.reduce((s, c) => s + (c.key === "brand" ? 84 : 52), 0) + 100 + 124 + 12 * (cols.length + 3) + 32;
 
   const cell = (r: CatalogRow, key: SpecCol["key"]) => {
     if (key === "len") return r.len !== null ? String(r.len) : "—";
@@ -96,8 +99,8 @@ export function ProductTable({ rows, highlight }: { rows: CatalogRow[]; highligh
   };
 
   return (
-    <div className="ind-card pt" role="table" aria-rowcount={rows.length + 1} style={{ overflow: "hidden" }}>
-      <div className="pt-row pt-head" role="row" style={{ gridTemplateColumns: grid, background: "var(--row)" }}>
+    <div className="ind-card pt" role="table" aria-rowcount={rows.length + 1} style={{ overflowX: "auto", overflowY: "hidden" }}>
+      <div className="pt-row pt-head" role="row" style={{ gridTemplateColumns: grid, minWidth: minW, background: "var(--row)" }}>
         <span aria-hidden="true" />
         <span role="columnheader" style={th}>{ct.colItem}</span>
         <span className="pt-specs">
@@ -117,7 +120,7 @@ export function ProductTable({ rows, highlight }: { rows: CatalogRow[]; highligh
         <span role="columnheader" className="sr">{ct.colBuy}</span>
       </div>
       {sorted.map((r) => (
-        <div key={r.id} role="row" className="pt-row" style={{ gridTemplateColumns: grid, background: r.id === highlight ? "color-mix(in srgb, var(--accent) 8%, var(--surface))" : undefined }}>
+        <div key={r.id} role="row" className="pt-row" style={{ gridTemplateColumns: grid, minWidth: minW, background: r.id === highlight ? "color-mix(in srgb, var(--accent) 8%, var(--surface))" : undefined }}>
           <Link href={`/product/${r.slug}`} tabIndex={-1} aria-hidden="true" className="pt-img" style={{ width: 48, height: 48, borderRadius: 6, overflow: "hidden", background: "#FFFFFF", border: "1px solid var(--line)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             {r.imgSmall && !r.imgSmall.includes("no-image") ? <Photo src={r.imgSmall} /> : null}
           </Link>
